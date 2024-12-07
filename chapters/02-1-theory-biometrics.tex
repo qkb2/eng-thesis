@@ -3,6 +3,17 @@
 
 Fundamental to the goal of the project was the use of biometric data in user identification. Biometric data can be defined as measurements of some unique characteristics of an individual. These can largely be divided into two main categories: physiological data, which is the measurement of the inherent characteristics of an individual's body, such as a fingerprint, an iris scan or a face scan, and behavioral data, which measures the person's movements, behaviors, speech patterns etc. \cite{Abde2023}
 
+Uniqueness of one's body is well known in biology. Features that may be used for person's identification are for example (FIX SOURCE: https://www.biometricsinstitute.org/what-is-biometrics/types-of-biometrics/):
+
+\begin{enumerate}
+    \item \textbf{DNA} -- found in cells of the living organisms, this acid carries genetic information.
+    \item \textbf{Eye features} -- human iris, retina and scleral veins can be used in eye scans.
+    \item \textbf{Face} -- full face scan is often used for user recognition, for example in mobile devices and laptops. (FIX SOURCE: https://developers.google.com/ml-kit/vision/face-detection, https://support.apple.com/en-us/102381)
+    \item \textbf{Fingerprints and finger shape} -- fingerprints are widely used in forensics (FIX SOURCE: https://www.nist.gov/forensic-biometrics) and in digital scanners on mobile devices and laptops.
+\end{enumerate}
+
+Other, less popular ways of identifying a person are for example: ear shape, gait, hand shape, heartbeat, keystroke dynamics, signatures, vein scans and voice recognition.
+
 One possible way to extract data from a person's behavior is via *keystroke dynamics*. This type of behavioral biometrics is acquired from a user by means of a keyboard or other typing device and records and extracts features from the way the keyboard is used. Most commonly used and almost universally applicable to any keyboard device is the measurement of timings between each character typed. If the user uses a physical keyboard, it is also convenient to derive the following features \cite{Shar2023}:
 
 \begin{enumerate}
@@ -20,4 +31,6 @@ While the model may be less accurate because of the lack of features, there can 
 
 The keystroke identification can also rely on other data gathered from the keyboard, such as the specifics of letters used, their average frequencies, most common connections between the letter or other statistics \cite{Wang2024}. These statistics can be modeled in many ways. If the average Up-Up Time between two keys is gathered from the data, a graph can be formed, having additional features as see fit by the designers. Such graphs were constructed for the Neural Network models constructed in this study, which will be discussed in the next chapter.
 
-TODO for JG: continue the paragraphs.
+Some biometric recognition methods have been described as "too intrusive" and are being questioned from the ethical standpoint. Additionally, data sourcing for Machine Learning models used for many biometric methods should also be ethically sourced (FIX SOURCE: EU GUIDELINES). In this study, all data was sourced from willing participants and anonymized using unique ID numbers given to the participants by the researchers.
+
+TODO: do keystroke dynamics models become obsolete on new device?
