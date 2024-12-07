@@ -1,0 +1,19 @@
+
+\chapter{Biometrics in mobile devices - theory}
+
+Fundamental to the goal of the project was the use of biometric data in user identification. Biometric data can be defined as measurements of some unique characteristics of an individual. These can largely be divided into two main categories: physiological data, which is the measurement of the inherent characteristics of an individual's body, such as a fingerprint, an iris scan or a face scan, and behavioral data, which measures the person's movements, behaviors, speech patterns etc. \cite{Abde2023}
+
+One possible way to extract data from a person's behavior is via keystroke dynamics. This type of behavioral biometrics is aquired from a user by the means of a keyboard or other typing device and records and extracts features from the way the keyboard is used. Most commonly used and almost universally aplicable to any keyboard device is the measuremnt of timings between each character typed. If the user uses a physical keyboard, it is also convenient to derive the following features \cite{Shar2023}:
+1. Hold Time -- time between key press and release
+2. Down-Down Time -- time between first key press and second key press
+3. Up-Up Time -- time between first key release and second key release
+4. Up-Down Time -- time between first key release and second key press
+5. Down-Up Time -- time between first key press and second key release.
+
+With some keyboards it may be more difficult to gather all the possible features. Even basic feature, such as the hold time can prove difficult when using for example GBoard on mobile devices, which does not naturally send key press and key release information to the application. This information can thus only be gathered in approximation or by building another virtual keyboard application. This, however, has its drawbacks. The users are generally used to one type of keyboard (on mobile it may be for example GBoard or SwiftKey), so forcing them to use another type of keyboard may be detrimental.
+
+While the model may be less accurate because of the lack of features, there can be some ways to mitigate it. Some other features can be added, which are largely specific to mobile devices, such as accelerometer data, or a larger sample can be used. A few of those options were considered by the researchers, and the results will be discussed in the next chapters (chapters 3.3 to 3.5).
+
+The keystroke identification can also rely on other data gathered from the keyboard, such as the specifics of letters used, their average frequencies, most common connections between the letter or other statistics \cite{Wang2024}. These statistics can be modeled in many ways. If the average Up-Up Time between two keys is gathered from the data, a graph can be formed, having additional features as see fit by the designers. Such graphs were constructed for the Neural Network models constructed in this study, which will be discussed in the next chapter.
+
+TODO for JG: continue the paragraphs.

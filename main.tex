@@ -1,0 +1,90 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bachelor's & Master's Thesis Template        %%
+%% Copyleft by Dawid Weiss & Marta Szachniuk    %%
+%% Faculty of Computing and Telecommunication   %%
+%% Poznan University of Technology, 2020        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[english,bachelor,a4paper,oneside]{ppfcmthesis}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[OT4]{fontenc}
+
+%--------------------------------------
+% Strona tytułowa
+%--------------------------------------
+
+% Autorzy pracy, jeśli jest ich więcej niż jeden
+% wstaw między nimi separator \and
+\author{%
+   Jakub Grabowski \album{151825} \and 
+   Filip Kozłowski \album{151823} \and 
+   Krzysztof Matyla \album{151778} \and 
+   Igor Warszawski \album{151585}}
+\authortitle{}                                % Do not change.
+
+\title{Biometric identification of a smartphone user using graph neural networks}
+
+% Your supervisor comes here.
+\ppsupervisor{~dr hab.~inż.~Szymon Szczęsny, ~prof. PP} 
+
+% Year of final submission (not graduation!)
+\ppyear{2025}                                 
+
+
+\begin{document}
+
+% Front matter starts here
+\frontmatter\pagestyle{empty}%
+\maketitle\cleardoublepage%
+
+%--------------------------------------
+% Miejsce na kartę pracy dyplomowej
+%--------------------------------------
+
+\thispagestyle{empty}\vspace*{\fill}%
+\begin{center}Tutaj będzie karta pracy dyplomowej;\\oryginał wstawiamy do wersji dla archiwum PP, w pozostałych kopiach wstawiamy ksero.\end{center}%
+\vfill\cleardoublepage%
+
+%--------------------------------------
+% Spis treści
+%--------------------------------------
+
+\pagenumbering{Roman}\pagestyle{ppfcmthesis}%
+\tableofcontents* 
+\cleardoublepage % Zaczynamy od nieparzystej strony
+
+%--------------------------------------
+% Rozdziały
+%--------------------------------------
+
+%Najwygodniej jeśli każdy rozdział znajduje się w oddzielnym pliku
+\mainmatter%
+\input{chapters/01-intro}
+\input{chapters/02-1-theory-biometrics}
+\input{chapters/02-2-theory-gnn}
+\input{chapters/03-1-project-idea}
+\input{chapters/03-2-project-app}
+\input{chapters/03-3-project-model}
+\input{chapters/03-4-project-metrics}
+\input{chapters/03-5-project-user-tests}
+\input{chapters/04-conclusion}
+
+%--------------------------------------
+% Literatura
+%--------------------------------------
+
+\bibliographystyle{plain}{\raggedright\sloppy\small\bibliography{bibliography}}
+
+%--------------------------------------
+% Dodatki
+%--------------------------------------
+
+\cleardoublepage\appendix%
+
+%--------------------------------------
+% Informacja o prawach autorskich
+%--------------------------------------
+
+\end{document}

@@ -1,0 +1,26 @@
+
+\chapter{Introduction}
+
+TODO for JG: additional introduction to biometrics and their usage.
+
+The project aimed to develop a model, along with a corresponding mobile app, capable of recognizing the user by their biometric data contained mostly within the keystroke data. The users in the study, which was a part of the project, provided their data by entering long stretches of text as testing data. Models were created for each user, with the standard model testing procedures and validations. A subgroup of the study participants was also asked to verify the model in real-life testing by writing short paragraphs in the application, which were sent to the server for user verification.
+
+The scope of the work was to create a mobile application capable of gathering the keystroke data, which could then be used by the server to create Graph Neural Network (GNN) models tasked with recognizing the user as opposed to other possible users. Also in the scope was performing a study on a group of participants who provided the data for the project and participated in the application and model demonstration and testing.
+
+The sources used in this thesis mostly concerned the two following groups: studies of keystroke data models and their effectiveness and the specialist literature on the topic of Graph Neural Networks.
+
+The thesis has the following structure:
+Chapter 2 consists of some theory concerning biometrics, especially in the context of user input data, with a small literature review about using biometrics for user recognition.
+Chapter 2.1 contains basic theoretics about Graph Convolutional Networks, which are used for user recognition in the model created for the project.
+Chapter 3.1 is a brief overview of the project, explaining its components and the relationships between them.
+Chapter 3.2 describes the mobile application used for user data collection and model validation.
+Chapter 3.3 contains a description of the Neural Network model used for user recognition, complete with the hyperparameters used in model training and validation.
+Chapter 3.4 discusses the metrics used in the model testing on data gathered from users and the testing results.
+Chapter 3.5 concerns the user testing with the help of study participants and the study results.
+Chapter 4 is a conclusion to the thesis.
+
+Work on this project was divided as follows:
+Jakub Grabowski created the mobile application, set up and coordinated the project, and researched biometrics for his thesis paper.
+Filip Kozłowski created the server and integrated the GNN model with it. He also planned and implemented communication between the server and the application.
+Krzysztof Matyla helped in creating the mobile application, provided testing for various parts of the project, and coordinated user testing.
+Igor Warszawski planned and implemented the GNN model used on the server. He also tested and validated the results, together with Filip Kozłowski.
