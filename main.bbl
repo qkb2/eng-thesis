@@ -7,6 +7,12 @@ Hussien AbdelRaouf, Samia~Allaoua Chelloug, Ammar Muthanna, Noura Semary,
   boosting user authentication.
 \newblock {\em Sensors}, 23(10), 2023.
 
+\bibitem{Lesk2024}
+Jure Leskovec and other instructors.
+\newblock Cs224w: Machine learning with graphs.
+\newblock Stanford University, Online Course Materials, 2024.
+\newblock \url{https://web.stanford.edu/class/cs224w/index.html}.
+
 \bibitem{Shar2023}
 Atharva Sharma, Martin Jureček, and Mark Stamp.
 \newblock Keystroke dynamics for user identification, 2023.
