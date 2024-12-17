@@ -7,6 +7,48 @@ Technology used in the mobile application itself was Jetpack Compose, which is q
 
 TODO for KM: add statistics sources (Internet), some technicals about the inner workings of the app. How the data is stored, what is gathered and when. If you have any doubts, feel free to ask about any methods/composables. I will be updating method descriptions/docs soon -- JG
 
+\subsection{Model View Controller and DataStore}
+
+The application uses Model-View-Controller (MVC) design pattern to support a clear separation of concerns. 
+\begin{itemize}
+	\item \textbf{Model:} Data is modeled using \texttt{KeyPressEntity} class, which represents a single key press event. It includes: 
+	\begin{itemize}
+		\item \textbf{Key} (\texttt{String}): The key pressed by the user.
+		\item \textbf{Press Time} (\texttt{Long}): The exact timestamp of the key press event.
+		\item \textbf{Duration} (\texttt{Long}): The time elapsed since the last key press event.
+		\item \textbf{Accelerometer Data} (\texttt{Float}): Currently unused but useful for future developing of the project. 
+	\end{itemize}
+	\includegraphics[width=0.7\linewidth]{images/DataModel.png}
+	
+	The \texttt{KeyPressEntity} is stored in a local SQLite database via Room.
+	
+	\item \textbf{View:} The user intefrace is implemented using \textbf{Jetpack Compose}, a declarative UI framework. Key components of the view contain:
+	\begin{itemize}
+		\item \textbf{Input Fields:} Lets users enter their credentials (University ID) and use the application for training or testing by pressing keys. 
+		\item \textbf{Completion progress:} Informs users on what phase they are and displays progress of completion, linked to the \texttt{phasesCompleted} state in the \texttt{MainViewModel}.
+		\item \textbf{Buttons:} Used for logging in, logging out, jumping phases and sending or downloading the data collected through training or testing stage.
+	\end{itemize}
+	\item \textbf{Controller:} The role of the controller is fulfilled by \texttt{MainViewModel}, which manages the application logic, handles interactions between the model and the view, and maintains the state of the app. \newline
+	The \texttt{MainViewModel} class manages this operations through:
+	\begin{itemize}
+		\item \textbf{Logic Handling:} Methods such as \texttt{login()}, \texttt{logout()}, \texttt{clearDatabase()}, and \texttt{onKeyPress()} are responsible for managing user state and data.
+		\item \textbf{State Management:} Stores states \texttt{isLoggedIn}, \texttt{username}, and \texttt{phasesCompleted}, which are used to dynamically update the user interface.
+		\item \textbf{Data Management:} Connects with the \texttt{keyPressDao} database to process data. \texttt{onKeyPress} saves key press events into the database, \texttt{exportDataToTsv} exports the collected data into TSV files.
+	\end{itemize}
+\end{itemize}
+In the app \textbf{DataStore} is used for storing login state and the user's ID. It has been implemented in \texttt{UserPreferences} class, and stores data such as:
+\begin{itemize}
+	\item \texttt{LOGGED\_IN\_KEY} - login state
+	\item \texttt{USERNAME\_KEY} - user's ID.
+\end{itemize}
+This data is stored in the app's preferences file and can be accessed via dataStore object using:
+\begin{itemize}
+	\item \texttt{isLoggedIn} - returns login state as \texttt{Flow<Boolean>}
+	\item \texttt{username} - returns user's ID as \texttt{Flow<String>}
+	\item \texttt{setLoggedIn()} - saves login state and user's ID into DataStore
+\end{itemize}
+The use of DataStore enabled the data to be stored securely, accessed and modified easily, and it is always available, which makes it a reliable and efficient way to manage user preferences and app state.
+
 Model View Controller and DataStore...
 
 Data was modeled as...
