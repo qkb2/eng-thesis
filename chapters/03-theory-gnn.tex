@@ -6,10 +6,11 @@ Graphs can defined as mathematical structures $G$ consisting of a set of vertice
 Some problems relating to such data can be solved using Convolutional Neural Networks -- this can also be the case for keystroke dynamics data, such as with Lu et al. \cite{Lu2020} or Sharma et al. \cite{Shar2023}. However, it can be reasoned that the Graph Neural Networks can also perform such tasks, with connections in graph data being used more directly in the model itself.
 
 \section{Graph Neural Networks}
-TODO: how do GNN graph embeddings etc. work?
+Graph Neural Networks (GNN) are networks designed for graph inputs. The resulting outputs are also graphs (specifically, they are node embeddings representing a graph), allowing for transforming information in the graph's nodes, edges and global context, such as metadata about the graph, aggregated information, graph features etc. \cite{sanch2021}. GNN do not change the connectivity of the input in the output. 
+...
 
 \section{Convolutional Networks and Graph Convolutional Networks}
 TODO: how do GCNs and GCN networks differ? Network design is better left for project model section.
 
 \section{Graph-level prediction in GNN}
-TODO: graph-level prediction for GCN network.
+Supervised learning on graphs can be achieved by labeling either nodes, edges or whole graphs. In typical training pipeline, an input graph is transformed into a node representation accepted by the network, which then transforms the data in the manner described above. Output node embeddings are then used to create a prediction head, which is used, together with labels and some loss function and evaluation metrics, for the prediction task. There are different prediction heads for node-level, edge-level or graph-level prediction \cite{Lesk2024}. For nodes, predictions can be made directly using node embeddings -- this can be done by using a classification layer, like a dense layer \cite{sanch2021}.  For the edges, this must be done on pairs of nodes. For global graph predictions a pooling of node embeddings can be performed. Options for pooling include for example global mean pooling, global max pooling or global sum pooling \cite{Lesk2024}.
