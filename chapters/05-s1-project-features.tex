@@ -1,0 +1,40 @@
+
+\section{Choosing features for Neural Network model}
+
+\subsection{Graph creation and feature encoding}
+\myworries{TODO write properly not bulet points}\\
+The input for graph creation consists of two main parts, the duration of time between individual key presses, and the character of the key that was pressed.
+A natural way to represent such input was to map each unique character in the input sequence to a node in the graph. 
+Dierected edges were added between nodes that represent charactes apearing after each other in the input sequence. 
+\myworries{TODO: add example graph visualization here}
+Each time the same pair of characters appears in the input text it maps to the same egde. For each such pair, the duration is added to a list atributes for that egde, which will be aggreagted in later stages, to a form suitable for the GCN model. It would also be possible to model such pairs using a multiegde graph, as such models have been shown to perform well in other domains \myworries{TODO zacytuj "multi-edge graph for convolutional networks for power systems}. However we did not consider this approach. 
+
+\myworries{Citation needed - some RNN paper that sequences of keys are important}\\
+\myworries{End of TODO}\\
+Having chosen this graph structure, there are many ways to encode the input data in a form suitable to an GCN.
+Firstly, the edge atributes, need to be converted into node features. We found two ways to encode aggregate this information into node features.\\  
+For each node $i$:
+\begin{enumerate}
+	\item Two values representing the average duration before and after the key represented by $i$ was pressed.
+	\item Add two-dimentional vector of values, of size [number of allowed characters, 2]. Each key that can be found in the input is assinged a number. The $n$'th row in the vector corresponds to a node, with a key assined the number $n$, now called node $j$. The $n$'th row contains two values: the average duration on the edge from $i$ to $j$ and the average duration on the egde from $j$ to $i$. The values for which egdes do not exist were assigned 0.
+\end{enumerate}
+The clear difference between these two approaches is the level of aggregation. Method $1$ aggregates all the egde information into 2 values, while method $2$ aggregates it into a vector of values, although it imposes some limitations, such as asigning each key a unique index into this input vector. Furthermore method two increases the overall size of the input data and complexity of the model.
+
+Similarly, there is more than one way to encode key information into node features.\\
+We considered several method:
+\begin{enumerate}
+	\item One hot encoding of each key 
+	\item One hot encoding + some symbols map to one value, numbers to one value
+	\item One hot encoding vector of uncased letters without diacritical marks, special keys, one  value for symbols, one value for numbers. Two additional bits, one for capitalized letters, one for letters with diacritical marks.
+\end{enumerate}
+
+\myworries{Citation needed: That paper that said node id's are nice}.
+Again as before, these methods differ by degree of agreagtion. Methods $2$ and $3$ perform some sort of compression, mapping multiple characters to the same values, while method $1$ provides a unique, one hot encoded identifier for each possible node. \myworries{Cication} found that such encoding helped the model to learn certain structures in the data. However, \myworries{Slajdy z stanfordu ze tylko jak jest ograniczona liczba liter} notes, that providing node identifiers as input features work well only for a small and known set of possible input nodes. While this requirement appears to hold true for this specific task, we found this is not the case. Many letters, which appear to be common do not apear in our dataset. \myworries{TODO Which chars never appear}. This means that the behaviour of the models would be unpredicitble for nodes with such identifiers.
+Furhter more, some charaters, for example \myworries{EXMAPLEEEE like '('}, apear only once, leading models to overfit and generalise poorly.
+
+\myworries{ADD histogram of how many times each character appears}\\
+\myworries{ADD Which chars never appear}
+
+
+
+\subsection{Feature selection - accelerometer data}
