@@ -13,6 +13,13 @@ Jure Leskovec and other instructors.
 \newblock Stanford University, Online Course Materials, 2024.
 \newblock \url{https://web.stanford.edu/class/cs224w/index.html}.
 
+\bibitem{Monr1997}
+Fabian Monrose and Aviel Rubin.
+\newblock Authentication via keystroke dynamics.
+\newblock In {\em Proceedings of the 4th ACM Conference on Computer and
+  Communications Security}, CCS '97, page 48–56, New York, NY, USA, 1997.
+  Association for Computing Machinery.
+
 \bibitem{Shar2023}
 Atharva Sharma, Martin Jureček, and Mark Stamp.
 \newblock Keystroke dynamics for user identification, 2023.

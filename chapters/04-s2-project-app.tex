@@ -18,7 +18,12 @@ The application uses Model-View-Controller (MVC) design pattern to support a cle
 		\item \textbf{Duration} (\texttt{Long}): The time elapsed since the last key press event.
 		\item \textbf{Accelerometer Data} (\texttt{Float}): Currently unused but useful for future developing of the project. 
 	\end{itemize}
-	\includegraphics[width=0.7\linewidth]{images/DataModel.png}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\linewidth]{images/DataModel.png}
+		\caption{KeyPressEntity.kt}
+		\label{fig:main_view}
+	\end{figure}
 	
 	The \texttt{KeyPressEntity} is stored in a local SQLite database via Room.
 	
