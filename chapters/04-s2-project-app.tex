@@ -5,8 +5,6 @@ The application was written for Android devices supporting Android 8.1 or newer.
 
 Technology used in the mobile application itself was Jetpack Compose, which is quoted by Google to be "Android’s recommended modern toolkit for building native UI" \cite{jetpackCompose}. Language used was Kotlin. Persisence was achieved by using Android Room, which provided an abstraction layer over SQLite database, which was used for data collection.
 
-TODO for KM: add statistics sources (Internet), some technicals about the inner workings of the app. How the data is stored, what is gathered and when. If you have any doubts, feel free to ask about any methods/composables. I will be updating method descriptions/docs soon -- JG
-
 \subsection{Model View ViewModel and DataStore}
 
 The application uses Model-View-ViewModel (MVVM) provided by Jetpack Compose design pattern to support a clear separation of concerns. 
@@ -72,11 +70,19 @@ The use of DataStore enabled the data to be stored securely, accessed and modifi
 \subsection{User Interface Design}
 The application design follows a minimalistic approach to make it intuitive and easy to use for everyone. 
 \begin{itemize}
-	\item \texttt{Login Screen} \ref{fig:login_screen} \newline
+	\item 
+	\texttt{Login Screen} \ref{fig:login_screen} \newline
 	After launching the application for the first time, the user is presented with the \texttt{Login screen}. It contains \texttt{TextInput} field for entering the university ID, which was evenly distributed among contributors to simplify testing, and the \texttt{Log in} button which stores the ID and navigates the user to the \texttt{Home Screen}.
-	\item \texttt{Home Screen} \ref{fig:home_screen} \newline
-	\item \texttt{Training Screen} \ref{fig:training_screen} \newline
-	\item \texttt{Testing Screen} \ref{fig:testing_screen} \newline
+	\item 
+	\texttt{Home Screen} \ref{fig:home_screen} \newline
+	The home screen displays three buttons and a simple note explaining what the user should do. The \texttt{Logout} button navigates back to the \texttt{Login Screen}, while two other buttons lead to either testing or training screens.
+	\item 
+	\texttt{Training Screen} \ref{fig:training_screen} \newline
+	The training screen is designed for collecting data for training purposes. It includes \texttt{TextInput} field for typing user input, a \texttt{Button} to proceed to the next phase, and \texttt{Text} indicators showing how many chars are needed to complete the phase (300 each phase) and how many phases remain (5 phases in total) to complete the process of collecting training data. Additionally, there are two notes instructing the user to maintain the writing style throughout the whole process and to change the position after each phase while writing (explained in subsection~\ref{sec:data_collection}). \newline
+	To ensure that typing is done in the most natural way, the default android keyboard is used. 
+	\item 
+	\texttt{Testing Screen} \ref{fig:testing_screen} \newline
+	The testing screen includes \texttt{TextInput} field for typing the test input, a \texttt{Button} that sends the input to the server and stores it locally, and \texttt{Text} indicators showing how many characters need to be written (in this case, 100). After fulfilling the requirements, the user sends their input to the server, followed by the presentation of the recognition rate percentage on a circular progress bar and a message indicating whether the model recognised the user or not. 
 \end{itemize}
 
 
@@ -107,6 +113,35 @@ The application design follows a minimalistic approach to make it intuitive and 
 	\caption{Testing screen}
 	\label{fig:testing_screen}
 \end{figure}
+
+\subsection{Data Collection Process}
+\label{sec:data_collection}
+Data collection occurs in two stages, training and testing
+\begin{itemize}
+	\item 
+	Training data collection begins on the \texttt{Training Screen} \ref{fig:training_screen}, where the user is asked to input meaningful sentences. The process consists of 5 phases. Each phase requires the user to type 300 characters. Once the requirement is met, the user progresses to the next phase until all 5 phases are completed (1500 characters in total). Additionally, there is a note instructing the user to maintain a consistent writing style throughout all phases. Also the user is asked to change their position after each phase while writing. This is important for accelerometer data collection (which is not used at the moment), as it helps exclude situations where the phone is lying on the table or being held in an atypical way.  
+	\item 
+	Testing data collection takes place on the \texttt{Testing Screen} \ref{fig:testing_screen}, where the user is required to write 100 characters, again in meaningful sentences. Once this is done, the testing phase is complete.
+\end{itemize}
+After each phase, the collected data is saved in a \texttt{.tsv} file, sent to the server, and stored locally in the phone's downloads directory. The \texttt{exportDataToTsv} \ref{fig:export_data_code} function from \texttt{MainViewModel.kt} handles the export of key press data. \newline Firstly it retrieves latest key press events using the \texttt{keyPressDao.getNLatestKeyPresses} method, converting the data into a \texttt{.tsv} format using the \texttt{keyPressesToTsv} function. \newline
+Depending on which phase the user is in, the function determines the different type of operation to perform.
+\begin{itemize}
+	\item 
+	If the user is in inference phase, the data will be used for inference.
+	\item 
+	If the user is in training phase, the data will be used for training.
+	\item 
+	If the number of completed phases exceeds the required amount, the function exits without performing any other action.
+\end{itemize}
+After processing data \texttt{saveTsvToDownloads} stores data locally, and \texttt{sendTsvToFastApi} sends data to the server. The username, and the relevant phase is included in the file name. \newline
+This function ensures that after each phase of training and testing, the data is collected, stored, and transmitted.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/ExportData.png}
+	\caption{MainViewModel.kt}
+	\label{fig:export_data_code}
+\end{figure}
+
 
 \subsection{ideas}
 Model View Controller and DataStore...
