@@ -1,10 +1,6 @@
 
 \section{Graph Convolutional Network for user recognition}
 
-In modern Machine Learning, a popular type of Neural Network is a Convolutional Neural Network. Such networks generally operate on grids. A Convolutional Neural Network (CNN) has a fixed node ordering -- some input must firstly be mapped into a grid to be used with a CNN. There are ways to map many types of data into such format. Examples of researchers using CNNs for keystroke dynamics data include Sharma et al. \cite{Shar2023} or Lu et al. \cite{Lu2020}. In Lu et al. this involved applying the convolution layers over feature vectors, which were constructed in the following manner: for pairs of keys pressed in succesion in the sequence, a feature vector is created with fields: ID of first key, ID of second key, hold duration of first key, hold duration of second key, DD time (time between first press and second press) and DU time (time between first press and second release). After applying the CNN layer, GRU layers were used.
 
-In this project, the goal was to use the graph networks that can naturally arise from keystroke data to -- on a graph level -- try to infere the users identity. The main difference was that the use of any keyboard already installed on the user's mobile phone causes some problems with gathering keystroke temporal data, as mentioned in the second chapter. Because of that, this project used mappings involving only key ...
-
-TODO for IW: anything and everything about the model, the inner structure, the feature extraction can also go there, ask FK how you want to split these subjects up. FK will probably also check in with something here.
-
-\myworries{TODO: moreso about network structure, less about feature extraction}
+\myworries{IW: Przesunąlem to na góre, wydaje mi sie ze to tutaj nie miało sensu
+moze mozemy tutaj dodac jakas teorie o GCN konkretnie}
