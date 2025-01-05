@@ -1,10 +1,20 @@
 
 \section{Server structure and communication with the application}
 
-TODO for FK: technical docs for the server and connections between the app and the server. Data layer can also be touched a little.
+% TODO for FK: technical docs for the server and connections between the app and the server. Data layer can also be touched a little.
 
-Mobile application can communicate with the server, which can be locally hosted on a computer. The programmer needs to...
+% Mobile application can communicate with the server, which can be locally hosted on a computer. The programmer needs to...
 
-Server uses FastAPI, which is...
+% Server uses FastAPI, which is...
 
-Server has the following endpoints, which are used by application for...
+The server is written in Python and implemented using FastAPI, a modern asynchronous framework for building APIs. The primary roles of the server include receiving keystroke data from the mobile application, interacting with the SQLite database for data storage and retrieval, processing the keystrokes and extracting relevant features, training and validating Graph Neural Network models, and performing inference to verify user identity. The functionality related to data extraction, model training, and inference is described in Chapter 5.
+
+The server communicates with the mobile application using HTTP POST requests. All communication is secured using SSL encryption to ensure data integrity and privacy during transmission.
+
+\subsection{Endpoints and their functionality}
+The server provides three endpoints for interaction with the mobile application. All endpoints share the same parameters: a query parameter 'username' identifying the user and a raw TSV file in the request body.
+\begin{itemize}
+    \item POST \texttt{/upload\_tsv}: This endpoint allows the mobile application to upload keystroke data in TSV format. The server parses the TSV content into a string, verifies its structure, and loads it into the SQLite database. Additionally, the data is stored in a designated directory. A confirmation message is returned if the data is successfully processed and stored. An error message is returned if the data cannot be processed or stored due to validation issues or other errors.
+    \item POST \texttt{/train}: This endpoint has the same functionality as \texttt{/upload\_tsv} but additionally invokes the training process for a user-specific GNN model. It should be called with the last portion of data to ensure that the model is trained on a complete dataset. The server stores and validates the last portion of the training data before invoking the function responsible for training. A success message is returned upon the successful completion of model training. An error message is returned if the training process fails.
+    \item POST \texttt{/inference}: This endpoint is responsible for invoking the inference process on a user-specific GNN model. It performs user verification by running inference on the provided keystroke data and returns a prediction score along with a classification result indicating whether the user was correctly identified.
+\end{itemize}
