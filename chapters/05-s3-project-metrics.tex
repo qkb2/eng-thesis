@@ -1,5 +1,5 @@
 \section{Metrics}
-Choosing a correct metric for a machine learning model is an important step for testing its performance. Furthermore, in the case of this project, a metric for testing the whole collections of models needs to be chosen.
+Choosing a correct metric for a machine learning model is an important step for testing its performance. Furthermore, in the case of this project, a metric for testing the whole collections of models needs to be selected.
 When considering the functioning of authentication system, these metrics are often used \cite{traore2011continuous}. 
 
 \subsubsection{1. Accuracy}
@@ -15,7 +15,7 @@ where:
 	\item $FN$: False Negatives (incorrectly rejected genuine users).
 \end{itemize}
 
-While accuracy is a commonly used metric, during the evaluation of models we found that this score gave little information about the performance of the models. Most importantly, accuracy does not distinguish between positives and false negatives, which from the perspective of this project differ in importance. False positives are considered more important, as these kind of error would allow imposters to gain access to the system, while false negatives would only force the user to repeat the authentication procedure.
+While accuracy is a commonly used metric, during the evaluation of models we found that this score gave little information about the performance of the models. Most importantly, accuracy does not distinguish between positives and false negatives, which from the perspective of this project differ in importance. False positives are considered more influential, as these kinds of errors would allow imposters to gain access to the system, while false negatives would only force the user to repeat the authentication procedure.
 
 \subsubsection{2. Precision and Recall (True Positive Rate, TPR)}
 Precision measures the proportion of correctly predicted positive samples among all samples predicted as positive. It is given by:
@@ -42,36 +42,36 @@ The False Rejection Rate (FRR) represents the proportion of positive samples (ge
 FRR = \frac{FN}{TP + FN}
 \]
 
-From the perspective of this project FAR and FRR were considered to be the most important and informative metric. These metrics directly represent the security and usability of a system from the perspective of its users and therefore showcase the performance of the trained models in their intended. As such, the performance of the collection of models will be evaluated using these metrics. 
+From the perspective of this project, FAR and FRR were considered to be the most important and informative metric. These metrics directly represent the security and usability of a system from the perspective of its users and therefore showcase the performance of the trained models in their intended. As such, the performance of the collection of models will be evaluated using these metrics. 
 
 \subsubsection{6. Equal Error Rate (EER)}
-In authentication systems, there is often a trade-off between FAR and FRR. By lowering the decision threshold, more users, both genuine and impostors would be authenticated, thus lowering FRR and increasing FAR. Conversely, a higher decision threshold would lead to a increased FRR and decreased FAR. \\
+In authentication systems, there is often a trade-off between FAR and FRR. By lowering the decision threshold, more users, both genuine and imposters would be authenticated, thus lowering FRR and increasing FAR. Conversely, a higher decision threshold would lead to a increased FRR and decreased FAR. \\
 The Equal Error Rate is the value of these metrics at a threshold where FAR = FRR. If no such threshold can be found, EER can is calculated as  
 \[
 EER = \frac{FFR + FAR}{2}
 \]
 at a threshold where the difference between FFR + FAR is minimal.
 
-The equal error rate is a useful metric which allow for easy comparison between different methods and applications. Naturally, the threshold used to measure the EER is not the optimal value for the perspective of the final application. As noted in the section about accuracy, the number of false negatives is the major concern for this project. Therefore, a higher false rejection rate is acceptable, if it results in a comparable drop in the false acceptance rate. Despite this fact, the EER will also be reported along with model performance, as it is a common metric used in authentication systems and allows to compare the outcomes to other findings using Keystroke Dynamics.
+The equal error rate is a useful metric which allow for easy comparison between different methods and applications. Naturally, the threshold used to measure the EER is not the optimal value for the perspective of the final application. As noted in the section about accuracy, the number of false negatives is the major concern for this project. Therefore, a higher false rejection rate is acceptable, if it results in a comparable drop in the false acceptance rate. Despite this fact, the EER will also be reported along with model performance, as it is a common metric used in authentication systems and allows comparing the outcomes to other findings using Keystroke Dynamics.
 
 
 \section{Architecture}
 Many possible variations on the GCN architecture were considered. 
 
-\section{Training and fine tuning}
+\section{Training and fine-tuning}
 
 \subsection{Data division}
-For the purpose of model validation, we used 5-fold cross-validation, thus splitting the training set described in \myworries{ TODOOO Numer sekcji} into 5 parts and training on 4 of those parts. This number of folds corresponds to the number of 300-character blocks, that the users were asked to input. Such splits validates that the trained model is able to generalize to a part of the input that might have been written at a different time and style. Furthermore, it closely resembles the the way the model was tested, that is on a completely different input sequence, collected in a separate part of the application.  
+For the purpose of model validation, we used 5-fold cross-validation, thus splitting the training set described in \myworries{ TODOOO Numer sekcji} into 5 parts and training on 4 of those parts. This number of folds corresponds to the number of 300-character blocks, that the users were asked to input. Such splits validate that the trained model is able to generalize to a part of the input that might have been written at a different time and style. Furthermore, it closely resembles the way the model was tested, that is on a completely different input sequence, collected in a separate part of the application.  
 
 \subsection{Training parameters}
 
 \subsubsection{Loss function}
-Binary Cross Entropy was chosen as the loss function that would be used in training, which is a common loss function for used with binary classifiers. 
-The use of this loss function requires the model to output the probability of choosing the positive class, therefore a sigmoid function must be applied the output of the final layer.
+Binary Cross Entropy was chosen as the loss function that would be used in training, which is a common loss function used with binary classifiers. 
+The use of this loss function requires the model to output the probability of picking the positive class, therefore a sigmoid function must be applied to the output of the final layer.
 These to operations are fused into one step in the implementation, by using  $BCEWithLogitsLoss$, which is more numerically stable.
 
 \subsubsection{Optimizer}
-Adam was chosen as the optimizer for updating model weights, which adapts the learning rate for each parameter. A learning rate of 0.001 was chosen empirically.
+Adam was selected as the optimizer for updating model weights, which adapts the learning rate for each parameter. A learning rate of 0.001 was chosen empirically.
 
 
 \myworries{TODO: maybe write more here idk??}
