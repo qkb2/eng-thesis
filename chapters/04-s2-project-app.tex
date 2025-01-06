@@ -16,7 +16,7 @@ The application uses Model-View-ViewModel (MVVM) provided by Jetpack Compose des
 		\item \textbf{Duration} (\texttt{Long}): The time elapsed since the last key press event.
 		\item \textbf{Accelerometer Data} (\texttt{Float}): Currently unused but useful for future developing of the project. 
 	\end{itemize}
-	\begin{figure}[h!]
+	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\linewidth]{images/DataModel.png}
 		\caption{KeyPressEntity.kt}
@@ -44,7 +44,7 @@ In the app \textbf{DataStore} is used for storing login state and the user's ID.
 	\item \texttt{LOGGED\_IN\_KEY} - login state
 	\item \texttt{USERNAME\_KEY} - user's ID.
 \end{itemize}
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/CompanionObject.png}
 	\caption{UserPreferences.kt}
@@ -133,8 +133,10 @@ Depending on which phase the user is in, the function determines the different t
 	\item 
 	If the number of completed phases exceeds the required amount, the function exits without performing any other action.
 \end{itemize}
-After processing data \texttt{saveTsvToDownloads} stores data locally, and \texttt{sendTsvToFastApi} sends data to the server. The username, and the relevant phase is included in the file name. \newline
+
+After processing data \texttt{saveTsvToDownloads} stores data locally, and \texttt{sendTsvToFastApi} sends data to the server (An example of the \texttt{.tsv} file containing the saved data is shown in Figure \ref{fig:tsv_example}). The username, and the relevant phase is included in the file name. \newline
 This function ensures that after each phase of training and testing, the data is collected, stored, and transmitted.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/ExportData.png}
@@ -142,22 +144,64 @@ This function ensures that after each phase of training and testing, the data is
 	\label{fig:export_data_code}
 \end{figure}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{images/data_example.png}
+	\caption{An example of the \texttt{.tsv} file containing saved data.}
+	\label{fig:tsv_example}
+\end{figure}
+
+\subsection{Communication with the server}
+
+The application communicates with the server using an HTTPS connection.
+\begin{itemize}
+	\item 
+	\textbf{Server URL and Request Structure}
+	\begin{itemize}
+		\item 
+		The server is accessed via an HTTPS endpoint. The base URL is defined as \newline \texttt{https://192.168.1.100:8000}.
+		\item 
+		The API endpoint is dynamically created with the use of a route and query parameters to the base URL. For example, the endpoint for sending data contains the username as a query parameter: \newline
+		\texttt{https://192.168.1.100:8000/<api\_string>?username=<username>}
+		\item 
+		The data is sent using the POST method.
+	\end{itemize}
+	\item
+	\textbf{Data format} \newline
+	The data sent to the server is stored in \texttt{.tsv} (tab-separated values) file, containing headers and the detailed information about key presses.
+	\item 
+	\textbf{Secure Connection Setup}
+	\begin{itemize}
+		\item 
+		The application uses \texttt{OkHttpClient} library for handling network requests.
+		\item 
+		A \texttt{.cert} certificate (stored in \texttt{res/raw/cert}) is used to establish a secure and trustworthy \texttt{SSL/TLS} connection.
+	\end{itemize}
+	\item 
+	\textbf{Sending request}
+	\begin{itemize}
+		\item 
+		Requests are executed asynchronously using the \texttt{enqueue} method.
+		\item 
+		If successful, the server's response is processed, and the application displays the result to the user.
+		\item 
+		On failure, the error is logged, and the user is notified.  
+	\end{itemize}
+	\item 
+	\textbf{Error Handling}
+	\begin{itemize}
+		\item 
+		Network errors (e.g., problems with connection) and server errors are logged for easier debugging.
+		\item 
+		A callback mechanism is used to provide feedback to the user. 
+	\end{itemize}
+	
+	
+\end{itemize}
+
 
 \subsection{ideas}
-Model View Controller and DataStore...
 
-Data was modeled as...
-
-Data was saved...
-
-Application design...
-
-Training screen...
-
-Testing screen...
-
-Communications with the server...
-
-Data sent to the server and downloaded locally...
+Testing screen... \myworries{TODO Add screenshot and write sth about testing the model, how the \% work and so on}
 
 Those should be subsections
