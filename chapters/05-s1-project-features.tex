@@ -4,7 +4,7 @@
 
 
 \subsection{Data exploration}
-\myworries{All data analisys on the input goes here}
+\myworries{All data analysis on the input goes here}
 
 \subsection{Graph creation and feature encoding}
 The input for graph creation consists of two main parts, the duration of time between individual key presses, and the character of the key that was pressed.
@@ -18,7 +18,7 @@ Each time the same pair of characters appears in the input text, it maps to the 
 \myworries{TODO maybe visualization}
 The structure of the resulting graph depends highly on the length of the input sequence. A shorter sequence produces smaller and sparser graphs, while a longer input sequences result in graphs with more nodes and edges. 
 
-\myworries{Citation needed - some RNN paper that sequences of keys are important}\\
+\myworries{Citation needed - some RNN paper that sequences of keys are important (something in Lu 2020?)}\\
 
 \subsubsection{edge atributes encoding}
 In order for the graph to be a valid input for a GCN network, edge attributes need to be converted into node features. We found two ways to encode aggregate this information into node features.\\  

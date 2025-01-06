@@ -2,7 +2,7 @@
 Choosing a correct metric for a machine learning model is an important step for testing its performance. Furthermore, in the case of this project, a metric for testing the whole collections of models needs to be selected.
 When considering the functioning of authentication system, these metrics are often used \cite{traore2011continuous}. 
 
-\subsubsection{1. Accuracy}
+\subsubsection{Accuracy}
 Accuracy measures the proportion of correct predictions (both positive and negative) over all predictions. It is calculated as:
 \[
 Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
@@ -17,7 +17,7 @@ where:
 
 While accuracy is a commonly used metric, during the evaluation of models we found that this score gave little information about the performance of the models. Most importantly, accuracy does not distinguish between positives and false negatives, which from the perspective of this project differ in importance. False positives are considered more influential, as these kinds of errors would allow imposters to gain access to the system, while false negatives would only force the user to repeat the authentication procedure.
 
-\subsubsection{2. Precision and Recall (True Positive Rate, TPR)}
+\subsubsection{Precision and Recall (True Positive Rate, TPR)}
 Precision measures the proportion of correctly predicted positive samples among all samples predicted as positive. It is given by:
 \[
 Precision = \frac{TP}{TP + FP}
@@ -31,7 +31,7 @@ Recall = \frac{TP}{TP + FN}
 These measures are commonly used in machine learning and information retrieval setting, under the assumption that the negative class, and consequently, the number of true negatives, does not matter as much as the positive class. \myworries{Citation needed}. The focus on the correct recognition of the positive class matches the use function of models in this project.\\
 As such, precision and recall were used when training models, to measure the performance on validation set and tuning hyperparameters.
 
-\subsubsection{4. False Acceptance Rate (FAR) and False Rejection Rate (FRR)}
+\subsubsection{False Acceptance Rate (FAR) and False Rejection Rate (FRR)}
 The False Acceptance Rate (FAR) represents the proportion of negative samples (imposters) that are incorrectly classified as positive. It is calculated as:
 \[
 FAR = \frac{FP}{FP + TN}
@@ -44,7 +44,7 @@ FRR = \frac{FN}{TP + FN}
 
 From the perspective of this project, FAR and FRR were considered to be the most important and informative metric. These metrics directly represent the security and usability of a system from the perspective of its users and therefore showcase the performance of the trained models in their intended. As such, the performance of the collection of models will be evaluated using these metrics. 
 
-\subsubsection{6. Equal Error Rate (EER)}
+\subsubsection{Equal Error Rate (EER)}
 In authentication systems, there is often a trade-off between FAR and FRR. By lowering the decision threshold, more users, both genuine and imposters would be authenticated, thus lowering FRR and increasing FAR. Conversely, a higher decision threshold would lead to a increased FRR and decreased FAR. \\
 The Equal Error Rate is the value of these metrics at a threshold where FAR = FRR. If no such threshold can be found, EER can is calculated as  
 \[
