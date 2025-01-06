@@ -20,7 +20,7 @@ The structure of the resulting graph depends highly on the length of the input s
 
 \myworries{Citation needed - some RNN paper that sequences of keys are important (something in Lu 2020?)}\\
 
-\subsubsection{edge atributes encoding}
+\subsubsection{Edge atributes encoding}
 In order for the graph to be a valid input for a GCN network, edge attributes need to be converted into node features. We found two ways to encode aggregate this information into node features.\\  
 For each node $i$:
 \begin{enumerate}
@@ -31,6 +31,7 @@ The clear difference between these two approaches is the level of aggregation. M
 
 
 \subsubsection{Character attributes encoding}
+\label{Base_letter_representation}
 As this project focuses on recognizing users of the Polish language, the character encodings were designed to make use of this fact. For the purpose of encoding, characters were divided into several groups:\\
 \begin{itemize}
 	\item Letters -- characters \textit{a-z}, including diacritics.
@@ -46,6 +47,7 @@ We considered three methods, all being variations on a one-hot encoding of keys:
 	\item Small alphabet representation. One hot encoding for cased \textit{Letters} and \textit{Special characters}. \textit{Numbers} map to one column in the vector, \textit{Symbols} and \textit{Others} map to one column in the vector.
 	\item Base letter representation. All \textit{Letters} are converted to lower case, diacritical marks are removed. These transformed letters are encoded in a one-hot vector. \textit{Numbers} map to one column in the vector, \textit{Symbols} and \textit{Others} map to one column in the vector. Two additional columns are added to the input, one indicates whether the original character was a capitalized letter, the second whether it had a diacritical mark.
 \end{enumerate}
+
 
 \myworries{Citation needed: That paper that said node ids are nice}.
 Again as before, these methods differ by degree of aggregation. Methods $2$ and $3$ group certain letters together, mapping multiple characters to the same values, while method $1$ provides a unique, one hot encoded identifier for each node. \myworries{Cication} found that such node identifiers helped the model to learn certain structures in the data. However, \myworries{Slajdy z stanfordu ze tylko jak jest ograniczona liczba liter} notes, that providing node identifiers as input features work well only for a small and known set of possible input nodes. While this requirement appears to hold true for this specific task, we found this is not the case. Many letters, which appear to be common, in fact do not appear in our dataset. \myworries{TODO Which chars never appear}. This means that the behavior of the models would be unpredictable for nodes with such identifiers.

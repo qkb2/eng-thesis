@@ -59,18 +59,34 @@ The equal error rate is a useful metric which allow for easy comparison between 
 The basis of a model for graph level prediction comprises of a graph convolutional layers, a pooling function to aggregate node information and a classification head, which outputs a single value, that is than passed to a sigmoid function. \myworries{Cite something} 
 The architecture used in this project is pictured below.\\
 
+
 \begin{figure}
 \begin{center}
 	\begin{tikzpicture}[node distance=1.5cm]
 		
 		% Nodes
-		\node (gcn) [process] {GCNConv + ReLU \\ x2};
+		\node (preff) [process] {Full Connected + ReLu};
+		\node (gcn) [process, below of=preff] {GCNConv + ReLU \\ x2};
 		\node (pooling) [process, below of=gcn] {Global Mean Pooling};
 		\node (linear1) [process, below of=pooling] {Full Connected + ReLu};
 		\node (dropout) [process, below of=linear1] {Dropout};
 		\node (linear2) [process, below of=dropout] {Full Connected + Sigmoid};
 		
+	% Background Layers
+	\begin{pgfonlayer}{background}
+		% Postprocessing box
+		\node [draw=red!70, thick, dashed, rounded corners, fill=gray!8, inner sep=0.2cm, fit={(linear1) (dropout) (linear2)}] (postprocessing) {};
+		% Preprocessing box
+		\node [draw=red!70, thick, dashed, rounded corners, fill=gray!8, inner sep=0.2cm, fit={(preff)}] (preprocessing) {};
+	\end{pgfonlayer}
+	
+	% Labels for groups
+	\node [right=0.2cm of postprocessing, text=red] {Postprocessing layers};
+	\node [right=0.2cm of preprocessing, text=red] {Preprocessing layers};
+
+		
 		% Arrows
+		\draw [arrow] (preff) -- (gcn);
 		\draw [arrow] (gcn) -- (pooling);
 		\draw [arrow] (pooling) -- (linear1);
 		\draw [arrow] (linear1) -- (dropout);
@@ -92,9 +108,15 @@ The first three layers of the model, pictured in figure \ref{fig:model_arch}, ar
 \subsubsection{Global Mean Pooling}
 After two convolutional layers, a global mean pooling layer was applied to aggregate the node embeddings into one vector. 
 
-\subsubsection{Fully Connected Layers}
+
+\subsubsection{Preprocessing Layers}
+Considering the complexity of the input features, specifically the relationship between parts of the features used to represent characters discussed in \ref{Base_letter_representation}, a preprocessing fully connected layer was added to the model. Preprocessing layers can improve performance in cases where encoding node features is necessary, such as text inputs \cite{Lesk2024}.
+
+\subsubsection{Postprocessing Layers}
 The selected architecture uses two fully connected layers to transform the aggregated output into one value, 
 which is passed through a sigmoid activation function. The first fully connected layer was added was added after empirical experimentation which showed an improvement in performance.
+
+
 
 \subsubsection{Dropout}
 A dropout layer was added between the two fully connected layers, which randomly disables some of the neurons during the training process. Such layers have been shown to create more robust models, that generalize better by Baldi et al \cite{NIPS2013_71f6278d}. Dropout layers have also been shown to improve expressiveness in GNN's by Papp et al \cite{NEURIPS2021_b8b2926b}.
@@ -115,4 +137,6 @@ These to operations are fused into one step in the implementation, by using  $BC
 Adam was selected as the optimizer for updating model weights, which adapts the learning rate for each parameter. A learning rate of 0.001 was chosen empirically.
 
 \subsection{Tuning hyperparameters}
+The architecture described above allows of large number of hyperparameter choices, such as the size of preprocessing, convolutional and postprocessing layers. Furthermore, the variable length on input sequences and multiple possible feature encoding, mean that a full search over the hyperparameter space is impossible. For the scope of this project the biggest emphasis was placed on finding the optimal input features and input sequence length. Furthermore, the effect of class imbalance on the training process of the collection of models was also explored.
+ 
 \myworries{TODO: Nie wiem czy tutaj czy moze w sekcji z wynikami tutaj to za bardzo nie ma sensu. Moge tu napisać ale chyba to nie ma sensu, lepiej jest chyba omówić wpływ parametru na wynik. Z sekcji Testing model on users bym zrobił chapter}
