@@ -13,6 +13,8 @@ Directed edges were added between nodes that represent characters appearing afte
 \myworries{TODO: add example graph visualization here}
 Each time the same pair of characters appears in the input text, it maps to the same edge. For each such pair, the duration is added to a list of attributes for that edge, which will be aggregated in later stages, to a form suitable for the GCN model. It would also be possible to model such pairs using a multiedge graph, as such models have been shown to perform well in other domains \myworries{TODO zacytuj "multi-edge graph for convolutional networks for power systems}. However, we did not consider this approach. 
 
+
+
 \myworries{TODO maybe visualization}
 The structure of the resulting graph depends highly on the length of the input sequence. A shorter sequence produces smaller and sparser graphs, while a longer input sequences result in graphs with more nodes and edges. 
 

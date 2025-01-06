@@ -29,7 +29,7 @@ Recall = \frac{TP}{TP + FN}
 \]
 
 These measures are commonly used in machine learning and information retrieval setting, under the assumption that the negative class, and consequently, the number of true negatives, does not matter as much as the positive class. \myworries{Citation needed}. The focus on the correct recognition of the positive class matches the use function of models in this project.\\
-As such, precision and recall were used when training models, to measure the performance on validation set and tuning hyperparameters.  
+As such, precision and recall were used when training models, to measure the performance on validation set and tuning hyperparameters.
 
 \subsubsection{4. False Acceptance Rate (FAR) and False Rejection Rate (FRR)}
 The False Acceptance Rate (FAR) represents the proportion of negative samples (imposters) that are incorrectly classified as positive. It is calculated as:
@@ -56,7 +56,48 @@ The equal error rate is a useful metric which allow for easy comparison between 
 
 
 \section{Architecture}
-Many possible variations on the GCN architecture were considered. 
+The basis of a model for graph level prediction comprises of a graph convolutional layers, a pooling function to aggregate node information and a classification head, which outputs a single value, that is than passed to a sigmoid function. \myworries{Cite something} 
+The architecture used in this project is pictured below.\\
+
+\begin{figure}
+\begin{center}
+	\begin{tikzpicture}[node distance=1.5cm]
+		
+		% Nodes
+		\node (gcn) [process] {GCNConv + ReLU \\ x2};
+		\node (pooling) [process, below of=gcn] {Global Mean Pooling};
+		\node (linear1) [process, below of=pooling] {Full Connected + ReLu};
+		\node (dropout) [process, below of=linear1] {Dropout};
+		\node (linear2) [process, below of=dropout] {Full Connected + Sigmoid};
+		
+		% Arrows
+		\draw [arrow] (gcn) -- (pooling);
+		\draw [arrow] (pooling) -- (linear1);
+		\draw [arrow] (linear1) -- (dropout);
+		\draw [arrow] (dropout) -- (linear2);
+		
+	\end{tikzpicture}
+	
+	\caption{Model architecture}
+	\label{fig:model_arch}
+\end{center}
+\end{figure}
+
+
+\myworries{Add some text to this drawing}
+
+\subsubsection{GCN + ReLU}
+The first three layers of the model, pictured in figure \ref{fig:model_arch}, are graph convolutional layers or GCNConv. The theory behind these layers was extensively discussed in chapter 3. After each layer a ReLU activation function was applied.
+
+\subsubsection{Global Mean Pooling}
+After two convolutional layers, a global mean pooling layer was applied to aggregate the node embeddings into one vector. 
+
+\subsubsection{Fully Connected Layers}
+The selected architecture uses two fully connected layers to transform the aggregated output into one value, 
+which is passed through a sigmoid activation function. The first fully connected layer was added was added after empirical experimentation which showed an improvement in performance.
+
+\subsubsection{Dropout}
+A dropout layer was added between the two fully connected layers, which randomly disables some of the neurons during the training process. Such layers have been shown to create more robust models, that generalize better by Baldi et al \cite{NIPS2013_71f6278d}. Dropout layers have also been shown to improve expressiveness in GNN's by Papp et al \cite{NEURIPS2021_b8b2926b}.
 
 \section{Training and fine-tuning}
 
@@ -73,5 +114,5 @@ These to operations are fused into one step in the implementation, by using  $BC
 \subsubsection{Optimizer}
 Adam was selected as the optimizer for updating model weights, which adapts the learning rate for each parameter. A learning rate of 0.001 was chosen empirically.
 
-
-\myworries{TODO: maybe write more here idk??}
+\subsection{Tuning hyperparameters}
+\myworries{TODO: Nie wiem czy tutaj czy moze w sekcji z wynikami tutaj to za bardzo nie ma sensu. Moge tu napisać ale chyba to nie ma sensu, lepiej jest chyba omówić wpływ parametru na wynik. Z sekcji Testing model on users bym zrobił chapter}
