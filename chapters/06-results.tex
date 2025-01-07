@@ -1,0 +1,58 @@
+
+\chapter{Results}
+This chapter is dedicated to the results of model testing on users, as well as the inpact of features and hyperparameter choices on its performance. 
+
+
+\subsubsection{Methodology}
+\myworries{Word this nicely}
+The results below were calcutaled as an average of each models perfomance on a sequance of characters equal to the length on which the model was trained.
+This means that a some models perfomed inference on sequences of lenght 20, while others 40. While it was possible to compare scores based on an equal input lenght,
+it would require the setting another threshold, on how many of the input subsequnces need to be classified possitivly for the whole sequance to be classified as possitive. 
+Such threshold was chosen for the aplication, however, we believe that adding another parameter to these results would only make them less interpretable.
+
+\myworries{Tutaj macierz pomyłem między wszyskimi modelami, ostateczne wyniki, najlepsze parametry etc Dezycja czy w sekcji -- moze byc ale jak ją nazwać}
+
+\subsubsection{Confusion matrix for all users}
+
+\subsubsection{Roc curves}
+\myworries{Points in roc space}
+
+\subsubsection{Equal error rates}
+\myworries{EER for each user, the threshold neccessary}
+
+\section{Input features}
+This section will compare the impact of input encodings on the final model performance.
+
+\subsection{Input sequance lenght}
+
+\subsection{Egde data encoding}
+
+\subsection{Character encoding}
+
+\subsection{Accelerometer Data}
+TLDR doesnt work, comparison for 2 users only - best performing on normal input
+Short discussion
+
+\section{Training and model hyperparameters}
+
+\subsection{Class imbalance}
+\myworries{Discuss how positive/negative example ratio had an impact on precission/recall. Maybe note that neg examples were sampled with an offset}
+
+\subsection{Model size}
+\myworries{Num of conv layer, layer size etc bigger wasnt better}
+
+
+\section{Testing model on users}
+
+\subsection{TODO title}
+\myworries{ TODO: What if we did classify the user on all their input (100 chars). Results would be a n users by n users matrix of 1's and 0's}
+
+\subsection{Multiclass model}
+\myworries{Maybe}
+
+
+\subsection{Cross-smartphone user validation}
+TODO: what happens if two users train on smartphones that are not their own? What happens, if they cross-use their original model on another phone?
+
+\section{Discussion}
+TODO: discuss the findings.
