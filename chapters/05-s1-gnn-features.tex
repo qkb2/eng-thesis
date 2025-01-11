@@ -20,7 +20,7 @@ The structure of the resulting graph depends highly on the length of the input s
 
 \myworries{Citation needed - some RNN paper that sequences of keys are important (something in Lu 2020?)}\\
 
-\subsubsection{Edge atributes encoding}
+\subsection{Edge atributes encoding}
 In order for the graph to be a valid input for a GCN network, edge attributes need to be converted into node features. We found two ways to encode aggregate this information into node features.\\  
 For each node $i$:
 \begin{enumerate}
@@ -30,7 +30,7 @@ For each node $i$:
 The clear difference between these two approaches is the level of aggregation. Method $1$ aggregates all the edge information into 2 values, while method $2$ aggregates it into a vector of values, although it imposes some limitations, such as assigning each key a unique index into this input vector. Furthermore, method $2$ increases the overall size of the input data and complexity of the model.
 
 
-\subsubsection{Character attributes encoding}
+\subsection{Character attributes encoding}
 \label{Base_letter_representation}
 As this project focuses on recognizing users of the Polish language, the character encodings were designed to make use of this fact. For the purpose of encoding, characters were divided into several groups:\\
 \begin{itemize}
