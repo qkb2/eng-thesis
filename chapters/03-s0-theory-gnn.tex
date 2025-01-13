@@ -1,7 +1,7 @@
 
 \chapter{Graph Convolutional Networks}
 
-Graphs can defined as mathematical structures $G$ consisting of a set of vertices $V$, a set of edges $E$ and an incidence function $\phi$, along with many variations and generalizations to such structure, can be used for describing entities, which are related to each other in some way. An example of such model could be a computer network graph or citation network. Neurons can also be modelled in a similar way. Relation data can often be best described using such graphs. \cite{Lesk2024}
+Graph can be defined as mathematical structure $G$ consisting of a set of vertices $V$ and a set of edges $E$, where each edge can be described as an unordered pair $\{ v_1, v_2 \}$ of some vertices $v_1, v_2 \in V$ for undirected graphs or an ordered pair $( v_1, v_2 )$ of some vertices $v_1, v_2 \in V$ \cite{wikipedia_graph_2025}. Such structures, along with their many variations and generalizations, can be used for describing entities, which are related to each other in some way. An example of such model could be a computer network graph or citation network. Neurons can also be modelled in a similar way. Relation data can often be best described using such graphs. \cite{Lesk2024}
 
 Some problems relating to such data can be solved using Convolutional Neural Networks -- this can also be the case for keystroke dynamics data, such as with Lu et al. \cite{Lu2020} or Sharma et al. \cite{Shar2023}. However, it can be reasoned that the Graph Neural Networks can also perform such tasks, with connections in graph data being used more directly in the model itself.
 
@@ -24,11 +24,11 @@ Graphs in GNNs are represented with two main components: the adjacency matrix $A
             \item $h_v^{(l)}$ is the updated feature (embedding) of node $v$ at layer $l$. 
         \end{itemize}
         To prevent losing message from node $v$ itself, the messege from node $v$ is included after aggregating messages from all its neighbors.   
-    \item Additionally, an activation function $\sigma$ (e.g., ReLU(), Sigmoid()) is applied to the message or the aggregation.
+    \item Additionally, an activation function $\phi$ (e.g. ReLU, sigmoid) is applied to the message or the aggregation.
 \end{itemize}
 
 For Graph Convolutional Networks message computation and aggregation can be represented with the following formula:
-\[h_v^{(l)} = \sigma \left( \sum_{u \in N(v)} \frac{1}{|N(v)|} W^{(l)} h_u^{(l-1)} \right)\]
+\[h_v^{(l)} = \phi \left( \sum_{u \in N(v)} \frac{1}{|N(v)|} W^{(l)} h_u^{(l-1)} \right)\]
 $W^{(l)}$ is a learnable weight matrix used to transform the feature vector.
 
 % https://www.researchgate.net/publication/374223914_Determining_the_Optimal_Number_of_GAT_and_GCN_Layers_for_Node_Classification_in_Graph_Neural_Networks
