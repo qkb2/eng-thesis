@@ -46,48 +46,48 @@ configuation, as well as the limited computing power that was accessable, not al
 The below table presents the false authentication rate and false acceptance rate for all models. The motivation behind the use of these metrics was discussed in section \myworries{Maybe link section}.
 
 \begin{center}
-\begin{table}
+\begin{table}[H]
 \begin{center}
 	\begin{tabular}{ |c|c|c| } 
 		\hline
 		User ID & False Acceptance Rate & False Rejection Rate \\
 		\hline
-		21 & 0.22 & 0.32 \\
+		21 & 0.220 & 0.319 \\
 		\hline
-		22 & 0.04 & 0.03 \\
+		22 & 0.043 & 0.025 \\
 		\hline
-		23 & 0.09 & 0.67 \\
+		23 & 0.089 & 0.667 \\
 		\hline
-		24 & 0.03 & 0.71 \\
+		24 & 0.030 & 0.713 \\
 		\hline
-		25 & 0.06 & 0.22 \\
+		25 & 0.059 & 0.222 \\
 		\hline
-		26 & 0.07 & 0.09 \\
+		26 & 0.075 & 0.088 \\
 		\hline
-		40 & 0.16 & 0.42 \\
+		40 & 0.159 & 0.424 \\
 		\hline
-		41 & 0.07 & 0.31 \\
+		41 & 0.075 & 0.313 \\
 		\hline
-		42 & 0.22 & 0.69 \\
+		42 & 0.217 & 0.690 \\
 		\hline
-		60 & 0.13 & 0.25 \\
+		60 & 0.128 & 0.254 \\
 		\hline
-		61 & 0.04 & 0.06 \\
+		61 & 0.043 & 0.061 \\
 		\hline
-		62 & 0.03 & 0.15 \\
+		62 & 0.034 & 0.147 \\
 		\hline
-		81 & 0.05 & 0.69 \\
+		81 & 0.051 & 0.691 \\
 		\hline
-		82 & 0.04 & 0.01 \\
+		82 & 0.040 & 0.011 \\
 		\hline
-		83 & 0.05 & 0.40 \\
+		83 & 0.048 & 0.398 \\
 		\hline
-		85 & 0.03 & 0.75 \\
+		85 & 0.026 & 0.752 \\
 		\hline
-		86 & 0.02 & 0.00 \\
+		86 & 0.015 & 0.000 \\
 		\hline
 		\hline
-		Average & 0.07 & 0.34 \\
+		Average & 0.080 & 0.340 \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -190,18 +190,35 @@ The per model EER was calculated by finding equal error rate decision threshold 
 
 
 \section{Input features}
-This section will compare the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per model EER value.
+This section will compare the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per model EER value. The impact of these changes were mesaused by changing only one hyperparameters, while all others remaind the same as shown in table \ref{table:hyperparams}.
 
 \subsection{Input sequance lenght}
-The inpact of the input sequance lenght was tested with the parameters given in table \ref{table:hyperparams}, exept for \textit{Input length}, which was the only parameter changed between tests.
-
-
-
-\subsection{Egde data encoding}
-\myworries{In tests right now}
 
 \subsection{Character encoding}
 \myworries{In tests right now}
+
+
+\subsection{Egde data encoding}
+
+\begin{center}
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular}{ |c|c|c|c| } 
+				\hline
+				Edge encoding method & FAR & FRR & EER \\
+				\hline
+				\textit{Two dimensional vector of values per node} & 0.069 & 0.666 & 0.395 \\
+				\hline
+				\textit{Two values per node} & 0.080 & 0.340 & 0.177 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\caption{Comparison of egde data encoding.}
+		\label{table:egde_encoding_comp}
+	\end{table}
+\end{center}
+
+Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average far remains comparable, frr, and thus the err, differ by a large amount. This might be cause by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two letter combinations and failes to generalise.
 
 \subsection{Accelerometer Data}
 TLDR doesnt work, comparison for 2 users only - best performing on normal input
