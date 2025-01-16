@@ -1,9 +1,9 @@
 \section{Architecture}
 The basis of a model for graph level prediction comprises of a graph convolutional layers, a pooling function to aggregate node information and a classification head, which outputs a single value, that is than passed to a sigmoid function. \myworries{Cite something} 
-The architecture used in this project is pictured below.\\
+The architecture used in this project is pictured in figure \ref{fig:model_arch}.\\
 
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}[node distance=1.5cm]
 		
@@ -42,9 +42,6 @@ The architecture used in this project is pictured below.\\
 \end{center}
 \end{figure}
 
-
-\myworries{Add some text to this drawing}
-
 \subsubsection{GCN + ReLU}
 The first three layers of the model, pictured in figure \ref{fig:model_arch}, are graph convolutional layers or GCNConv. The theory behind these layers was extensively discussed in chapter 3. After each layer a ReLU activation function was applied.
 
@@ -60,7 +57,6 @@ The selected architecture uses two fully connected layers to transform the aggre
 which is passed through a sigmoid activation function. The first fully connected layer was added was added after empirical experimentation which showed an improvement in performance.
 
 
-
 \subsubsection{Dropout}
 A dropout layer was added between the two fully connected layers, which randomly disables some of the neurons during the training process. Such layers have been shown to create more robust models, that generalize better by Baldi et al \cite{NIPS2013_71f6278d}. Dropout layers have also been shown to improve expressiveness in GNN's by Papp et al \cite{NEURIPS2021_b8b2926b}.
 
@@ -74,7 +70,7 @@ For the purpose of model validation, we used 5-fold cross-validation, thus split
 \subsubsection{Loss function}
 Binary Cross Entropy was chosen as the loss function that would be used in training, which is a common loss function used with binary classifiers. 
 The use of this loss function requires the model to output the probability of picking the positive class, therefore a sigmoid function must be applied to the output of the final layer.
-These to operations are fused into one step in the implementation, by using  $BCEWithLogitsLoss$, which is more numerically stable.
+These to operations are fused into one step in the implementation, by using  $BCEWithLogitsLoss$, which is more numerically stable. \myworries{Cite pytorch}
 
 \subsubsection{Optimizer}
 Adam was selected as the optimizer for updating model weights, which adapts the learning rate for each parameter. A learning rate of 0.001 was chosen empirically.

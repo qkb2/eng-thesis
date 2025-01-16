@@ -4,36 +4,211 @@ This chapter is dedicated to the results of model testing on users, as well as t
 
 
 \subsubsection{Methodology}
-\myworries{Word this nicely}
 The results below were calcutaled as an average of each models perfomance on a sequance of characters equal to the length on which the model was trained.
-This means that a some models perfomed inference on sequences of lenght 20, while others 40. While it was possible to compare scores based on an equal input lenght,
+This means that were tested with input of diffrent lenghts than others. 
+While it was possible to compare scores based on an equal input lenght,
 it would require the setting another threshold, on how many of the input subsequnces need to be classified possitivly for the whole sequance to be classified as possitive. 
-Such threshold was chosen for the aplication, however, we believe that adding another parameter to these results would only make them less interpretable.
+Such threshold was chosen for the aplication, as it is necessery for end user authentication, however, adding another parameter to these results would only make them less interpretable.
+
+The results that are shown below were collected with the combination of hyperparametes that resulted in the best performance. It is important to note that due to the large amount of possible
+configuation, as well as the limited computing power that was accessable, not all combinations were tested.
+
+\begin{center}
+	\begin{table}[H]
+		
+\begin{center}
+	\begin{tabular}{ |c|c|} 
+		\hline
+		Hyperparameter & Value \\
+		\hline
+		Input lenght & \textit{35} \\ 
+		\hline
+		Egde encoding method & \textit{Two values per node} \\		
+		\hline 
+		Character encoding method & \textit{Base letter representation} \\		 
+		\hline
+		Decision threshold & \textit{0.7} \\
+		\hline
+		Convnolutional layer size & \textit{64} \\
+		\hline
+		Feed forward layer size & \textit{128} \\
+		\hline
+	\end{tabular}
+\end{center}
+	\caption{Hyperparameter choices}
+	\label{table:hyperparams}
+	\end{table}
+\end{center}
 
 \myworries{Tutaj macierz pomyłem między wszyskimi modelami, ostateczne wyniki, najlepsze parametry etc Dezycja czy w sekcji -- moze byc ale jak ją nazwać}
 
+\subsubsection{FAR and FRR scores}
+The below table presents the false authentication rate and false acceptance rate for all models. The motivation behind the use of these metrics was discussed in section \myworries{Maybe link section}.
+
+\begin{center}
+\begin{table}
+\begin{center}
+	\begin{tabular}{ |c|c|c| } 
+		\hline
+		User ID & False Acceptance Rate & False Rejection Rate \\
+		\hline
+		21 & 0.22 & 0.32 \\
+		\hline
+		22 & 0.04 & 0.03 \\
+		\hline
+		23 & 0.09 & 0.67 \\
+		\hline
+		24 & 0.03 & 0.71 \\
+		\hline
+		25 & 0.06 & 0.22 \\
+		\hline
+		26 & 0.07 & 0.09 \\
+		\hline
+		40 & 0.16 & 0.42 \\
+		\hline
+		41 & 0.07 & 0.31 \\
+		\hline
+		42 & 0.22 & 0.69 \\
+		\hline
+		60 & 0.13 & 0.25 \\
+		\hline
+		61 & 0.04 & 0.06 \\
+		\hline
+		62 & 0.03 & 0.15 \\
+		\hline
+		81 & 0.05 & 0.69 \\
+		\hline
+		82 & 0.04 & 0.01 \\
+		\hline
+		83 & 0.05 & 0.40 \\
+		\hline
+		85 & 0.03 & 0.75 \\
+		\hline
+		86 & 0.02 & 0.00 \\
+		\hline
+		\hline
+		Average & 0.07 & 0.34 \\
+		\hline
+	\end{tabular}
+\end{center}
+\caption{FAR and FRR scores for all models.}
+\label{table:FAR_FRR_base}
+\end{table}
+\end{center}
+
+\myworries{Todo discuss more}
+Table \ref{table:FAR_FRR_base} demonstrates the large discreptancy between the models. Models for users 42, and to a lesser degree users 85, 24 and 81 fail to learn the to correctly classify user inputs. \\
+The same data can be viewed as a plot of false acceptance rate vs false rejection rate. 
+Figure \ref{fig:frr_vs_far_all_models_base} helps to ilustrate this difference. The models mentioned above perform poorly and can clearly differ from the rest. 
+\myworries{More discussion}
+
+\begin{figure}[H]
+	\centering
+	
+	\includegraphics[width=\textwidth]{images/far_vs_frr.pdf} % Replace 'example.pdf' with your PDF file name
+	\caption{False acceptance rate vs False rejection rate.}
+	\label{fig:frr_vs_far_all_models_base}
+\end{figure}
+
 \subsubsection{Confusion matrix for all users}
+To evaluate the each model's perofrance, every model was tested on the input of every user. The results of this test are shown in figure \ref{fig:all_models_5_len35}. The values in this matrix represent the procentage of examples classified as positive. It is important to note that the values in this matrix have a diffrent intepretation depending on their position. The values on the diagonal represent the procentage of correctly classified positive example (True Positives) -- the recall of the model. For an ideal classifier these values would equal 100. The values outside the diagonal represent the procentage of incorrectly classied negative examples (False Positves). For an ideal classifier these values would equal 0.
 
-\subsubsection{Roc curves}
-\myworries{Points in roc space}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{images/all_models_5_len35.pdf} % Replace 'example.pdf' with your PDF file name
+	\caption{Matrix showing the procentage of examples classief as positive for all model--user pairs.}
+	\label{fig:all_models_5_len35}
+\end{figure}
 
-\subsubsection{Equal error rates}
-\myworries{EER for each user, the threshold neccessary}
+\myworries{TODO: discuss, possibly with the help of someone else.}
+
+\subsubsection{Equal Error Rate}
+We chose to report two diffrent ways to calcualte the equal error rate. To calculate this metric, the decision treshold needs to be adjusted, which can be done globally, for all models or at a per model level. 
+
+The global EER, was calculated to compare the performance of the collection of models to other methods as a whole.
+\begin{itemize}
+	\item[] Equal Error Rate: 0.181
+	\item[] Threshold: 0.05
+\end{itemize}
+A very low value for the decision threshold was neccessary to achive an equal error rate. This suggest that most of the models are rejecting too many positive, and also negative, examples.
+
+
+The per model EER was calculated by finding equal error rate decision threshold for each model separately. The results are shown in table \ref{table:EER_separate}.
+
+\begin{center}
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular}{ |c|c|c| } 
+				\hline
+				User ID & Equal Error Rate & Decision threshold \\
+				\hline
+				21 & 0.257 & 0.20 \\
+				\hline
+				22 & 0.045 & 0.75 \\
+				\hline
+				23 & 0.313 & 0.05 \\
+				\hline
+				24 & 0.253 & 0.05 \\
+				\hline
+				25 & 0.100 & 0.05 \\
+				\hline
+				26 & 0.078 & 0.65 \\
+				\hline
+				40 & 0.275 & 0.05 \\
+				\hline
+				41 & 0.130 & 0.05 \\
+				\hline
+				42 & 0.383 & 0.05 \\
+				\hline
+				60 & 0.181 & 0.05 \\
+				\hline
+				61 & 0.050 & 0.50 \\
+				\hline
+				62 & 0.063 & 0.20 \\
+				\hline
+				81 & 0.376 & 0.05 \\
+				\hline
+				82 & 0.040 & 0.85 \\
+				\hline
+				83 & 0.134 & 0.05 \\
+				\hline
+				85 & 0.332 & 0.05 \\
+				\hline
+				86 & 0.001 & 0.95 \\
+				\hline
+				\hline
+				Average & 0.177 & -- \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\caption{Per model equal error rate.}
+		\label{table:EER_separate}
+	\end{table}
+\end{center}
+
+\myworries{TODO: the models that do well do VERY well. Some models perform very badly here, well on the FAR vs FRR graph}.
+
 
 \section{Input features}
-This section will compare the impact of input encodings on the final model performance.
+This section will compare the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per model EER value.
 
 \subsection{Input sequance lenght}
+The inpact of the input sequance lenght was tested with the parameters given in table \ref{table:hyperparams}, exept for \textit{Input length}, which was the only parameter changed between tests.
+
+
 
 \subsection{Egde data encoding}
+\myworries{In tests right now}
 
 \subsection{Character encoding}
+\myworries{In tests right now}
 
 \subsection{Accelerometer Data}
 TLDR doesnt work, comparison for 2 users only - best performing on normal input
 Short discussion
 
 \section{Training and model hyperparameters}
+\myworries{What goes here ?}
 
 \subsection{Class imbalance}
 \myworries{Discuss how positive/negative example ratio had an impact on precission/recall. Maybe note that neg examples were sampled with an offset}
@@ -43,13 +218,11 @@ Short discussion
 
 
 \section{Testing model on users}
+\myworries{TODO ale chyba nie dla mnie (IW) }
 
 \subsection{TODO title}
-\myworries{ TODO: What if we did classify the user on all their input (100 chars). Results would be a n users by n users matrix of 1's and 0's}
-
-\subsection{Multiclass model}
-\myworries{Maybe}
-
+\myworries{ TODO: What if we did classify the user on all their input (100 chars). Results would be a n users by n users matrix of 1's and 0's}\\
+\myworries{ TOOD: to nie trudne, trzeba wziąc tą nacierz, wybrać treshold, i dać 1 jesli większy 0 jeśli mniejszy}
 
 \subsection{Cross-smartphone user validation}
 TODO: what happens if two users train on smartphones that are not their own? What happens, if they cross-use their original model on another phone?
