@@ -21,7 +21,7 @@ configuation, as well as the limited computing power that was accessable, not al
 		\hline
 		Hyperparameter & Value \\
 		\hline
-		Input lenght & \textit{35} \\ 
+		Input lenght & \textit{40} \\ 
 		\hline
 		Egde encoding method & \textit{Two values per node} \\		
 		\hline 
@@ -52,42 +52,42 @@ The below table presents the false authentication rate and false acceptance rate
 		\hline
 		User ID & False Acceptance Rate & False Rejection Rate \\
 		\hline
-		21 & 0.220 & 0.319 \\
+		21 & 0.242 & 0.119 \\
 		\hline
-		22 & 0.043 & 0.025 \\
+		22 & 0.063 & 0.000 \\
 		\hline
-		23 & 0.089 & 0.667 \\
+		23 & 0.200 & 0.479 \\
 		\hline
-		24 & 0.030 & 0.713 \\
+		24 & 0.042 & 0.658 \\
 		\hline
-		25 & 0.059 & 0.222 \\
+		25 & 0.050 & 0.015 \\
 		\hline
-		26 & 0.075 & 0.088 \\
+		26 & 0.086 & 0.032 \\
 		\hline
-		40 & 0.159 & 0.424 \\
+		40 & 0.080 & 0.459 \\
 		\hline
-		41 & 0.075 & 0.313 \\
+		41 & 0.057 & 0.355 \\
 		\hline
-		42 & 0.217 & 0.690 \\
+		42 & 0.135 & 0.379 \\
 		\hline
-		60 & 0.128 & 0.254 \\
+		60 & 0.083 & 0.608 \\
 		\hline
-		61 & 0.043 & 0.061 \\
+		61 & 0.066 & 0.065 \\
 		\hline
-		62 & 0.034 & 0.147 \\
+		62 & 0.044 & 0.032 \\
 		\hline
-		81 & 0.051 & 0.691 \\
+		81 & 0.086 & 0.802 \\
 		\hline
-		82 & 0.040 & 0.011 \\
+		82 & 0.045 & 0.024 \\
 		\hline
-		83 & 0.048 & 0.398 \\
+		83 & 0.116 & 0.322 \\
 		\hline
-		85 & 0.026 & 0.752 \\
+		85 & 0.128 & 0.144 \\
 		\hline
-		86 & 0.015 & 0.000 \\
+		86 & 0.037 & 0.000 \\
 		\hline
 		\hline
-		Average & 0.080 & 0.340 \\
+		Average & 0.092 & 0.264 \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -97,7 +97,7 @@ The below table presents the false authentication rate and false acceptance rate
 \end{center}
 
 \myworries{Todo discuss more}
-Table \ref{table:FAR_FRR_base} demonstrates the large discreptancy between the models. Models for users 42, and to a lesser degree users 85, 24 and 81 fail to learn the to correctly classify user inputs. \\
+Table \ref{table:FAR_FRR_base} demonstrates the large discreptancy between the models. Models for users 81, and to a lesser degree users 60 and 24 fail to learn the to correctly classify user inputs. \\
 The same data can be viewed as a plot of false acceptance rate vs false rejection rate. 
 Figure \ref{fig:frr_vs_far_all_models_base} helps to ilustrate this difference. The models mentioned above perform poorly and can clearly differ from the rest. 
 \myworries{More discussion}
@@ -111,13 +111,13 @@ Figure \ref{fig:frr_vs_far_all_models_base} helps to ilustrate this difference. 
 \end{figure}
 
 \subsubsection{Confusion matrix for all users}
-To evaluate the each model's perofrance, every model was tested on the input of every user. The results of this test are shown in figure \ref{fig:all_models_5_len35}. The values in this matrix represent the procentage of examples classified as positive. It is important to note that the values in this matrix have a diffrent intepretation depending on their position. The values on the diagonal represent the procentage of correctly classified positive example (True Positives) -- the recall of the model. For an ideal classifier these values would equal 100. The values outside the diagonal represent the procentage of incorrectly classied negative examples (False Positves). For an ideal classifier these values would equal 0.
+To evaluate the each model's perofrance, every model was tested on the input of every user. The results of this test are shown in figure \ref{fig:all_models_5_len40}. The values in this matrix represent the procentage of examples classified as positive. It is important to note that the values in this matrix have a diffrent intepretation depending on their position. The values on the diagonal represent the procentage of correctly classified positive example (True Positives) -- the recall of the model. For an ideal classifier these values would equal 100. The values outside the diagonal represent the procentage of incorrectly classied negative examples (False Positves). For an ideal classifier these values would equal 0.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{images/all_models_5_len35.pdf} % Replace 'example.pdf' with your PDF file name
+	\includegraphics[width=\textwidth]{images/all_models_5_len40.pdf} % Replace 'example.pdf' with your PDF file name
 	\caption{Matrix showing the procentage of examples classief as positive for all model--user pairs.}
-	\label{fig:all_models_5_len35}
+	\label{fig:all_models_5_len40}
 \end{figure}
 
 \myworries{TODO: discuss, possibly with the help of someone else.}
@@ -127,10 +127,10 @@ We chose to report two diffrent ways to calcualte the equal error rate. To calcu
 
 The global EER, was calculated to compare the performance of the collection of models to other methods as a whole.
 \begin{itemize}
-	\item[] Equal Error Rate: 0.181
-	\item[] Threshold: 0.05
+	\item[] Equal Error Rate: 0.157
+	\item[] Threshold: 0.20
 \end{itemize}
-A very low value for the decision threshold was neccessary to achive an equal error rate. This suggest that most of the models are rejecting too many positive, and also negative, examples.
+A very low for the decision threshold was neccessary to achive an equal error rate. This suggest that most of the models are rejecting too many positive, and also negative, examples.
 
 
 The per model EER was calculated by finding equal error rate decision threshold for each model separately. The results are shown in table \ref{table:EER_separate}.
@@ -142,42 +142,42 @@ The per model EER was calculated by finding equal error rate decision threshold 
 				\hline
 				User ID & Equal Error Rate & Decision threshold \\
 				\hline
-				21 & 0.257 & 0.20 \\
+				21 & 0.124 & 0.95 \\
 				\hline
-				22 & 0.045 & 0.75 \\
+				22 & 0.026 & 0.95 \\
 				\hline
-				23 & 0.313 & 0.05 \\
+				23 & 0.245 & 0.40 \\
 				\hline
-				24 & 0.253 & 0.05 \\
+				24 & 0.270 & 0.05 \\
 				\hline
-				25 & 0.100 & 0.05 \\
+				25 & 0.037 & 0.85 \\
 				\hline
-				26 & 0.078 & 0.65 \\
+				26 & 0.059 & 0.80 \\
 				\hline
-				40 & 0.275 & 0.05 \\
+				40 & 0.200 & 0.05 \\
 				\hline
-				41 & 0.130 & 0.05 \\
+				41 & 0.081 & 0.35 \\
 				\hline
-				42 & 0.383 & 0.05 \\
+				42 & 0.163 & 0.45 \\
 				\hline
-				60 & 0.181 & 0.05 \\
+				60 & 0.176 & 0.05 \\
 				\hline
-				61 & 0.050 & 0.50 \\
+				61 & 0.066 & 0.80 \\
 				\hline
-				62 & 0.063 & 0.20 \\
+				62 & 0.038 & 0.85 \\
 				\hline
-				81 & 0.376 & 0.05 \\
+				81 & 0.392 & 0.05 \\
 				\hline
-				82 & 0.040 & 0.85 \\
+				82 & 0.026 & 0.95 \\
 				\hline
-				83 & 0.134 & 0.05 \\
+				83 & 0.220 & 0.05 \\
 				\hline
-				85 & 0.332 & 0.05 \\
+				85 & 0.131 & 0.75 \\
 				\hline
-				86 & 0.001 & 0.95 \\
+				86 & 0.028 & 0.90 \\
 				\hline
 				\hline
-				Average & 0.177 & -- \\
+				Average & 0.133 & -- \\
 				\hline
 			\end{tabular}
 		\end{center}
@@ -209,11 +209,11 @@ This section will compare the impact of input encodings on the final model perfo
 				\hline
 				\textit{Two dimensional vector of values per node} & 0.069 & 0.666 & 0.395 \\
 				\hline
-				\textit{Two values per node} & 0.080 & 0.340 & 0.177 \\
+				\textit{Two values per node} & 0.092 & 0.264 & 0.133 \\
 				\hline
 			\end{tabular}
 		\end{center}
-		\caption{Comparison of egde data encoding.}
+		\caption{Comparison of performace with diffrent egde data encoding methods.}
 		\label{table:egde_encoding_comp}
 	\end{table}
 \end{center}
@@ -228,6 +228,36 @@ Short discussion
 \myworries{What goes here ?}
 
 \subsection{Class imbalance}
+Another point of experimentation was class balance in the training data. The baseline model was trained on a dataset with two times more positive examples than negative examples. The negative examples were sampled uniformly from all other users, with an offset such that the negative examples for some user were taken from the whole input text. This works for the number of users in the dataset. However, as the number of users grows, and the lenght of input sequence stays fixed, at some point each model needs to be trained only on a subset of the negative class input texts. At that point some models could fail to generalize to unseen negative examples. 
+A bigger proportion of possive examples was chosen experimentaly, as it resulted in models that perform better at recognising the positive class.
+
+\begin{center}
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular}{ |c|c|c|c| } 
+				\hline
+				Positive to Negative Ratio & FAR & FRR & EER \\
+				\hline
+				\textit{2:1} & 0.092 & 0.264 & 0.133 \\
+				\hline
+				\textit{1:1} & 0.080 & 0.340 & 0.177 \\
+				\hline
+				\textit{1:2} & 0.033 & 0.506 & 0.220 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\caption{Impact of positive to negative ratio on model collection performance.}
+		\label{table:egde_encoding_comp}
+	\end{table}
+\end{center}
+
+While a higher procentage of negative examples were classfied correctly, as indicated by the lower FAR, this comes at the expense of a large drop in the FRR score, to almost half of positive examples being dropped in the case of \textit{1:2} class balance. This means that the collection of models generalised poorly to unseen positive examples, to a degree that would be unacceptable. This can also be seen when comparing the average recall scores across these two collections of models, which droped from \textit{0.7357} to \textit{0.692} and \textit{0.494} when the number of negative examples were doubled. 
+\myworries{Cite something, the one i want is paywalled by MIT}
+ 
+However, we also tested training the models with a diffrent positive to negative class ration.
+This was motivated by the fact that some models failed to properly recoginise the positive class, 
+
+
 \myworries{Discuss how positive/negative example ratio had an impact on precission/recall. Maybe note that neg examples were sampled with an offset}
 
 \subsection{Model size}
@@ -243,6 +273,3 @@ Short discussion
 
 \subsection{Cross-smartphone user validation}
 TODO: what happens if two users train on smartphones that are not their own? What happens, if they cross-use their original model on another phone?
-
-\section{Discussion}
-TODO: discuss the findings.
