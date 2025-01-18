@@ -20,7 +20,7 @@ The structure of the resulting graph depends highly on the length of the input s
 
 \myworries{Citation needed - some RNN paper that sequences of keys are important (something in Lu 2020?)}\\
 
-\subsection{Edge atributes encoding}
+\subsection{Edge attributes encoding}
 In order for the graph to be a valid input for a GCN network, edge attributes need to be converted into node features. We found two ways to encode aggregate this information into node features.\\  
 For each node $i$:
 \begin{enumerate}
@@ -60,14 +60,10 @@ Moreover, method $3$ directly exposes the use of diacritical marks, which, simil
 \myworries{ADD Which chars never appear}
 
 
-\subsection{Feature selection -- accelerometer data}
-To improve the possible performance of the model, and to make further use of the capabilities of the mobile platform, we considered using accelerometer data as an input feature for the model.
+\subsection{Feature selection -- accelerometer data} \label{accel_subsection}
+To improve the possible performance of the model, and to make further use of the capabilities of the mobile platform, we considered using accelerometer data as an input feature for the model. \myworries{Cite someone that uses accel data and does well}
 This portion of the input data comprised of three values, a measurement of the acceleration in the x, y and z plane at the moment a keystroke was registered. 
-These values were aggregated as an average for each node. Although these models performed well during training, quickly reaching low loss values, they failed to generalize, performing worse on 
-validation and test datasets. 
-
-\myworries{TODO, some accelerometer data here}
-For this reason, accelerometer data was not used for training and evaluating models discussed later.
+These values were aggregated as an average for each node. Although these models performed well during training, quickly reaching low loss values, they failed to generalize, performing worse on validation and test datasets. For this reason, accelerometer data was not used for training and evaluating models discussed later.
 
 
 

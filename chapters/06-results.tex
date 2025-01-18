@@ -1,17 +1,17 @@
 
 \chapter{Results}
-This chapter is dedicated to the results of model testing on users, as well as the inpact of features and hyperparameter choices on its performance. 
+This chapter is dedicated to the results of model testing on users, as well as the impact of features and hyperparameter choices on its performance. 
 
+\section{Testing model on users}
+\myworries{Name this section some other way -- this is the best solution and its perf}
 
-\subsubsection{Methodology}
-The results below were calcutaled as an average of each models perfomance on a sequance of characters equal to the length on which the model was trained.
-This means that were tested with input of diffrent lenghts than others. 
-While it was possible to compare scores based on an equal input lenght,
-it would require the setting another threshold, on how many of the input subsequnces need to be classified possitivly for the whole sequance to be classified as possitive. 
-Such threshold was chosen for the aplication, as it is necessery for end user authentication, however, adding another parameter to these results would only make them less interpretable.
-
-The results that are shown below were collected with the combination of hyperparametes that resulted in the best performance. It is important to note that due to the large amount of possible
-configuation, as well as the limited computing power that was accessable, not all combinations were tested.
+\subsection{Methodology}
+The results below were calculated as an average of each models performance on a sequence of characters equal to the length on which the model was trained.
+This means that were tested with input of different lengths than others. 
+While it was possible to compare scores based on an equal input length,
+it would require the setting another threshold, on how many of the input subsequences need to be classified positively for the whole sequence to be classified as positive. 
+Such threshold was chosen for the application, as it is necessary for end user authentication, however, adding another parameter to these results would only make them less interpretable.\\
+The results that are shown below were collected with the combination of hyperparameters shown in table \ref{table:hyperparams}, which resulted in the best performance during model validation. The impact of each choice of hyperparameter is discussed separately in dedicated subsections. It is important to note that due to the large amount of possible configurations, as well as the limited computing power that was accessible, not all combinations were tested.
 
 \begin{center}
 	\begin{table}[H]
@@ -21,15 +21,15 @@ configuation, as well as the limited computing power that was accessable, not al
 		\hline
 		Hyperparameter & Value \\
 		\hline
-		Input lenght & \textit{40} \\ 
+		Input length & \textit{40} \\ 
 		\hline
-		Egde encoding method & \textit{Two values per node} \\		
+		Edge encoding method & \textit{Two values per node} \\		
 		\hline 
 		Character encoding method & \textit{Base letter representation} \\		 
 		\hline
-		Decision threshold & \textit{0.7} \\
+		Decision threshold & \textit{0.8} \\
 		\hline
-		Convnolutional layer size & \textit{64} \\
+		Convolutional layer size & \textit{64} \\
 		\hline
 		Feed forward layer size & \textit{128} \\
 		\hline
@@ -40,10 +40,9 @@ configuation, as well as the limited computing power that was accessable, not al
 	\end{table}
 \end{center}
 
-\myworries{Tutaj macierz pomyłem między wszyskimi modelami, ostateczne wyniki, najlepsze parametry etc Dezycja czy w sekcji -- moze byc ale jak ją nazwać}
 
-\subsubsection{FAR and FRR scores}
-The below table presents the false authentication rate and false acceptance rate for all models. The motivation behind the use of these metrics was discussed in section \myworries{Maybe link section}.
+\subsection{FAR and FRR scores}
+The below table presents the false authentication rate and false acceptance rate for all models. The motivation behind the use of these metrics was discussed in subsection \ref{FAR_FRR_theory}.
 
 \begin{center}
 \begin{table}[H]
@@ -96,45 +95,32 @@ The below table presents the false authentication rate and false acceptance rate
 \end{table}
 \end{center}
 
-\myworries{Todo discuss more}
-Table \ref{table:FAR_FRR_base} demonstrates the large discreptancy between the models. Models for users 81, and to a lesser degree users 60 and 24 fail to learn the to correctly classify user inputs. \\
 The same data can be viewed as a plot of false acceptance rate vs false rejection rate. 
-Figure \ref{fig:frr_vs_far_all_models_base} helps to ilustrate this difference. The models mentioned above perform poorly and can clearly differ from the rest. 
-\myworries{More discussion}
+Figure \ref{fig:frr_vs_far_all_models_base} helps to illustrate this difference. 
 
 \begin{figure}[H]
 	\centering
-	
-	\includegraphics[width=\textwidth]{images/far_vs_frr.pdf} % Replace 'example.pdf' with your PDF file name
+	\includegraphics[width=\textwidth]{images/far_vs_frr.pdf} 	
 	\caption{False acceptance rate vs False rejection rate.}
 	\label{fig:frr_vs_far_all_models_base}
 \end{figure}
 
-\subsubsection{Confusion matrix for all users}
-To evaluate the each model's perofrance, every model was tested on the input of every user. The results of this test are shown in figure \ref{fig:all_models_5_len40}. The values in this matrix represent the procentage of examples classified as positive. It is important to note that the values in this matrix have a diffrent intepretation depending on their position. The values on the diagonal represent the procentage of correctly classified positive example (True Positives) -- the recall of the model. For an ideal classifier these values would equal 100. The values outside the diagonal represent the procentage of incorrectly classied negative examples (False Positves). For an ideal classifier these values would equal 0.
+Figure \ref{fig:frr_vs_far_all_models_base} demonstrates the large discrepancy between the models. A the same threshold level of some models were able to achieve a FAR and FRR score of below 10\%, while other failed to recognize over half of examples in the positive class. \\
+This first group comprises of models for users 86, 62, 82, 25, 26 and 61. These models were able to learn and generalize well to the test dataset.
+The other major group of models where those with an unacceptably high FAR of over 45\% and an below average FAR score. These would include models for users 81, 24, 60, 40 and 23. Other models have varying performance and are hard to categorize into coherent groups.\\
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{images/all_models_5_len40.pdf} % Replace 'example.pdf' with your PDF file name
-	\caption{Matrix showing the procentage of examples classief as positive for all model--user pairs.}
-	\label{fig:all_models_5_len40}
-\end{figure}
-
-\myworries{TODO: discuss, possibly with the help of someone else.}
-
-\subsubsection{Equal Error Rate}
-We chose to report two diffrent ways to calcualte the equal error rate. To calculate this metric, the decision treshold needs to be adjusted, which can be done globally, for all models or at a per model level. 
+\subsection{Equal Error Rate}
+To calculate the equal error rate, the decision threshold needs to be adjusted, which can be done globally, for all models or at a per model level. We chose to report both ways to calculate this metric. 
 
 The global EER, was calculated to compare the performance of the collection of models to other methods as a whole.
 \begin{itemize}
 	\item[] Equal Error Rate: 0.157
 	\item[] Threshold: 0.20
 \end{itemize}
-A very low for the decision threshold was neccessary to achive an equal error rate. This suggest that most of the models are rejecting too many positive, and also negative, examples.
+A low value of the decision threshold was necessary to achieve an equal error rate. This suggest that most of the models are unable to recognize positive examples with a high degree on confidence.
 
 
 The per model EER was calculated by finding equal error rate decision threshold for each model separately. The results are shown in table \ref{table:EER_separate}.
-
 \begin{center}
 	\begin{table}[H]
 		\begin{center}
@@ -186,19 +172,41 @@ The per model EER was calculated by finding equal error rate decision threshold 
 	\end{table}
 \end{center}
 
-\myworries{TODO: the models that do well do VERY well. Some models perform very badly here, well on the FAR vs FRR graph}.
+Table \ref{table:EER_separate} illustrates the difference in the ability of the models to generalize to unseen positive examples. This can be seen further by examining the change of FAR and FRR score with respect to the decision threshold, which is show in figure \ref{fig:far_ffr_all_thresholds}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/far_frr_curves_all_models_subplots.pdf} % Replace 'example.pdf' with your PDF file name
+	\caption{Change of FAR and FRR score with respect to decision threshold.}
+	\label{fig:far_ffr_all_thresholds}
+\end{figure}
+
+The above plots show the relationship between FAR, FRR and the decision threshold in more detail. The point at which the two lines cross is the EER. Worth noting is the large variation in the threshold at with EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of the positive class. \\
+An interesting examples is that of model 21, for which the FRR is almost constant, at a value of around 12\%. This indicates that all examples are recognized with a high degree of confidence, except those 12\%, which could indicate that the user changes writing styles for part of the final input or that the training data failed to capture some characteristic of the writing style.
+
+\subsection{Confusion matrix for all users}
+To evaluate the each model's performance, every model was tested on the input of every user. The results of this test are shown in figure \ref{fig:all_models_5_len40}. The values in this matrix represent the percentage of examples classified as positive. It is important to note that the values in this matrix have a different interpretation depending on their position. The values on the diagonal represent the percentage of correctly classified positive example (True Positives) -- the recall of the model. For an ideal classifier these values would equal 100. The values outside the diagonal represent the percentage of incorrectly classified negative examples (False Positives). For an ideal classifier these values would equal 0.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{images/all_models_5_len40.pdf} % Replace 'example.pdf' with your PDF file name
+	\caption{Matrix showing the percentage of examples classified as positive for all model--user pairs.}
+	\label{fig:all_models_5_len40}
+\end{figure}
+
+\myworries{TODO: discuss, possibly with the help of someone else.}
 
 
 \section{Input features}
-This section will compare the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per model EER value. The impact of these changes were mesaused by changing only one hyperparameters, while all others remaind the same as shown in table \ref{table:hyperparams}.
+This section will compare the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per model EER value. The impact of these changes were measured by changing only one hyperparameters, while all others remain the same as shown in table \ref{table:hyperparams}.
 
-\subsection{Input sequance lenght}
+\subsection{Input sequence length}
 
 \subsection{Character encoding}
 \myworries{In tests right now}
 
 
-\subsection{Egde data encoding}
+\subsection{Edge data encoding}
 
 \begin{center}
 	\begin{table}[H]
@@ -213,23 +221,24 @@ This section will compare the impact of input encodings on the final model perfo
 				\hline
 			\end{tabular}
 		\end{center}
-		\caption{Comparison of performace with diffrent egde data encoding methods.}
+		\caption{Comparison of performance with different edge data encoding methods.}
 		\label{table:egde_encoding_comp}
 	\end{table}
 \end{center}
 
-Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average far remains comparable, frr, and thus the err, differ by a large amount. This might be cause by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two letter combinations and failes to generalise.
+Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average far remains comparable, frr, and thus the err, differ by a large amount. This might be cause by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two letter combinations and failed to generalize.
 
 \subsection{Accelerometer Data}
-TLDR doesnt work, comparison for 2 users only - best performing on normal input
-Short discussion
+As was mentioned in subsection \ref{accel_subsection}, accelerometer data was collected alongside keystroke information. While the use of accelerometer data lead to modes that quickly achieved low loss on the training data, these results did not generalize to validation and test data. An example of an increase in generalization error for user \myworries{TODOO} is shown below.
 
 \section{Training and model hyperparameters}
-\myworries{What goes here ?}
+This section discusses the impact model size and the training process.
 
 \subsection{Class imbalance}
-Another point of experimentation was class balance in the training data. The baseline model was trained on a dataset with two times more positive examples than negative examples. The negative examples were sampled uniformly from all other users, with an offset such that the negative examples for some user were taken from the whole input text. This works for the number of users in the dataset. However, as the number of users grows, and the lenght of input sequence stays fixed, at some point each model needs to be trained only on a subset of the negative class input texts. At that point some models could fail to generalize to unseen negative examples. 
-A bigger proportion of possive examples was chosen experimentaly, as it resulted in models that perform better at recognising the positive class.
+Another point of experimentation was class balance in the training data. The baseline model was trained on a dataset with two times more positive examples than negative examples. A bigger proportion of positive examples was chosen experimentally, as it resulted in models that perform better at recognizing the positive class. \\ 
+The negative examples were sampled uniformly from all other users, with an offset such that the negative examples for some user were taken from the whole input text. This works for the number of users in the dataset. However, as the number of users grows, and the length of input sequence stays fixed, at some point each model needs to be trained only on a subset of the negative class input texts. At that point some models could fail to generalize to unseen negative examples. 
+While solving such problem lies outside the scope of this project, the impact of using more negative examples in the training process was measured and the results are presented in table \ref{table:egde_encoding_comp}.
+
 
 \begin{center}
 	\begin{table}[H]
@@ -251,21 +260,13 @@ A bigger proportion of possive examples was chosen experimentaly, as it resulted
 	\end{table}
 \end{center}
 
-While a higher procentage of negative examples were classfied correctly, as indicated by the lower FAR, this comes at the expense of a large drop in the FRR score, to almost half of positive examples being dropped in the case of \textit{1:2} class balance. This means that the collection of models generalised poorly to unseen positive examples, to a degree that would be unacceptable. This can also be seen when comparing the average recall scores across these two collections of models, which droped from \textit{0.7357} to \textit{0.692} and \textit{0.494} when the number of negative examples were doubled. 
-\myworries{Cite something, the one i want is paywalled by MIT}
- 
-However, we also tested training the models with a diffrent positive to negative class ration.
-This was motivated by the fact that some models failed to properly recoginise the positive class, 
+At higher percentage of negative examples were classified correctly, as indicated by the lower FAR, this comes at the expense of a large drop in the FRR score, to almost half of positive examples being dropped in the case of \textit{1:2} class balance. This means that the collection of models generalized poorly to unseen positive examples, to a degree that would be unacceptable. This can also be seen when comparing the average recall scores across these two collections of models, which dropped from \textit{0.7357} to \textit{0.692} and \textit{0.494} when the number of negative examples were doubled. 
+\myworries{TODO: some citation would be nice}
 
-
-\myworries{Discuss how positive/negative example ratio had an impact on precission/recall. Maybe note that neg examples were sampled with an offset}
 
 \subsection{Model size}
 \myworries{Num of conv layer, layer size etc bigger wasnt better}
 
-
-\section{Testing model on users}
-\myworries{TODO ale chyba nie dla mnie (IW) }
 
 \subsection{TODO title}
 \myworries{ TODO: What if we did classify the user on all their input (100 chars). Results would be a n users by n users matrix of 1's and 0's}\\
