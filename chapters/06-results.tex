@@ -1,17 +1,16 @@
-
 \chapter{Results}
 This chapter is dedicated to the results of model testing on users, as well as the impact of features and hyperparameter choices on its performance. 
 
 \section{Model Performance on User Data}
-\myworries{Name this section some other way -- this is the best solution and its perf}
+This section focuses on the results of testing the collection of models that were found to have the best performance during validation. Its aim is to show the how this solution performs on the unseen test dataset as well as highlight the lagre differenes between individual models within the collection of models.
 
 \subsection{Methodology}
 The results below were calculated as an average of each models performance on a sequence of characters equal to the length on which the model was trained.
 This means that were tested with input of different lengths than others. 
 While it was possible to compare scores based on an equal input length,
-it would require the setting another threshold, on how many of the input subsequences need to be classified positively for the whole sequence to be classified as positive. 
+it would require the setting another threshold, of how many of the input subsequences need to be classified positively for the whole sequence to be classified as positive. 
 Such threshold was chosen for the application, as it is necessary for end user authentication, however, adding another parameter to these results would only make them less interpretable.\\
-The results that are shown below were collected with the combination of hyperparameters shown in table \ref{table:hyperparams}, which resulted in the best performance during model validation. The impact of each choice of hyperparameter is discussed separately in dedicated subsections. It is important to note that due to the large amount of possible configurations, as well as the limited computing power that was accessible, not all combinations were tested.
+The results that are shown below were collected with the combination of hyperparameters shown in table \ref{table:hyperparams}, which resulted in the best performance during model validation. The impact of each choice of hyperparameter is discussed separately in dedicated subsections and compared using the testing provided by users. It is important to note that due to the large amount of possible configurations, as well as the limited computing power that was accessible, not all combinations were tested.
 
 \begin{center}
 	\begin{table}[H]
@@ -25,7 +24,7 @@ The results that are shown below were collected with the combination of hyperpar
 		\hline
 		Edge encoding method & \textit{Two values per node} \\		
 		\hline 
-		Character encoding method & \textit{Base letter representation} \\		 
+		Character encoding method & \textit{Normalized Base Letter Encoding} \\		 
 		\hline
 		Decision threshold & \textit{0.8} \\
 		\hline
@@ -95,8 +94,7 @@ The below table presents the false authentication rate and false acceptance rate
 \end{table}
 \end{center}
 
-The same data can be viewed as a plot of false acceptance rate vs false rejection rate. 
-Figure \ref{fig:frr_vs_far_all_models_base} helps to illustrate this difference. 
+The same data can be viewed as a plot of false acceptance rate vs false rejection rate, shown in figure \ref{fig:frr_vs_far_all_models_base}. 
 
 \begin{figure}[H]
 	\centering
@@ -109,7 +107,7 @@ Figure \ref{fig:frr_vs_far_all_models_base} demonstrates the large discrepancy b
 This first group comprises of models for users 86, 62, 82, 25, 26 and 61. These models were able to learn and generalize well to the test dataset.
 The other major group of models were those with an unacceptably high FAR of over 45\% and an below average FAR score. These would include models for users 81, 24, 60, 40 and 23. The reason for such high FAR could be twofold, either the models simply failed to generalize to unseen positive example, or they did, but at a lower confidence level than the established threshold. Other models have varying performance and are hard to categorize into coherent groups.
 
-\subsection{Equal Error Rate}
+\subsection{Equal Error Rate} \label{subsec_eer}
 To calculate the equal error rate, the decision threshold needs to be adjusted, which can be done globally, for all models or at a per model level. We chose to report both ways to calculate this metric. 
 
 The global EER was calculated to illustrate the performance of the whole collection using one value.
@@ -183,7 +181,7 @@ Table \ref{table:EER_separate} illustrates the difference in the ability of the 
 	\label{fig:far_ffr_all_thresholds}
 \end{figure}
 
-The above plots show the relationship between FAR, FRR and the decision threshold in more detail. The point at which the two lines cross is the EER. Worth noting is the large variation in the threshold at with EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of the positive class. It can be notices that these models have a lower EER than models with lower threshold values. The table, sorted by EER is given below.
+These plots shows the relationship between FAR, FRR and the decision threshold in more detail. The point at which the two lines cross is the EER. Worth noting is the large variation in the threshold at with EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of the positive class. It can be notices that these models have a lower EER than models with lower threshold values. The table, sorted by EER is given below.
 
 \begin{center}
 	\begin{table}[H]
@@ -235,8 +233,7 @@ The above plots show the relationship between FAR, FRR and the decision threshol
 \end{center}
 
 A outlier in this trend is model 41, which achieves an equal error rate of 8.1\% at a 0.35 decision threshold, outperforming models with much higher decision thresholds. Outliers like this suggest, that a better approach than choosing one decision threshold could be to determine them on a per model basis. Such threshold could be chosen once, on some portion of the user training data through cross--validation, although such approach would lengthen the training process. Alternatively such value could be adjusted dynamically, based on how often a user fails to be authenticated using the model. Such considerations could be an area of further research as they fall outside the scope of this project.\\
-Additionally, because a global decision forces poor performance on otherwise well performing models, we believe that the average per model EER is a better metric to use than the global EER and will as such it will be used in the rest of this chapter.
-
+Additionally, because a global decision forces poor performance on otherwise well performing models, we believe that the average per model EER is a better metric to use than the global EER and will as such it will be used in the rest of this chapter.\\
 Another interesting examples is that of model 21, for which the FRR is almost constant, at a value of around 12\%. This indicates that all examples are recognized with a high degree of confidence, except those 12\%, which could indicate that the user changes writing styles for part of the final input or that the training data failed to capture some characteristic of the writing style.
 
 \subsection{Confusion matrix for all users}
@@ -253,12 +250,80 @@ To evaluate the each model's performance, every model was tested on the input of
 
 
 \section{Input features}
-This section will compare the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per model EER value. The impact of these changes were measured by changing only one hyperparameters, while all others remain the same as shown in table \ref{table:hyperparams}.
+This section will compare the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per model EER value. The impact of these changes were measured by changing only one hyperparameters, while all others remain the same as shown in table \ref{table:hyperparams}. The results shown below compare performance on the testing dataset, so that these values can be contrasted with what was discussed in the previous section. As was mentioned previously, this is not how these features were selected.
 
 \subsection{Input sequence length}
+The theoretical impact of input length, discussed in the section on graph creation, would suggest that there exists an optimal sequence length. Making the sequence shorter would result in graphs that do not have enough structure, for example a chain of nodes, or edge data to make the correct prediction possible. Make the sequence longer would result in graph that is too dense or cause the averages calculated per node to become too aggregated.\\
+
+
+\begin{center}
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular}{ |c|c|c|c| } 
+				\hline
+				Input sequence length & FAR & FRR & EER \\
+				\hline
+				30 & 0.101 & 0.332 & 0.180 \\
+				\hline
+				40 & 0.092 & 0.264 & 0.133 \\
+				\hline
+				50 & 0.098 & 0.232 & 0.135 \\
+				\hline
+				60 & 0.079 & 0.307 & 0.158 \\
+				\hline
+				70 & 0.083 & 0.391 & 0.176 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\caption{Comparison of performance with different lengths of input sequence.}
+		\label{table:len_vs_perf}
+	\end{table}
+\end{center}
+
+
+Table \ref{table:len_vs_perf} does partly support the theoretical expectation, as models trained on input sequences of length 30, 60 and 70 achieve much higher EER scores than those trained with lengths of 40 and 50. There is a very small difference in the way these collections of models perform on these aggregated metrics. 
+With the difference in the EER scores being this low, it is unclear which collection of models performed better on testing dataset.
+However, interesting differences appear when comparing on a per model basis, as the changes in models were not uniform. The impact of 3 selected models is shown in figure \ref{fig:selected_frr_vs_far}. 
+
+\begin{figure}[H]
+	\centering
+	\subfloat[Plots for input of length 40]{
+		\includegraphics[width=\textwidth]{images/selected_far_vs_frr_len40.pdf}
+	}
+
+	\subfloat[Plots for input of length 50]{
+		\includegraphics[width=\textwidth]{images/selected_far_vs_frr_len50.pdf}
+	}
+	\caption{Comparison of selected FAR and FRR plots for different input lengths}%
+	\label{fig:selected_frr_vs_far}%
+\end{figure}
+
+The model for user 21 shows a clear improvement as the unrecognized examples discussed in subsection \ref{subsec_eer} are now correctly classified. Conversely, the model for user 26 now classifies its positive examples with less confidence and showed an increase for an EER of 5.9\% to 10.2\%. For model 85 the change in length did not impact the EER, however it moved the decision threshold significantly.\\
+What these comparison demonstrate is that it is hard to reason about model performance across different input sequence lengths and small change has a large impact even on a per model bases.
 
 \subsection{Character encoding}
-\myworries{In tests right now}
+The results of comparing methods of character information in nodes are shown in table
+\ref{table:char_encoding}.
+
+\begin{center}
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular}{ |c|c|c|c| } 
+				\hline
+				Character encoding method & FAR & FRR & EER \\
+				\hline
+				\textit{Normalized Base Letter Encoding} & 0.092 & 0.264 & 0.133 \\
+				\hline
+				\textit{Compact Alphabet Encoding} & -- & -- & -- \\
+				\hline
+				\textit{Full One-Hot Encoding} & 0.070 & 0.397 & 0.1973 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\caption{Comparison of performance with different edge data encoding methods.}
+		\label{table:char_encoding}
+	\end{table}
+\end{center}
 
 
 \subsection{Edge data encoding}

@@ -8,12 +8,12 @@ The architecture used in this project is pictured in figure \ref{fig:model_arch}
 	\begin{tikzpicture}[node distance=1.5cm]
 		
 		% Nodes
-		\node (preff) [process] {Full Connected + ReLu};
+		\node (preff) [process] {Fully Connected + ReLu};
 		\node (gcn) [process, below of=preff] {GCNConv + ReLU \\ x2};
 		\node (pooling) [process, below of=gcn] {Global Mean Pooling};
-		\node (linear1) [process, below of=pooling] {Full Connected + ReLu};
+		\node (linear1) [process, below of=pooling] {Fully Connected + ReLu};
 		\node (dropout) [process, below of=linear1] {Dropout};
-		\node (linear2) [process, below of=dropout] {Full Connected + Sigmoid};
+		\node (linear2) [process, below of=dropout] {Fully Connected + Sigmoid};
 		
 	% Background Layers
 	\begin{pgfonlayer}{background}
