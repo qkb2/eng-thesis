@@ -43,9 +43,12 @@ As this project focuses on recognizing users of the Polish language, the charact
 Similarly, there is more than one way to encode key information into node features.
 We considered three methods, all being variations on a one-hot encoding of keys:
 \begin{enumerate}
-	\item Classic one-hot representation. Each unique cased character is mapped to different column in the vector, except for characters in the \textit{Others} group, which map to one extra column.
-	\item Small alphabet representation. One hot encoding for cased \textit{Letters} and \textit{Special characters}. \textit{Numbers} map to one column in the vector, \textit{Symbols} and \textit{Others} map to one column in the vector.
-	\item Base letter representation. All \textit{Letters} are converted to lower case, diacritical marks are removed. These transformed letters are encoded in a one-hot vector. \textit{Numbers} map to one column in the vector, \textit{Symbols} and \textit{Others} map to one column in the vector. Two additional columns are added to the input, one indicates whether the original character was a capitalized letter, the second whether it had a diacritical mark.
+	\item Full One-Hot Encoding. Each unique cased character is mapped to different column in the vector, except for characters in the \textit{Others} group, which map to one extra column.\\
+	\item Compact Alphabet Encoding. A more compact version of the \textit{Full One-Hot Encoding}. \textit{Numbers} are grouped and map to one column in the vector.
+	One hot encoding for cased \textit{Letters} and \textit{Special characters}.
+	\textit{Symbols} and \textit{Others} are grouped together and map to one column in the vector.\\
+	\item Normalized Base Letter Encoding. \textit{Letters} are simplified by converting them to lowercase and removing diacritical marks. These transformed letters are encoded in a one-hot vector. \textit{Numbers}, \textit{Symbols} and 
+	\textit{Numbers} map to one column in the vector, \textit{Symbols} and \textit{Others} are mapped the same way as in the \textit{Compact Alphabet Encoding}. Tow additional columns are added to indicate whether the original character was capitalized and if it had a diacritical mark.
 \end{enumerate}
 
 
