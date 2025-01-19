@@ -82,7 +82,7 @@ The application design follows a minimalistic approach to make it intuitive and 
 	To ensure that typing is done in the most natural way, the default android keyboard is used. 
 	\item 
 	\texttt{Testing Screen} \ref{fig:testing_screen} \newline
-	The testing screen includes \texttt{TextInput} field for typing the test input, a \texttt{Button} that sends the input to the server and stores it locally, and \texttt{Text} indicators showing how many characters need to be written (in this case, 100). After fulfilling the requirements, the user sends their input to the server, followed by the presentation of the recognition rate percentage on a circular progress bar and a message indicating whether the model recognised the user or not. 
+	The testing screen includes \texttt{TextInput} field for typing the test input, a \texttt{Button} that sends the input to the server and stores it locally, and \texttt{Text} indicators showing how many characters need to be written (in this case, 100). After fulfilling the requirements, the user sends their input to the server, which evaluates it against the trained model. The server then returns feedback and the user is presented with a recognition rate percentage on a circular progress bar and a message indicating whether the model recognised them or not \ref{fig:testing_screen_example}. 
 \end{itemize}
 
 
@@ -112,6 +112,13 @@ The application design follows a minimalistic approach to make it intuitive and 
 	\includegraphics[width=0.32\linewidth]{images/testing_screen.png}
 	\caption{Testing screen}
 	\label{fig:testing_screen}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.32\linewidth]{images/testing_screen_example.png}
+	\caption{Testing screen example}
+	\label{fig:testing_screen_example}
 \end{figure}
 
 \subsection{Data Collection Process}
@@ -146,7 +153,7 @@ This function ensures that after each phase of training and testing, the data is
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{images/data_example.png}
+	\includegraphics[width=0.8\linewidth]{images/data_example.png}
 	\caption{An example of the \texttt{.tsv} file containing saved data.}
 	\label{fig:tsv_example}
 \end{figure}
@@ -200,10 +207,6 @@ The application communicates with the server using an HTTPS connection.
 \end{itemize}
 
 
-\subsection{Testing screen}
-
-Testing screen... \myworries{TODO Add screenshot and write sth about testing the model, how the \% work and so on}
-
 \subsection{Potential uses}
-The application analysing the typing habits of users (keystroke dynamics) has a wide range of applications in a various fields, providing an additional layer of security. It could be used to verify a user's identity in online banking or for continuous identity checks during sessions in corporate environments. Keystroke dynamics has potential to become a successful and user-friendly security measure.
+The application analysing the typing habits of users (keystroke dynamics) has a wide range of applications in a various fields, providing an additional layer of security. It could for example be used to verify user's identity in online banking or for continuous identity checks during sessions in corporate environments. Keystroke dynamics has potential to become a successful and user-friendly security measure.
 
