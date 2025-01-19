@@ -1,7 +1,7 @@
 
 \chapter{Introduction}
 
-Biometric data is a widely used -- especially on mobile devices -- for user authentication. It is also used for person recognition. As of 2020, majority of smartphones had biometric sensors, such as fingerprint readers\cite{statista_biometric_phones_2025}. Many computers can also provide biometric authentication via face recognition, if connected to a web camera, e.g. via Windows Hello on Windows 10 or 11 \cite{microsoft_windows_hello_2025}. These are, however, not the only possible recognition or authentication methods that use biometric data.
+Biometric data is a widely used -- especially on mobile devices -- for user authentication. It is also used for person recognition. As of 2020, majority of smartphones had biometric sensors, such as fingerprint readers \cite{statista_biometric_phones_2025}. Many computers can also provide biometric authentication via face recognition, if connected to a web camera, e.g. via Windows Hello on Windows 10 or 11 \cite{microsoft_windows_hello_2025}. These are, however, not the only possible recognition or authentication methods that use biometric data.
 
 The project aimed to develop a model, along with a corresponding mobile app, capable of recognizing the user by their biometric data contained mostly within the keystroke data. The users in the study, which was a part of the project, provided their data by entering long stretches of text as testing data. Models were created for each user, with the standard model testing procedures and validations. A subgroup of the study participants was also asked to verify the model in real-life testing by writing short paragraphs in the application, which were sent to the server for user verification.
 
@@ -10,19 +10,20 @@ The scope of the work was to create a mobile application capable of gathering th
 The sources used in this thesis mostly concerned the two following groups: studies of keystroke data models and their effectiveness and the specialist literature on the topic of Graph Neural Networks.
 
 The thesis has the following structure:
-Chapter 2 consists of some theory concerning biometrics, especially in the context of user input data, with a small literature review about using biometrics for user recognition.
-Chapter 3 contains basic theoretics about Graph Convolutional Networks, which are used for user recognition in the model created for the project.
-Chapter 4 is a brief overview of the project, explaining its components and the relationships between them. It includes the following sections:
-Section 4.1 consists of the description of the server.
-Section 4.2 describes the mobile application used for user data collection and model validation.
-Section 4.3 contains a description of the Neural Network model used for user recognition, complete with the hyperparameters used in model training and validation.
-Section 4.4 describes the feature selection used for a model.
-Section 4.5 discusses the metrics used in the model testing on data gathered from users and the testing results.
-Section 4.6 concerns the user testing with the help of study participants and the study results.
-Chapter 5 is a conclusion to the thesis.
+\begin{itemize}
+    \item Chapter 2 consists of some theory concerning biometrics, especially in the context of user input data, with a small literature review about using biometrics for user recognition.
+    \item Chapter 3 contains basic theoretics about Graph Convolutional Networks, which are used for user recognition in the model created for the project.
+    \item Chapter 4 is an overview of the project, explaining its components and the relationships between them. It contains subchapters about project use cases, server architecture and mobile application architecture.
+    \item Chapter 5 is concerned with the Neural Network model, its design and feature engineering.
+    \item Chapter 6 contains results of the study conducted on the users, with subchapter dedicated to discussing the findings.
+    \item Chapter 7 is a brief conclusion to the thesis.
+\end{itemize}
+
 
 Work on this project was divided as follows:
-Jakub Grabowski created the mobile application, set up and coordinated the project, and researched biometrics for his thesis paper.
-Filip Kozłowski created the server and integrated the GNN model with it. He also planned and implemented communication between the server and the application.
-Krzysztof Matyla helped in creating the mobile application, provided testing for various parts of the project, and coordinated user testing.
-Igor Warszawski planned and implemented the GNN model used on the server. He also tested and validated the results, together with Filip Kozłowski.
+\begin{itemize}
+    \item Jakub Grabowski created the mobile application, set up and coordinated the project, and researched biometrics for the thesis paper. He wrote chapters 1, 2, 7 and parts of chapter 3 and 6.
+    \item Filip Kozłowski created the server and integrated the GNN model with it. He also planned and implemented communication between the server and the application. He wrote parts of chapter 3, 4 and 6. 
+    \item Krzysztof Matyla helped in creating the mobile application interface, provided testing for various parts of the project, and coordinated user testing. He wrote most of chapter 4.
+    \item Igor Warszawski planned and implemented the GNN model used on the server. He also tested and validated the results, together with Filip Kozłowski. He wrote chapter 5 and parts of chapter 3 and 6.
+\end{itemize}
