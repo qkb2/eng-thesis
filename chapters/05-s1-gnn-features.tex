@@ -1,24 +1,34 @@
 
 \section{Choosing features for Neural Network model}
-\myworries{TODO Some introdutions}
+A major part of this project was dedicated to finding the correct way to represent the collected user data in the form of a graph. The most intersting of these representations are discussed in this section.
 
-
-\subsection{Data exploration}
-\myworries{All data analysis on the input goes here}
 
 \subsection{Graph creation and feature encoding}
 The input for graph creation consists of two main parts, the duration of time between individual key presses, and the character of the key that was pressed.
 A natural way to represent such input was to map each unique character in the input sequence to a node in the graph. 
-Directed edges were added between nodes that represent characters appearing after each other in the input sequence. 
-\myworries{TODO: add example graph visualization here}
+Directed edges were added between nodes that represent characters appearing after each other in the input sequence. \\
 Each time the same pair of characters appears in the input text, it maps to the same edge. For each such pair, the duration is added to a list of attributes for that edge, which will be aggregated in later stages, to a form suitable for the GCN model. It would also be possible to model such pairs using a multiedge graph, as such models have been shown to perform well in other domains \myworries{TODO zacytuj "multi-edge graph for convolutional networks for power systems}. However, we did not consider this approach. 
 
+A simple visualization of such graph, created from the input text: "Cat and dog and .", with arbitrary keystroke durations, is shown in figure \ref{fig:example_graph}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.65\textwidth]{images/graph_with_edge.png} 	
+	\caption{Graph for the sequence "Cat and dog and ."}
+	\label{fig:example_graph}
+\end{figure}
 
 
-\myworries{TODO maybe visualization}
-The structure of the resulting graph depends highly on the length of the input sequence. A shorter sequence produces smaller and sparser graphs, while a longer input sequences result in graphs with more nodes and edges. 
+The structure of the resulting graph depends highly on the length of the input sequence. A shorter sequence produces smaller and sparser graphs, while a longer input sequences result in graphs with more nodes and edges. An example taken from the training data set is shown below, one with 40 characters, the other with 70. Edge weights were omitted for claity.
 
-\myworries{Citation needed - some RNN paper that sequences of keys are important (something in Lu 2020?)}\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.45\textwidth]{images/len40_graph_other_layout.png}
+	\includegraphics[width=0.45\textwidth]{images/len70_graph_other_layout.png}
+	\caption{Comparison graphs constructed with diffrent input sequence lenghts.}%
+	\label{fig:multiple graphs}%
+\end{figure}
+
 
 \subsection{Edge attributes encoding}
 In order for the graph to be a valid input for a GCN network, edge attributes need to be converted into node features. We found two ways to encode aggregate this information into node features.\\  
@@ -44,29 +54,24 @@ Similarly, there is more than one way to encode key information into node featur
 We considered three methods, all being variations on a one-hot encoding of keys:
 \begin{enumerate}
 	\item Full One-Hot Encoding. Each unique cased character is mapped to different column in the vector, except for characters in the \textit{Others} group, which map to one extra column.\\
-	\item Compact Alphabet Encoding. A more compact version of the \textit{Full One-Hot Encoding}. \textit{Numbers} are grouped and map to one column in the vector.
-	One hot encoding for cased \textit{Letters} and \textit{Special characters}.
-	\textit{Symbols} and \textit{Others} are grouped together and map to one column in the vector.\\
-	\item Normalized Base Letter Encoding. \textit{Letters} are simplified by converting them to lowercase and removing diacritical marks. These transformed letters are encoded in a one-hot vector. \textit{Numbers}, \textit{Symbols} and 
-	\textit{Numbers} map to one column in the vector, \textit{Symbols} and \textit{Others} are mapped the same way as in the \textit{Compact Alphabet Encoding}. Tow additional columns are added to indicate whether the original character was capitalized and if it had a diacritical mark.
+	\item Compact Alphabet Encoding. A more compact version of the \textit{Full One-Hot Encoding}. One hot encoding is used for cased \textit{Letters} and \textit{Special characters}. \textit{Numbers} are grouped and map to one column in the vector.
+	\textit{Symbols} and \textit{Others} are grouped together and map to another column in the vector.\\
+	\item Normalized Base Letter Encoding. \textit{Letters} are simplified by converting them to lowercase and removing diacritical marks. These transformed letters are encoded in a one-hot vector. \textit{Numbers} map to one column in the vector, \textit{Symbols} and \textit{Others} are mapped the same way as in the \textit{Compact Alphabet Encoding}. Two additional columns are added to indicate whether the original character was capitalized and if it had a diacritical mark.
 \end{enumerate}
 
 
-\myworries{Citation needed: That paper that said node ids are nice}.
-Again as before, these methods differ by degree of aggregation. Methods $2$ and $3$ group certain letters together, mapping multiple characters to the same values, while method $1$ provides a unique, one hot encoded identifier for each node. \myworries{Cication} found that such node identifiers helped the model to learn certain structures in the data. However, \myworries{Slajdy z stanfordu ze tylko jak jest ograniczona liczba liter} notes, that providing node identifiers as input features work well only for a small and known set of possible input nodes. While this requirement appears to hold true for this specific task, we found this is not the case. Many letters, which appear to be common, in fact do not appear in our dataset. \myworries{TODO Which chars never appear}. This means that the behavior of the models would be unpredictable for nodes with such identifiers.
-Some characters, for example \myworries{EXMAPLEEEE like '('}, appear only once, leading models to overfit and generalize poorly.
-Method $3$ was specifically designed to deal with the low number of appearances of certain characters, especially uppercase letters. However, the extra column still allows for distinguishing between lower and uppercase variants of the same letter, which is important as the time to input these symbol differs greatly. \myworries{Avg time for uppercase and lowercase letters}
-Moreover, method $3$ directly exposes the use of diacritical marks, which, similarly to uppercase letter, take longer to input \myworries{Gimme DATAAAAA}. 
-\myworries{Ładne zdanie które mówi wooow, diacritical marks are nice in polish, maybe data}
-
-\myworries{ADD histogram of how many times each character appears}\\
-\myworries{ADD Which chars never appear}
+Again as before, these methods differ by degree of aggregation. Methods $2$ and $3$ group certain letters together, mapping multiple characters to the same values, while method $1$ provides a unique, one hot encoded identifier for each node. You, Gomes-Selman and Ying \cite{you2021identityawaregraphneuralnetworks}
+found that such node identifiers helped the model to learn certain structures in the data. However, providing node identifiers as input features work well only for a small and known set of possible input nodes \cite{Lesk2024}. While this requirement appears to hold true for this specific task, we found this is not the case. 
+Many letters, which appear to be common, are in fact infrequent in our dataset. This is especially the case with capitalised letters. For example the letter \textit{'f'} appears 134 times, whereas \textit{'F'} only 6 times. This is even more true for symbols, many of which appear only once in the entire dataset, these being: \textit{'\{'}, \textit{'\%'}, \textit{'*'}, \textit{':'} and \textit{'\#'}.
+This means that the behavior of the models would be unpredictable for nodes with such identifiers.\\
+Method $2$ addresses the problem in the case of symbols and numbers. It does not, however help with processing infrequent capitalized directics. For example, \textit{'l'} appears 875 times, \textit{"ł"} 138 times, \textit{"L"} 10 times and \textit{"Ł"} only twice. With such low number of occurances it is unlikely that the models could learn the relationship between these letters. \\
+Method $3$ was specifically designed to deal with this problem, which is achieved by grouping them together. The extra columns still allows for distinguishing between varaints of the same letter, which is important as the time to input these symbol differs greatly. 
+\myworries{TODO KM: Avg time for uppercase and lowercase letters and diacriticals}
+Moreover, method $3$ directly exposes the use of diacritical marks and uppercase letters as features, which, in theory, could allow the model to learn the impact of these feartures independently of the base letters. 
 
 
 \subsection{Feature selection -- accelerometer data} \label{accel_subsection}
 To improve the possible performance of the model, and to make further use of the capabilities of the mobile platform, we considered using accelerometer data as an input feature for the model. \myworries{Cite someone that uses accel data and does well}
 This portion of the input data comprised of three values, a measurement of the acceleration in the x, y and z plane at the moment a keystroke was registered. 
 These values were aggregated as an average for each node. Although these models performed well during training, quickly reaching low loss values, they failed to generalize, performing worse on validation and test datasets. For this reason, accelerometer data was not used for training and evaluating models discussed later.
-
-
 

@@ -1,4 +1,3 @@
-
 \chapter{Results}
 This chapter is dedicated to the results of model testing on users, as well as the impact of features and hyperparameter choices on its performance. 
 
@@ -182,7 +181,7 @@ Table \ref{table:EER_separate} illustrates the difference in the ability of the 
 	\label{fig:far_ffr_all_thresholds}
 \end{figure}
 
-The above plots show the relationship between FAR, FRR and the decision threshold in more detail. The point at which the two lines cross is the EER. Worth noting is the large variation in the threshold at with EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of the positive class. It can be notices that these models have a lower EER than models with lower threshold values. The table, sorted by EER is given below.
+These plots shows the relationship between FAR, FRR and the decision threshold in more detail. The point at which the two lines cross is the EER. Worth noting is the large variation in the threshold at with EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of the positive class. It can be notices that these models have a lower EER than models with lower threshold values. The table, sorted by EER is given below.
 
 \begin{center}
 	\begin{table}[H]
@@ -270,7 +269,7 @@ The theoretical impact of input length, discussed in the section on graph creati
 				\hline
 				50 & 0.098 & 0.232 & 0.135 \\
 				\hline
-				60 & -- & -- & 0.158 \\
+				60 & 0.079 & 0.307 & 0.158 \\
 				\hline
 				70 & 0.083 & 0.391 & 0.176 \\
 				\hline
@@ -282,7 +281,7 @@ The theoretical impact of input length, discussed in the section on graph creati
 \end{center}
 
 
-Table \ref{table:len_vs_perf} does partly support the theoretical expectation, as models trained on input sequences of length 30, 60 and 70 perform worse than those trained with lengths of 40 and 50. There is a very small difference in the way these collections of models perform on these aggregated metrics. 
+Table \ref{table:len_vs_perf} does partly support the theoretical expectation, as models trained on input sequences of length 30, 60 and 70 achieve much higher EER scores than those trained with lengths of 40 and 50. There is a very small difference in the way these collections of models perform on these aggregated metrics. 
 With the difference in the EER scores being this low, it is unclear which collection of models performed better on testing dataset.
 However, interesting differences appear when comparing on a per model basis, as the changes in models were not uniform. The impact of 3 selected models is shown in figure \ref{fig:selected_frr_vs_far}. 
 
