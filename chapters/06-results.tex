@@ -2,7 +2,7 @@
 This chapter is dedicated to the results of model testing on users, as well as the impact of features and hyperparameter choices on its performance. 
 
 \section{Model Performance on User Data}
-This section focuses on the results of testing the collection of models that were found to have the best performance during validation. Its aim is to show the how this solution performs on the unseen test dataset as well as highlight the lagre differenes between individual models within the collection of models.
+This section focuses on the results of testing the collection of models that were found to have the best performance during validation. Its aim is to show the how this solution performs on the unseen test dataset as well as highlight the large differences between individual models within the collection of models.
 
 \subsection{Methodology}
 The results below were calculated as an average of each models performance on a sequence of characters equal to the length on which the model was trained.
@@ -10,7 +10,7 @@ This means that were tested with input of different lengths than others.
 While it was possible to compare scores based on an equal input length,
 it would require the setting another threshold, of how many of the input subsequences need to be classified positively for the whole sequence to be classified as positive. 
 Such threshold was chosen for the application, as it is necessary for end user authentication, however, adding another parameter to these results would only make them less interpretable.\\
-The results that are shown below were collected with the combination of hyperparameters shown in table \ref{table:hyperparams}, which resulted in the best performance during model validation. The impact of each choice of hyperparameter is discussed separately in dedicated subsections and compared using the testing provided by users. It is important to note that due to the large amount of possible configurations, as well as the limited computing power that was accessible, not all combinations were tested.
+The results that are shown below were collected with the combination of input features shown in table \ref{table:hyperparams}, which resulted in the best performance during model validation. The impact of each choice of hyperparameter is discussed separately in dedicated subsections and compared using the testing provided by users. It is important to note that due to the large amount of possible configurations, as well as the limited computing power that was accessible, not all combinations were tested.
 
 \begin{center}
 	\begin{table}[H]
@@ -28,13 +28,9 @@ The results that are shown below were collected with the combination of hyperpar
 		\hline
 		Decision threshold & \textit{0.8} \\
 		\hline
-		Convolutional layer size & \textit{64} \\
-		\hline
-		Feed forward layer size & \textit{128} \\
-		\hline
 	\end{tabular}
 \end{center}
-	\caption{Hyperparameter choices}
+	\caption{Input feature choices.}
 	\label{table:hyperparams}
 	\end{table}
 \end{center}
@@ -246,8 +242,7 @@ To evaluate the each model's performance, every model was tested on the input of
 	\label{fig:all_models_5_len40}
 \end{figure}
 
-\myworries{TODO: discuss, possibly with the help of someone else.}
-
+Figure \ref{fig:all_models_5_len40} demonstrates the different errors made by individual models. More precisely, it shows which users share a similarity and therefore cause confusion for the models. For example models for users 25 and 86 perform very well for all inputs except each other. However this is not true for all models, as the model for user 61 makes mistakes when classifying the input for user 82. The inverse is not true, the model for user 82 does not misclassify user 61 data at a higher rate than others.
 
 \section{Input features}
 This section will compare the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per model EER value. The impact of these changes were measured by changing only one hyperparameters, while all others remain the same as shown in table \ref{table:hyperparams}. The results shown below compare performance on the testing dataset, so that these values can be contrasted with what was discussed in the previous section. As was mentioned previously, this is not how these features were selected.
@@ -314,9 +309,9 @@ The results of comparing methods of character information in nodes are shown in 
 				\hline
 				\textit{Normalized Base Letter Encoding} & 0.092 & 0.264 & 0.133 \\
 				\hline
-				\textit{Compact Alphabet Encoding} & -- & -- & -- \\
+				\textit{Compact Alphabet Encoding} & 0.082 & 0.339 & 0.161 \\
 				\hline
-				\textit{Full One-Hot Encoding} & 0.070 & 0.397 & 0.1973 \\
+				\textit{Full One-Hot Encoding} & 0.070 & 0.397 & 0.197 \\
 				\hline
 			\end{tabular}
 		\end{center}
@@ -325,6 +320,7 @@ The results of comparing methods of character information in nodes are shown in 
 	\end{table}
 \end{center}
 
+Table \ref{table:char_encoding} shows the more aggregating methods outperform those with less compact. The lower FAR might suggest that these models try to capture more complex features and thus overfit the data.
 
 \subsection{Edge data encoding}
 
@@ -348,13 +344,11 @@ The results of comparing methods of character information in nodes are shown in 
 
 Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average far remains comparable, frr, and thus the err, differ by a large amount. This might be cause by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two letter combinations and failed to generalize.
 
+
 \subsection{Accelerometer Data}
 As was mentioned in subsection \ref{accel_subsection}, accelerometer data was collected alongside keystroke information. While the use of accelerometer data lead to modes that quickly achieved low loss on the training data, these results did not generalize to validation and test data. An example of an increase in generalization error for user \myworries{TODOO} is shown below.
 
-\section{Training and model hyperparameters}
-This section discusses the impact model size and the training process.
-
-\subsection{Class imbalance}
+\section{Class imbalance}
 Another point of experimentation was class balance in the training data. The baseline model was trained on a dataset with two times more positive examples than negative examples. A bigger proportion of positive examples was chosen experimentally, as it resulted in models that perform better at recognizing the positive class. \\ 
 The negative examples were sampled uniformly from all other users, with an offset such that the negative examples for some user were taken from the whole input text. This works for the number of users in the dataset. However, as the number of users grows, and the length of input sequence stays fixed, at some point each model needs to be trained only on a subset of the negative class input texts. At that point some models could fail to generalize to unseen negative examples. 
 While solving such problem lies outside the scope of this project, the impact of using more negative examples in the training process was measured and the results are presented in table \ref{table:egde_encoding_comp}.
@@ -381,16 +375,3 @@ While solving such problem lies outside the scope of this project, the impact of
 \end{center}
 
 At higher percentage of negative examples were classified correctly, as indicated by the lower FAR, this comes at the expense of a large drop in the FRR score, to almost half of positive examples being dropped in the case of \textit{1:2} class balance. This means that the collection of models generalized poorly to unseen positive examples, to a degree that would be unacceptable. This can also be seen when comparing the average recall scores across these two collections of models, which dropped from \textit{0.7357} to \textit{0.692} and \textit{0.494} when the number of negative examples were doubled. 
-\myworries{TODO: some citation would be nice}
-
-
-\subsection{Model size}
-\myworries{Num of conv layer, layer size etc bigger wasnt better}
-
-
-\subsection{TODO title}
-\myworries{ TODO: What if we did classify the user on all their input (100 chars). Results would be a n users by n users matrix of 1's and 0's}\\
-\myworries{ TOOD: to nie trudne, trzeba wziąc tą nacierz, wybrać treshold, i dać 1 jesli większy 0 jeśli mniejszy}
-
-\subsection{Cross-smartphone user validation}
-TODO: what happens if two users train on smartphones that are not their own? What happens, if they cross-use their original model on another phone?

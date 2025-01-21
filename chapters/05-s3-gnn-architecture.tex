@@ -1,5 +1,5 @@
 \section{Architecture}
-The basis of a model for graph level prediction comprises of a graph convolutional layers, a pooling function to aggregate node information and a classification head, which outputs a single value, that is than passed to a sigmoid function. \myworries{Cite something} 
+The basis of a model for graph level prediction comprises of a graph convolutional layers, a pooling function to aggregate node information and a classification head, which outputs a single value, that is than passed to a sigmoid function. 
 The architecture used in this project is pictured in figure \ref{fig:model_arch}.\\
 
 
@@ -63,14 +63,14 @@ A dropout layer was added between the two fully connected layers, which randomly
 \section{Training and fine-tuning}
 
 \subsection{Data division}
-For the purpose of model validation, we used 5-fold cross-validation, thus splitting the training set described in \myworries{ TODOOO Numer sekcji} into 5 parts and training on 4 of those parts. This number of folds corresponds to the number of 300-character blocks, that the users were asked to input. Such splits validate that the trained model is able to generalize to a part of the input that might have been written at a different time and style. Furthermore, it closely resembles the way the model was tested, that is on a completely different input sequence, collected in a separate part of the application.  
+For the purpose of model validation, we used 5-fold cross-validation, thus splitting the training set, described in section \ref{sec:data_collection}, into 5 parts and training on 4 of those parts. This number of folds corresponds to the number of 300-character blocks, that the users were asked to input. Such splits validate that the trained model is able to generalize to a part of the input that might have been written at a different time and style. Furthermore, it closely resembles the way the model was tested, that is on a completely different input sequence, collected in a separate part of the application.  
 
 \subsection{Training parameters}
 
 \subsubsection{Loss function}
 Binary Cross Entropy was chosen as the loss function that would be used in training, which is a common loss function used with binary classifiers. 
 The use of this loss function requires the model to output the probability of picking the positive class, therefore a sigmoid function must be applied to the output of the final layer.
-These to operations are fused into one step in the implementation, by using  $BCEWithLogitsLoss$, which is more numerically stable. \myworries{Cite pytorch}
+These to operations are fused into one step in the implementation, by using  $BCEWithLogitsLoss$, which is more numerically stable  \cite{Ansel_PyTorch_2_Faster_2024}.
 
 \subsubsection{Optimizer}
 Adam was selected as the optimizer for updating model weights, which adapts the learning rate for each parameter. A learning rate of 0.001 was chosen empirically.

@@ -25,7 +25,7 @@ The structure of the resulting graph depends highly on the length of the input s
 	\centering
 	\includegraphics[width=0.45\textwidth]{images/len40_graph_other_layout.png}
 	\includegraphics[width=0.45\textwidth]{images/len70_graph_other_layout.png}
-	\caption{Comparison graphs constructed with diffrent input sequence lenghts.}%
+	\caption{Comparison graphs constructed with diffrent input sequence lenghts of 40 and 70.}%
 	\label{fig:multiple graphs}%
 \end{figure}
 
@@ -65,13 +65,11 @@ found that such node identifiers helped the model to learn certain structures in
 Many letters, which appear to be common, are in fact infrequent in our dataset. This is especially the case with capitalised letters. For example the letter \textit{'f'} appears 134 times, whereas \textit{'F'} only 6 times. This is even more true for symbols, many of which appear only once in the entire dataset, these being: \textit{'\{'}, \textit{'\%'}, \textit{'*'}, \textit{':'} and \textit{'\#'}.
 This means that the behavior of the models would be unpredictable for nodes with such identifiers.\\
 Method $2$ addresses the problem in the case of symbols and numbers. It does not, however help with processing infrequent capitalized directics. For example, \textit{'l'} appears 875 times, \textit{"ł"} 138 times, \textit{"L"} 10 times and \textit{"Ł"} only twice. With such low number of occurances it is unlikely that the models could learn the relationship between these letters. \\
-Method $3$ was specifically designed to deal with this problem, which is achieved by grouping them together. The extra columns still allows for distinguishing between varaints of the same letter, which is important as the time to input these symbol differs greatly. 
-\myworries{TODO KM: Avg time for uppercase and lowercase letters and diacriticals}
+Method $3$ was specifically designed to deal with this problem, which is achieved by grouping them together. The extra columns still allows for distinguishing between varaints of the same letter, which is important as the time to input these symbol differs greatly, especially in the case of diacriticals, which on average take 898 miliseconds to enter, compared to 346 for letters without diacritical marks.
 Moreover, method $3$ directly exposes the use of diacritical marks and uppercase letters as features, which, in theory, could allow the model to learn the impact of these feartures independently of the base letters. 
 
-
 \subsection{Feature selection -- accelerometer data} \label{accel_subsection}
-To improve the possible performance of the model, and to make further use of the capabilities of the mobile platform, we considered using accelerometer data as an input feature for the model. \myworries{Cite someone that uses accel data and does well}
+To improve the possible performance of the model, and to make further use of the capabilities of the mobile platform, we considered using accelerometer data as an input feature for the model. % maybe cite something with accel
 This portion of the input data comprised of three values, a measurement of the acceleration in the x, y and z plane at the moment a keystroke was registered. 
 These values were aggregated as an average for each node. Although these models performed well during training, quickly reaching low loss values, they failed to generalize, performing worse on validation and test datasets. For this reason, accelerometer data was not used for training and evaluating models discussed later.
 
