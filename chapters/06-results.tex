@@ -345,9 +345,6 @@ Table \ref{table:char_encoding} shows the more aggregating methods outperform th
 Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average far remains comparable, FRR, and thus the EER, differ by a large amount. This might be cause by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two letter combinations and failed to generalize.
 
 
-\subsection{Accelerometer Data}
-As was mentioned in subsection \ref{accel_subsection}, accelerometer data was collected alongside keystroke information. While the use of accelerometer data lead to modes that quickly achieved low loss on the training data, these results did not generalize to validation and test data. An example of an increase in generalization error for user \myworries{TODOO} is shown below.
-
 \section{Class imbalance}
 Another point of experimentation was class balance in the training data. The baseline model was trained on a dataset with two times more positive examples than negative examples. A bigger proportion of positive examples was chosen experimentally, as it resulted in models that perform better at recognizing the positive class. \\ 
 The negative examples were sampled uniformly from all other users, with an offset such that the negative examples for some user were taken from the whole input text. This works for the number of users in the dataset. However, as the number of users grows, and the length of input sequence stays fixed, at some point each model needs to be trained only on a subset of the negative class input texts. At that point some models could fail to generalize to unseen negative examples. 
