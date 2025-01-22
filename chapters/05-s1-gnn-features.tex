@@ -67,7 +67,7 @@ Method $3$ was specifically designed to deal with this problem, which is achieve
 Moreover, method $3$ directly exposes the use of diacritical marks and uppercase letters as features, which, in theory, could allow the model to learn the impact of these features independently of the base letters. 
 
 \subsection{Feature selection -- accelerometer data} \label{accel_subsection}
-To improve the possible performance of the model, and to make further use of the capabilities of the mobile platform, we considered using accelerometer data as an input feature for the model. % maybe cite something with accel
-This portion of the input data comprised of three values, a measurement of the acceleration in the x, y and z plane at the moment a keystroke was registered. 
-These values were aggregated as an average for each node. Although these models performed well during training, quickly reaching low loss values, they failed to generalize, performing worse on validation and test datasets. For this reason, accelerometer data was not used for training and evaluating models discussed later.
+To improve the potential performance of the model, and to make further use of the capabilities of the mobile platform, accelerometer data was considered as an input feature for the model. % maybe cite something with accel
+This portion of the input data consisted of three values, a measurement of the acceleration in the x, y and z axes at the moment a keystroke was registered. 
+These values were aggregated as an average for each node. Although these models performed well during training, quickly achieving low loss values, they failed to generalize, performing worse on validation and test datasets. For this reason, accelerometer data was not used for training and evaluating models discussed later.
 
