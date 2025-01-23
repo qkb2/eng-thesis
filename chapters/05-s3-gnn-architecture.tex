@@ -41,22 +41,22 @@ The architecture used in this project is illustrated in figure \ref{fig:model_ar
 \end{center}
 \end{figure}
 
-\subsubsection{GCN + ReLU}
+\subsection{GCN + ReLU}
 The first two layers of the model, pictured in figure \ref{fig:model_arch}, are graph convolutional layers or GCNConv layers. The theory behind these layers was extensively discussed in chapter 3. After each layer a ReLU activation function was applied.
 
-\subsubsection{Global Mean Pooling}
+\subsection{Global Mean Pooling}
 After two convolutional layers, a global mean pooling layer was applied to aggregate the node embeddings into a single vector. 
 
 
-\subsubsection{Preprocessing Layers}
+\subsection{Preprocessing Layers}
 Considering the complexity of the input features, specifically the relationship between parts of the features used to represent characters discussed in subsection \ref{Base_letter_representation}, a preprocessing fully connected layer was added to the model. Preprocessing layers can improve performance in cases where encoding node features is necessary, such as text inputs \cite{Lesk2024}.
 
-\subsubsection{Postprocessing Layers}
+\subsection{Postprocessing Layers}
 The selected architecture uses two fully connected layers to transform the aggregated output into a single value, 
 which is passed through a sigmoid activation function. The first fully connected layer was added after empirical experimentation which showed an improvement in performance.
 
 
-\subsubsection{Dropout}
+\subsection{Dropout}
 A dropout layer was added between the two fully connected layers, which randomly disable some of the neurons during the training process. Such layers have been shown to create more robust models, that generalize better, as demonstrated by Baldi et al \cite{NIPS2013_71f6278d}. Additionally, dropout layers have also been found to improve expressiveness in GNNs by Papp et al \cite{NEURIPS2021_b8b2926b}.
 
 \section{Training and fine-tuning}
@@ -66,12 +66,12 @@ For model validation, 5-fold cross-validation was used, splitting the training s
 
 \subsection{Training parameters}
 
-\subsubsection{Loss function}
+\subsection{Loss function}
 Binary Cross Entropy was chosen as the loss function for training, as it is commonly used with binary classifiers. 
 The use of this loss function requires the model to output the probability of picking the positive class, therefore a sigmoid function must be applied to the output of the final layer.
 These two operations are combined into a single step in the implementation, by using  $BCEWithLogitsLoss$, which provides greater numerical stability \cite{Ansel_PyTorch_2_Faster_2024}.
 
-\subsubsection{Optimizer}
+\subsection{Optimizer}
 Adam was selected as the optimizer for updating model weights, as it adapts the learning rate for each parameter. The learning rate was empirically set to 0.001.
 
 \subsection{Tuning hyperparameters}
