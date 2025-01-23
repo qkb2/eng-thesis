@@ -1,16 +1,12 @@
 \chapter{Results}
-This chapter is dedicated to the results of model testing on users, as well as the impact of features and hyperparameter choices on its performance. 
+This chapter is dedicated to the results of model testing on users, as well as the impact of features and hyperparameter choices on its performance.
 
 \section{Model Performance on User Data}
-This section focuses on the results of testing the collection of models that were found to have the best performance during validation. It aims to show the how this solution performs on the unseen test dataset as well as highlight the large differences between individual models within the collection of models.
+This section focuses on the results of testing the collection of models that achieved the best performance during validation. It aims to show how this solution performs on the unseen test dataset as well as highlight the large differences between individual models within the collection of models.
 
 \subsection{Methodology}
-The results below were calculated as an average of each models performance on a sequence of characters equal to the length on which the model was trained.
-This means that were tested with input of different lengths than others. 
-While it was possible to compare scores based on an equal input length,
-it would require the setting another threshold, of how many of the input subsequences need to be classified positively for the whole sequence to be classified as positive. 
-Such threshold was chosen for the application, as it is necessary for end user authentication, however, adding another parameter to these results would only make them less interpretable.\\
-The results that are shown below were collected with the combination of input features shown in table \ref{table:hyperparams}, which resulted in the best performance during model validation. The impact of each choice of hyperparameter is discussed separately in dedicated subsections and compared using the testing provided by users. It is important to note that due to the large amount of possible configurations, as well as the limited computing power that was accessible, not all combinations were tested.
+The results below were calculated as an average of each model's performance on sequences of characters of the same length as those on which the model was trained.
+The results presented below were obtained using the combination of input features listed in table \ref{table:hyperparams}, which yielded the best performance during model validation. The impact of each hyperparameter choice is discussed separately in dedicated subsections and compared using the testing provided by users. It is important to note that due to the large number of possible configurations, as well as the limited computing power that was available, not all combinations were tested.
 
 \begin{center}
 	\begin{table}[H]
@@ -37,7 +33,7 @@ The results that are shown below were collected with the combination of input fe
 
 
 \subsection{FAR and FRR scores}
-The below table presents the false authentication rate and false acceptance rate for all models. The motivation behind the use of these metrics was discussed in subsection \ref{FAR_FRR_theory}.
+The table below presents the false authentication rate and false acceptance rate for all models. The motivation for using these metrics was discussed in subsection \ref{FAR_FRR_theory}.
 
 \begin{center}
 \begin{table}[H]
@@ -90,21 +86,21 @@ The below table presents the false authentication rate and false acceptance rate
 \end{table}
 \end{center}
 
-The same data can be viewed as a plot of false acceptance rate vs false rejection rate, shown in figure \ref{fig:frr_vs_far_all_models_base}. 
+The same data can be visualized as a plot of the false acceptance rate versus the false rejection rate, as shown in figure \ref{fig:frr_vs_far_all_models_base}. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{images/far_vs_frr.pdf} 	
-	\caption{False acceptance rate vs False rejection rate.}
+	\caption{False acceptance rate versus False rejection rate.}
 	\label{fig:frr_vs_far_all_models_base}
 \end{figure}
 
-Figure \ref{fig:frr_vs_far_all_models_base} demonstrates the large discrepancy between the models. At the same threshold level of some models were able to achieve a FAR and FRR score of below 10\%, while other failed to recognize over half of examples in the positive class. \\
-This first group comprises of models for users 86, 62, 82, 25, 26 and 61. These models were able to learn and generalize well to the test dataset.
-The other major group of models were those with an unacceptably high FAR of over 45\% and a below average FAR score. These would include models for users 81, 24, 60, 40 and 23. The reason for such high FAR could be twofold, either the models simply failed to generalize to unseen positive example, or they did, but at a lower confidence level than the established threshold. Other models have varying performance and are hard to categorize into coherent groups.
+Figure \ref{fig:frr_vs_far_all_models_base} demonstrates a large discrepancy between the models. At the same threshold level, some models were able to achieve a FAR and FRR score below 10\%, while others failed to recognize more than half of the examples in the positive class. \\
+This first group consists of models for users 86, 62, 82, 25, 26, and 61. These models were able to effectively learn and generalize the test dataset well.
+The other major group of models was those with an unacceptably high FAR exceeding 45\% and a below-average FAR score. These group includes models for users 81, 24, 60, 40 and 23. The reason for such high FAR could be twofold, either the models simply failed to generalize to unseen positive examples, or they did but with a lower confidence level than the established threshold. Other models have varying performance and are difficult to categorize into coherent groups.
 
 \subsection{Equal Error Rate} \label{subsec_eer}
-To calculate the equal error rate, the decision threshold needs to be adjusted, which can be done globally, for all models or at a per--model level. We chose to report both ways to calculate this metric. 
+To calculate the equal error rate, the decision threshold needs to be adjusted, which can be performed globally, for all models or individually at a per--model level. Both methods of calculating this metric were analyzed.
 
 The global EER was calculated to illustrate the performance of the whole collection using one value.
 \begin{itemize}
