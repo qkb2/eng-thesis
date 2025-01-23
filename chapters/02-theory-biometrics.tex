@@ -3,7 +3,7 @@
 
 Fundamental to the goal of the project was the use of biometric data in user identification. Biometric data can be defined as measurements of some unique characteristics of an individual. These can largely be divided into two main categories: physiological data, which is the measurement of the inherent characteristics of an individual's body, such as a fingerprint, an iris scan or a face scan, and behavioral data, which measures the person's movements, behaviors, speech patterns etc. \cite{Abde2023}
 
-Uniqueness of one's body is well known in biology. Features that may be used for person's identification are for example: \cite{biometrics_institute_2025}
+The uniqueness of one's body is well established in biology. Features that may be used for identifying individuals include \cite{biometrics_institute_2025}:
 
 \begin{enumerate}
     \item \textbf{DNA} -- found in cells of the living organisms, this acid carries genetic information.
@@ -12,29 +12,29 @@ Uniqueness of one's body is well known in biology. Features that may be used for
     \item \textbf{Fingerprints and finger shape} -- fingerprints are widely used in forensics \cite{nist_forensic_biometrics_2025} and in digital scanners on mobile devices and laptops.
 \end{enumerate}
 
-Other, less popular ways of identifying a person are for example: ear shape, gait, hand shape, heartbeat, keystroke dynamics, signatures, vein scans and voice recognition.
+Other, less common methods for identifying a person are may include ear shape, gait, hand shape, heartbeat, keystroke dynamics, signatures, vein scans and voice recognition.
 
 \section{Keystroke Dynamics}
-One possible way to extract data from a person's behavior is via *keystroke dynamics*. This type of behavioral biometrics is acquired from a user by means of a keyboard or other typing device and records and extracts features from the way the keyboard is used. Most commonly used and almost universally applicable to any keyboard device is the measurement of timings between each character typed. If the user uses a physical keyboard, it is also convenient to derive the following features \cite{Shar2023}:
+One method of extracting data from a person's behavior is via *keystroke dynamics*. This type of behavioral biometrics is acquired from a user by means of a keyboard or other typing device and records and extracts features from the way the keyboard is used. Most commonly used and almost universally applicable to any keyboard device is the measurement of timings between each character typed. If the user uses a physical keyboard, it is also convenient to derive the following features \cite{Shar2023}:
 
 \begin{enumerate}
-    \item \textbf{Hold Time} -- time between key press and release
-    \item \textbf{Down-Down Time} -- time between first key press and second key press
-    \item \textbf{Up-Up Time} -- time between first key release and second key release
-    \item \textbf{Up-Down Time} -- time between first key release and second key press
-    \item \textbf{Down-Up Time} -- time between first key press and second key release.
+    \item \textbf{Hold Time}: time between pressing and releasing a key.
+    \item \textbf{Down-Down Time}: time between pressing one key and pressing the next key.
+    \item \textbf{Up-Up Time}: time between releasing one key and releasing the next key.
+    \item \textbf{Up-Down Time}: time between releasing one key and pressing the next key.
+    \item \textbf{Down-Up Time}: time between pressing one key and releasing the next key.
 \end{enumerate}
 
-It can therefore be said that keystroke dynamics focus mostly on identifying user's rhythmic patterns in their keystrokes. Such data can be used in conjunction with for example a password or a passphrase as a means of additional protection against password theft -- this idea was already being tested in 1990 by Joyce and Gupta. \cite{joyce1990keystroke} By 1997, clustering methods were already being used in experiments on user data on a small scale (42 profiles) by Monrose et al. \cite{Monr1997} Algorithms used for such data evolved after that point and the raise in popularity of neural networks.
+Keystroke dynamics focus primarily on identifying a user's rhythmic patterns in their keystrokes. Such data can be used in conjunction with for example a password or a passphrase as a means of additional protection against password theft -- this concept was tested as in 1990 by Joyce and Gupta. \cite{joyce1990keystroke} By 1997, clustering methods were already being used in experiments on user data on a small scale (42 profiles) by Monrose et al. \cite{Monr1997} Since then, algorithms used for such data evolved, with the raise in popularity of neural networks.
 
 Lu et al. \cite{Lu2020} used a combined CNN+RNN approach to obtain the results of ERR of 2.36\% on Buffalo dataset and 5.97\% on Clarkson II datasets. Çeker and Upadhyaya \cite{ceker_cnn2017} used a CNN to create a multiple classification model -- this method is mostly suitable for smaller datasets with smaller number of users, as opposed to creating a personalized model for each user. This method had an ERR of 2.3\%. 
 
-A Convolutional Neural Network (CNN) has a fixed node ordering and operates on a grid -- some input must firstly be mapped into such a grid to be used with a CNN. There are ways to map many types of data into such format. In Lu et al. this involved applying the convolution layers over feature vectors, which were constructed in the following manner: for pairs of keys pressed in succesion in the sequence, a feature vector is created with fields: ID of first key, ID of second key, hold duration of first key, hold duration of second key, DD time (time between first press and second press) and DU time (time between first press and second release). After applying the CNN layer, GRU layers were used.
+A Convolutional Neural Network (CNN) has a fixed node ordering and operates on a grid. Input data must firstly be mapped onto such a grid to be used with a CNN. There are ways to map many types of data into such format. In Lu et al. this involved applying the convolution layers over feature vectors, which were constructed in the following manner: for pairs of keys pressed in succesion in the sequence, a feature vector is created with fields: ID of first key, ID of second key, hold duration of first key, hold duration of second key, DD time (time between first press and second press) and DU time (time between first press and second release). After applying the CNN layer, GRU layers were used.
 
-Another aspect of the keystroke dynamics recognition methods is how and when the data is collected. The systems can either work with some specific strings being typed by the user (like in Çeker and Upadhyaya) or with the users being free to type anything within some length constraints (like in Lu et al.). In this project, the second approach was chosen as the more realistic one.
+Another aspect of the keystroke dynamics recognition methods is how and when the data is collected. The systems can either work with some specific strings being typed by the user (e.g.. as in Çeker and Upadhyaya) or with the users being free to type anything within some length constraints (e.g., as in Lu et al.). In this project, the second approach was chosen as the more realistic one.
 
 With some keyboards it may be more difficult to gather all the possible features. Even basic feature, such as the hold time can prove difficult to gather when using for example GBoard on mobile devices, which does not naturally send key press and key release information to the application. \cite{android_keyboard_commands_2025} This information can thus only be gathered in approximation or by building another virtual keyboard application. This, however, has its drawbacks. The users are generally used to one type of keyboard (on mobile it may be for example GBoard or SwiftKey), so forcing them to use another type of keyboard may be detrimental. Same person may write somewhat differently on different keyboards and machines. This study includes a small subsection on cross-smartphone compatibility of the model, for example concerning two users using each others' smartphones.
 
 While the model may be less accurate because of the lack of features, there can be some ways to mitigate it. Some other features can be added, which are largely specific to mobile devices, such as accelerometer data, or a larger sample can be used. A few of those options were considered by the researchers, and the results are discussed in the following chapters.
 
-The keystroke identification can also rely on other data gathered from the keyboard, such as the specifics of letters used, their average frequencies, most common connections between the letter or other statistics. \cite{Wang2024} These statistics can be modeled in many ways. If the average Up-Up Time between two keys is gathered from the data, a graph can be formed, having additional features as see fit by the designers. Such graphs were constructed for the Neural Network models constructed in this study, which will be discussed in the next chapter.
+Keystroke identification can also rely on other data gathered from the keyboard, such as the character average frequencies, most common connections between characters or other statistics. \cite{Wang2024} These statistics can be modeled in many ways. If the average Up-Up Time between two keys is gathered from the data, a graph can be formed, having additional features as see fit by the designers. Such graphs were constructed for the Neural Network models constructed in this study, which will be discussed in the next chapter.

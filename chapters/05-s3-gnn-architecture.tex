@@ -1,7 +1,6 @@
 \section{Architecture}
-The basis of a model for graph level prediction comprises of a graph convolutional layers, a pooling function to aggregate node information and a classification head, which outputs a single value, that is than passed to a sigmoid function. 
-The architecture used in this project is pictured in figure \ref{fig:model_arch}.\\
-
+The foundation of a model for graph-level prediction consists of graph convolutional layers, a pooling function to aggregate node information, and a classification head, which outputs a single value, which is then passed to a sigmoid function. 
+The architecture used in this project is illustrated in figure \ref{fig:model_arch}.
 
 \begin{figure}[H]
 \begin{center}
@@ -41,40 +40,38 @@ The architecture used in this project is pictured in figure \ref{fig:model_arch}
 	\label{fig:model_arch}
 \end{center}
 \end{figure}
-
-\subsubsection{GCN + ReLU}
-The first three layers of the model, pictured in figure \ref{fig:model_arch}, are graph convolutional layers or GCNConv. The theory behind these layers was extensively discussed in chapter 3. After each layer a ReLU activation function was applied.
+reaching 3. After each layer a ReLU activation function was applied.
 
 \subsubsection{Global Mean Pooling}
-After two convolutional layers, a global mean pooling layer was applied to aggregate the node embeddings into one vector. 
+After two convolutional layers, a global mean pooling layer was applied to aggregate the node embeddings into a single vector. 
 
 
 \subsubsection{Preprocessing Layers}
-Considering the complexity of the input features, specifically the relationship between parts of the features used to represent characters discussed in \ref{Base_letter_representation}, a preprocessing fully connected layer was added to the model. Preprocessing layers can improve performance in cases where encoding node features is necessary, such as text inputs \cite{Lesk2024}.
+Considering the complexity of the input features, specifically the relationship between parts of the features used to represent characters discussed in subsection \ref{Base_letter_representation}, a preprocessing fully connected layer was added to the model. Preprocessing layers can improve performance in cases where encoding node features is necessary, such as text inputs \cite{Lesk2024}.
 
 \subsubsection{Postprocessing Layers}
-The selected architecture uses two fully connected layers to transform the aggregated output into one value, 
-which is passed through a sigmoid activation function. The first fully connected layer was added was added after empirical experimentation which showed an improvement in performance.
+The selected architecture uses two fully connected layers to transform the aggregated output into a single value, 
+which is passed through a sigmoid activation function. The first fully connected layer was added after empirical experimentation which showed an improvement in performance.
 
 
 \subsubsection{Dropout}
-A dropout layer was added between the two fully connected layers, which randomly disables some of the neurons during the training process. Such layers have been shown to create more robust models, that generalize better by Baldi et al \cite{NIPS2013_71f6278d}. Dropout layers have also been shown to improve expressiveness in GNN's by Papp et al \cite{NEURIPS2021_b8b2926b}.
+A dropout layer was added between the two fully connected layers, which randomly disable some of the neurons during the training process. Such layers have been shown to create more robust models, that generalize better, as demonstrated by Baldi et al \cite{NIPS2013_71f6278d}. Additionally, dropout layers have also been found to improve expressiveness in GNNs by Papp et al \cite{NEURIPS2021_b8b2926b}.
 
 \section{Training and fine-tuning}
 
 \subsection{Data division}
-For the purpose of model validation, we used 5-fold cross-validation, thus splitting the training set, described in section \ref{sec:data_collection}, into 5 parts and training on 4 of those parts. This number of folds corresponds to the number of 300-character blocks, that the users were asked to input. Such splits validate that the trained model is able to generalize to a part of the input that might have been written at a different time and style. Furthermore, it closely resembles the way the model was tested, that is on a completely different input sequence, collected in a separate part of the application.  
+For model validation, 5-fold cross-validation was used, splitting the training set described in section \ref{sec:data_collection} into five parts, with training performed on four of them. The number of folds corresponds to the number of 300-character blocks that users were asked to input. Such splits validate that the trained model is able to generalize to a part of the input that may have been written at different times and in styles. Furthermore, it closely resembles the way the model was tested, that is on a completely different input sequence, collected in a separate part of the application.  
 
 \subsection{Training parameters}
 
 \subsubsection{Loss function}
-Binary Cross Entropy was chosen as the loss function that would be used in training, which is a common loss function used with binary classifiers. 
+Binary Cross Entropy was chosen as the loss function for training, as it is commonly used with binary classifiers. 
 The use of this loss function requires the model to output the probability of picking the positive class, therefore a sigmoid function must be applied to the output of the final layer.
-These to operations are fused into one step in the implementation, by using  $BCEWithLogitsLoss$, which is more numerically stable  \cite{Ansel_PyTorch_2_Faster_2024}.
+These two operations are combined into a single step in the implementation, by using  $BCEWithLogitsLoss$, which provides greater numerical stability \cite{Ansel_PyTorch_2_Faster_2024}.
 
 \subsubsection{Optimizer}
-Adam was selected as the optimizer for updating model weights, which adapts the learning rate for each parameter. A learning rate of 0.001 was chosen empirically.
+Adam was selected as the optimizer for updating model weights, as it adapts the learning rate for each parameter. The learning rate was empirically set to 0.001.
 
 \subsection{Tuning hyperparameters}
-The architecture described above allows of large number of hyperparameter choices, such as the size of preprocessing, convolutional and postprocessing layers. Furthermore, the variable length on input sequences and multiple possible feature encoding, mean that a full search over the hyperparameter space is impossible. For the scope of this project the biggest emphasis was placed on finding the optimal input features and input sequence length, thus the best graph representation. Furthermore, the effect of class imbalance on the training process of the collection of models was also explored.\\
-All the models were trained using 5--fold cross--validation, with the results on the validation sets averaged across folds. These were than used to compare the collections of models and select hyperparameter values.
+The architecture described above allows for a large number of hyperparameter choices, such as the size of preprocessing, convolutional, and postprocessing layers. Furthermore, the variable length of input sequences and multiple possible feature encoding methods mean that a comprehensive search over the hyperparameter space is infeasible. Within the scope of this project the biggest emphasis was placed on finding the optimal input features and input sequence length, thereby identifying the best graph representation. Additionally, the effect of class imbalance on the training process of the collection of models was also explored.\\
+All models were trained using 5--fold cross--validation, with the validation results averaged across folds. These were then used to compare the collections of models and to select hyperparameter values.

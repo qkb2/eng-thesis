@@ -2,7 +2,7 @@
 This chapter is dedicated to the results of model testing on users, as well as the impact of features and hyperparameter choices on its performance. 
 
 \section{Model Performance on User Data}
-This section focuses on the results of testing the collection of models that were found to have the best performance during validation. Its aim is to show the how this solution performs on the unseen test dataset as well as highlight the large differences between individual models within the collection of models.
+This section focuses on the results of testing the collection of models that were found to have the best performance during validation. It aims to show the how this solution performs on the unseen test dataset as well as highlight the large differences between individual models within the collection of models.
 
 \subsection{Methodology}
 The results below were calculated as an average of each models performance on a sequence of characters equal to the length on which the model was trained.
@@ -99,12 +99,12 @@ The same data can be viewed as a plot of false acceptance rate vs false rejectio
 	\label{fig:frr_vs_far_all_models_base}
 \end{figure}
 
-Figure \ref{fig:frr_vs_far_all_models_base} demonstrates the large discrepancy between the models. A the same threshold level of some models were able to achieve a FAR and FRR score of below 10\%, while other failed to recognize over half of examples in the positive class. \\
+Figure \ref{fig:frr_vs_far_all_models_base} demonstrates the large discrepancy between the models. At the same threshold level of some models were able to achieve a FAR and FRR score of below 10\%, while other failed to recognize over half of examples in the positive class. \\
 This first group comprises of models for users 86, 62, 82, 25, 26 and 61. These models were able to learn and generalize well to the test dataset.
-The other major group of models were those with an unacceptably high FAR of over 45\% and an below average FAR score. These would include models for users 81, 24, 60, 40 and 23. The reason for such high FAR could be twofold, either the models simply failed to generalize to unseen positive example, or they did, but at a lower confidence level than the established threshold. Other models have varying performance and are hard to categorize into coherent groups.
+The other major group of models were those with an unacceptably high FAR of over 45\% and a below average FAR score. These would include models for users 81, 24, 60, 40 and 23. The reason for such high FAR could be twofold, either the models simply failed to generalize to unseen positive example, or they did, but at a lower confidence level than the established threshold. Other models have varying performance and are hard to categorize into coherent groups.
 
 \subsection{Equal Error Rate} \label{subsec_eer}
-To calculate the equal error rate, the decision threshold needs to be adjusted, which can be done globally, for all models or at a per model level. We chose to report both ways to calculate this metric. 
+To calculate the equal error rate, the decision threshold needs to be adjusted, which can be done globally, for all models or at a per--model level. We chose to report both ways to calculate this metric. 
 
 The global EER was calculated to illustrate the performance of the whole collection using one value.
 \begin{itemize}
@@ -177,7 +177,7 @@ Table \ref{table:EER_separate} illustrates the difference in the ability of the 
 	\label{fig:far_ffr_all_thresholds}
 \end{figure}
 
-These plots shows the relationship between FAR, FRR and the decision threshold in more detail. The point at which the two lines cross is the EER. Worth noting is the large variation in the threshold at with EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of the positive class. It can be notices that these models have a lower EER than models with lower threshold values. The table, sorted by EER is given below.
+These plots shows the relationship between FAR, FRR and the decision threshold in more detail. The point at which the two lines cross is the EER. Worth noting is the large variation in the threshold at which EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of the positive class. These models have a lower EER than models with lower threshold values. To ilustrate this , table \ref{EER_separate} sorted by EER is given below.
 
 \begin{center}
 	\begin{table}[H]
@@ -342,11 +342,8 @@ Table \ref{table:char_encoding} shows the more aggregating methods outperform th
 	\end{table}
 \end{center}
 
-Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average far remains comparable, frr, and thus the err, differ by a large amount. This might be cause by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two letter combinations and failed to generalize.
+Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average far remains comparable, FRR, and thus the EER, differ by a large amount. This might be cause by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two letter combinations and failed to generalize.
 
-
-\subsection{Accelerometer Data}
-As was mentioned in subsection \ref{accel_subsection}, accelerometer data was collected alongside keystroke information. While the use of accelerometer data lead to modes that quickly achieved low loss on the training data, these results did not generalize to validation and test data. An example of an increase in generalization error for user \myworries{TODOO} is shown below.
 
 \section{Class imbalance}
 Another point of experimentation was class balance in the training data. The baseline model was trained on a dataset with two times more positive examples than negative examples. A bigger proportion of positive examples was chosen experimentally, as it resulted in models that perform better at recognizing the positive class. \\ 
