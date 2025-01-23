@@ -1,8 +1,8 @@
 \chapter{Results}
-This chapter is dedicated to the results of model testing on users, as well as the impact of features and hyperparameter choices on its performance.
+Evaluating the performance of machine learning models is crucial for understanding their effectiveness and limitations in practical applications. In this study, the developed models were tested on user data to assess their accuracy and generalization capabilities. Various factors, such as feature representation, input sequence length, and class balance, can significantly influence model performance.
 
 \section{Model Performance on User Data}
-This section focuses on the results of testing the collection of models that achieved the best performance during validation. It aims to show how this solution performs on the unseen test dataset as well as highlight the large differences between individual models within the collection of models.
+This section focuses on the results of testing the collection of models that achieved the best performance during validation. It aims to show how this solution performs on the unseen test dataset and highlights the large differences between individual models within the collection of models.
 
 \subsection{Methodology}
 The results below were calculated as an average of each model's performance on sequences of characters of the same length as those on which the model was trained.
@@ -173,7 +173,7 @@ Table \ref{table:EER_separate} illustrates the differences in the models' abilit
 	\label{fig:far_ffr_all_thresholds}
 \end{figure}
 
-These plots show the relationship between FAR, FRR, and the decision threshold in more detail. The point at which the two lines cross is the EER. It is worth noting the large variation in the threshold at which the EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of positive class. These models have a lower EER than models with lower threshold values. To illustrate this , table \ref{EER_separate}, sorted by EER, is given below.
+These plots show the relationship between FAR, FRR, and the decision threshold in more detail. The point at which the two lines cross is the EER. It is worth noting the large variation in the threshold at which the EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of positive class. These models have a lower EER than models with lower threshold values. To illustrate this, table \ref{EER_separate}, sorted by EER, is given below.
 
 \begin{center}
 	\begin{table}[H]
@@ -233,18 +233,18 @@ To evaluate each model's performance, each model was tested using the input of e
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{images/all_models_5_len40.pdf} % Replace 'example.pdf' with your PDF file name
+	\includegraphics[width=\textwidth]{images/all_models_5_len40.pdf}
 	\caption{Matrix showing the percentage of examples classified as positive for all model--user pairs.}
 	\label{fig:all_models_5_len40}
 \end{figure}
 
-Figure \ref{fig:all_models_5_len40} demonstrates the different errors made by individual models. More precisely, it shows which users share a similarity and therefore cause confusion for the models. For example models for users 25 and 86 perform very well for all inputs except each other. However this is not true for all models, as the model for user 61 makes mistakes when classifying the input for user 82. The inverse is not true, the model for user 82 does not misclassify user 61 data at a higher rate than others.
+Figure \ref{fig:all_models_5_len40} illustrates the different types of errors made by individual models. Specifically, it highlights which users share similarities, leading to confusion in model predictions. For example, models for users 25 and 86 perform very well for all inputs except for each other. However, this is not true for all models, as the model for user 61 makes mistakes when classifying the input for user 82. The inverse is not observed, as the model for user 82 does not misclassify user 61's data at a higher rate than others.
 
 \section{Input features}
-This section will compare the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per model EER value. The impact of these changes were measured by changing only one hyperparameters, while all others remain the same as shown in table \ref{table:hyperparams}. The results shown below compare performance on the testing dataset, so that these values can be contrasted with what was discussed in the previous section. As was mentioned previously, this is not how these features were selected.
+This section compares the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per-model EER value. The impact of these changes was measured by changing only a single hyperparameter, while all others remained the same, as shown in table \ref{table:hyperparams}. The results shown below compare performance on the testing dataset, allowing these values can be contrasted with what was discussed in the previous section. As mentioned previously, this is not how these features were selected.
 
 \subsection{Input sequence length}
-The theoretical impact of input length, discussed in the section on graph creation, would suggest that there exists an optimal sequence length. Making the sequence shorter would result in graphs that do not have enough structure, for example a chain of nodes, or edge data to make the correct prediction possible. Make the sequence longer would result in graph that is too dense or cause the averages calculated per node to become too aggregated.\\
+The theoretical impact of input length, as discussed in the section on graph creation, suggests that an optimal sequence length exists. Making the sequence shorter would result in graphs that do not have enough structure, for example, a chain of nodes or edge data to make the correct prediction possible. Making the sequence longer would result in a graph that is too dense, or it would cause the averages calculated per node to become too aggregated.
 
 
 \begin{center}
@@ -272,9 +272,9 @@ The theoretical impact of input length, discussed in the section on graph creati
 \end{center}
 
 
-Table \ref{table:len_vs_perf} does partly support the theoretical expectation, as models trained on input sequences of length 30, 60 and 70 achieve much higher EER scores than those trained with lengths of 40 and 50. There is a very small difference in the way these collections of models perform on these aggregated metrics. 
-With the difference in the EER scores being this low, it is unclear which collection of models performed better on testing dataset.
-However, interesting differences appear when comparing on a per model basis, as the changes in models were not uniform. The impact of 3 selected models is shown in figure \ref{fig:selected_frr_vs_far}. 
+Table \ref{table:len_vs_perf} partially supports the theoretical expectation, as models trained on input sequences of length 30, 60 and 70 achieve much higher EER scores than those trained with lengths of 40 and 50. There is a very small difference in the performance of these model collections on the aggregated metrics. 
+With the difference in the EER scores being this low, it is unclear which collection of models performed better on the testing dataset.
+However, interesting differences appear when compared on a per-model basis, as the changes in models were not uniform. The impact of three selected models is shown in figure \ref{fig:selected_frr_vs_far}. 
 
 \begin{figure}[H]
 	\centering
@@ -289,11 +289,11 @@ However, interesting differences appear when comparing on a per model basis, as 
 	\label{fig:selected_frr_vs_far}%
 \end{figure}
 
-The model for user 21 shows a clear improvement as the unrecognized examples discussed in subsection \ref{subsec_eer} are now correctly classified. Conversely, the model for user 26 now classifies its positive examples with less confidence and showed an increase for an EER of 5.9\% to 10.2\%. For model 85 the change in length did not impact the EER, however it moved the decision threshold significantly.\\
-What these comparison demonstrate is that it is hard to reason about model performance across different input sequence lengths and small change has a large impact even on a per model bases.
+The model for user 21 shows a clear improvement as the unrecognized examples discussed in subsection \ref{subsec_eer} are now correctly classified. Conversely, the model for user 26 now classifies its positive examples with less confidence and showed an increase in EER from 5.9\% to 10.2\%. For model 85 the change in length did not impact the EER. However, it moved the decision threshold significantly.
+What these comparisons demonstrate is that it is hard to reason about model performance across different input sequence lengths and a small change has a large impact even on a per-model basis.
 
 \subsection{Character encoding}
-The results of comparing methods of character information in nodes are shown in table
+The results of comparing methods of encoding character information in nodes are shown in table
 \ref{table:char_encoding}.
 
 \begin{center}
@@ -316,7 +316,7 @@ The results of comparing methods of character information in nodes are shown in 
 	\end{table}
 \end{center}
 
-Table \ref{table:char_encoding} shows the more aggregating methods outperform those with less compact. The lower FAR might suggest that these models try to capture more complex features and thus overfit the data.
+Table \ref{table:char_encoding} shows that more aggregative methods outperform those that are less compact. The lower FAR might suggest that these models try to capture more complex features and thus overfit the data.
 
 \subsection{Edge data encoding}
 
@@ -338,13 +338,13 @@ Table \ref{table:char_encoding} shows the more aggregating methods outperform th
 	\end{table}
 \end{center}
 
-Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average far remains comparable, FRR, and thus the EER, differ by a large amount. This might be cause by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two letter combinations and failed to generalize.
+Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average FAR remains comparable, FRR, and thus the EER, differ by a large amount. This might be caused by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two-letter combinations and failed to generalize.
 
 
 \section{Class imbalance}
-Another point of experimentation was class balance in the training data. The baseline model was trained on a dataset with two times more positive examples than negative examples. A bigger proportion of positive examples was chosen experimentally, as it resulted in models that perform better at recognizing the positive class. \\ 
-The negative examples were sampled uniformly from all other users, with an offset such that the negative examples for some user were taken from the whole input text. This works for the number of users in the dataset. However, as the number of users grows, and the length of input sequence stays fixed, at some point each model needs to be trained only on a subset of the negative class input texts. At that point some models could fail to generalize to unseen negative examples. 
-While solving such problem lies outside the scope of this project, the impact of using more negative examples in the training process was measured and the results are presented in table \ref{table:egde_encoding_comp}.
+Another aspect of experimentation was class balance in the training data. The baseline model was trained on a dataset with twice as many positive examples as negative examples. A bigger proportion of positive examples was selected experimentally, as it resulted in models that performed better in recognizing the positive class. \\ 
+The negative examples were sampled uniformly from all other users, with an offset such that the negative examples for a user were taken from the whole input text. This approach is effective for the number of users in the current dataset. However, as the number of users grows, and the length of the input sequence stays fixed, at some point each model needs to be trained only on a subset of the negative class input texts. At this point, some models may fail to generalize to unseen negative examples. 
+While solving such a problem lies outside the scope of this project, the impact of using more negative examples in the training process was measured and the results are presented in table \ref{table:egde_encoding_comp}.
 
 
 \begin{center}
@@ -367,4 +367,4 @@ While solving such problem lies outside the scope of this project, the impact of
 	\end{table}
 \end{center}
 
-At higher percentage of negative examples were classified correctly, as indicated by the lower FAR, this comes at the expense of a large drop in the FRR score, to almost half of positive examples being dropped in the case of \textit{1:2} class balance. This means that the collection of models generalized poorly to unseen positive examples, to a degree that would be unacceptable. This can also be seen when comparing the average recall scores across these two collections of models, which dropped from \textit{0.7357} to \textit{0.692} and \textit{0.494} when the number of negative examples were doubled. 
+A higher percentage of negative examples were classified correctly, as indicated by the lower FAR; however, this came at the expense of a significant drop in the FRR, with almost half of the positive examples being misclassified in the case of \textit{1:2} class balance. This means that the collection of models generalized poorly to unseen positive examples, to a degree that would be unacceptable. This can also be seen when comparing the average recall scores across these two collections of models, which dropped from \textit{0.7357} to \textit{0.692} and \textit{0.494} when the number of negative examples were doubled. 
