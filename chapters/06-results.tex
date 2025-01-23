@@ -173,7 +173,7 @@ Table \ref{table:EER_separate} illustrates the differences in the models' abilit
 	\label{fig:far_ffr_all_thresholds}
 \end{figure}
 
-These plots show the relationship between FAR, FRR, and the decision threshold in more detail. The point at which the two lines cross is the EER. It is worth noting the large variation in the threshold at which the EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of positive class. These models have a lower EER than models with lower threshold values. To illustrate this, table \ref{EER_separate}, sorted by EER, is given below.
+These plots show the relationship between FAR, FRR, and the decision threshold in more detail. The point at which the two lines cross is the EER. It is worth noting the large variation in the threshold at which the EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of positive class. These models have a lower EER than models with lower threshold values. To illustrate this, table \ref{table:EER_separate}, sorted by EER, is given below.
 
 \begin{center}
 	\begin{table}[H]
@@ -244,7 +244,7 @@ Figure \ref{fig:all_models_5_len40} illustrates the different types of errors ma
 This section compares the impact of input encodings on the final model performance, as measured by the average FAR and FRR, as well as the average per-model EER value. The impact of these changes was measured by changing only a single hyperparameter, while all others remained the same, as shown in table \ref{table:hyperparams}. The results shown below compare performance on the testing dataset, allowing these values can be contrasted with what was discussed in the previous section. As mentioned previously, this is not how these features were selected.
 
 \subsection{Input sequence length}
-The theoretical impact of input length, as discussed in the section on graph creation, suggests that an optimal sequence length exists. Making the sequence shorter would result in graphs that do not have enough structure, for example, a chain of nodes or edge data to make the correct prediction possible. Making the sequence longer would result in a graph that is too dense, or it would cause the averages calculated per node to become too aggregated.
+The theoretical impact of input length, as discussed in the section on graph creation, suggests that an optimal sequence length exists. Making the sequence shorter would result in graphs that do not have enough structure, for example, a chain of nodes or not enough edge data to make the correct prediction possible. Making the sequence longer would result in a graph that is too dense, or it would cause the averages calculated per node to become too aggregated.
 
 
 \begin{center}
