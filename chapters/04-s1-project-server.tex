@@ -20,7 +20,7 @@ The only table in the database is 'key\_press', which records individual keystro
     \item \texttt{key (TEXT)}: Key pressed by the user.
     \item \texttt{press\_time (TIMESTAMP)}: Timestamp of when the key was pressed.
     \item \texttt{duration (INTEGER)}: Duration of the key press in milliseconds.
-    \item \texttt{accel\_x, acel\_y, accel\_z (REAL)}: Accelerometer data captured during the key press.
+    \item \texttt{accel\_x, accel\_y, accel\_z (REAL)}: Accelerometer data captured during the key press.
     \item \texttt{timestamp (TIMESTAMP)}: Timestamp of when the record was added to the database.
 \end{itemize}
 The 'timestamp' field is essential in ensuring that training examples consist of key presses from a single writing session without mixing data from different sessions. This separation is important for proper feature extraction and model training.
