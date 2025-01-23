@@ -102,15 +102,15 @@ The other major group of models was those with an unacceptably high FAR exceedin
 \subsection{Equal Error Rate} \label{subsec_eer}
 To calculate the equal error rate, the decision threshold needs to be adjusted, which can be performed globally, for all models or individually at a per--model level. Both methods of calculating this metric were analyzed.
 
-The global EER was calculated to illustrate the performance of the whole collection using one value.
+The global EER was calculated to illustrate the performance of the entire collection with a single value.
 \begin{itemize}
 	\item[] Equal Error Rate: 0.157
 	\item[] Threshold: 0.20
 \end{itemize}
-A low value of the decision threshold was necessary to achieve an equal error rate. This suggest that most of the models are unable to recognize positive examples with a high degree on confidence. Such a low value would not make sense in an applied setting and in the context of system developed in this project. 
+A low decision threshold was necessary to achieve an equal error rate. This suggests that most models are unable to recognize positive examples with a high level of confidence. Such a low value would not be practical in an applied setting and within the context of the system developed in this project. 
 
-The per model EER can be used to examine the differences between the models.\\
-Is is calculated by finding equal error rate decision threshold for each model separately.
+The per-model EER can be used to examine the differences among the models.
+It is calculated by finding the equal error rate decision threshold for each model separately.
 The results are shown in table \ref{table:EER_separate}.
 \begin{center}
 	\begin{table}[H]
@@ -164,7 +164,7 @@ The results are shown in table \ref{table:EER_separate}.
 	\end{table}
 \end{center}
 
-Table \ref{table:EER_separate} illustrates the difference in the ability of the models to generalize to unseen positive examples. This can be seen further by examining the change of FAR and FRR score with respect to the decision threshold, which is show in figure \ref{fig:far_ffr_all_thresholds}. 
+Table \ref{table:EER_separate} illustrates the differences in the models' ability to generalize unseen positive examples. This is further demonstrated by examining the changes in FAR and FRR scores with respect to the decision threshold, which is show in figure \ref{fig:far_ffr_all_thresholds}. 
 
 \begin{figure}[H]
 	\centering
@@ -173,7 +173,7 @@ Table \ref{table:EER_separate} illustrates the difference in the ability of the 
 	\label{fig:far_ffr_all_thresholds}
 \end{figure}
 
-These plots shows the relationship between FAR, FRR and the decision threshold in more detail. The point at which the two lines cross is the EER. Worth noting is the large variation in the threshold at which EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of the positive class. These models have a lower EER than models with lower threshold values. To ilustrate this , table \ref{EER_separate} sorted by EER is given below.
+These plots show the relationship between FAR, FRR, and the decision threshold in more detail. The point at which the two lines cross is the EER. It is worth noting the large variation in the threshold at which the EER is achieved. Models for users 21, 22, 25, 26, 61, 62, 82, 85, and 86 reach an equal error rate at or above a threshold of 0.8, which indicates a high degree of confidence in the prediction of positive class. These models have a lower EER than models with lower threshold values. To illustrate this , table \ref{EER_separate}, sorted by EER, is given below.
 
 \begin{center}
 	\begin{table}[H]
@@ -224,8 +224,8 @@ These plots shows the relationship between FAR, FRR and the decision threshold i
 	\end{table}
 \end{center}
 
-A outlier in this trend is model 41, which achieves an equal error rate of 8.1\% at a 0.35 decision threshold, outperforming models with much higher decision thresholds. Outliers like this suggest, that a better approach than choosing one decision threshold could be to determine them on a per model basis. Such threshold could be chosen once, on some portion of the user training data through cross--validation, although such approach would lengthen the training process. Alternatively such value could be adjusted dynamically, based on how often a user fails to be authenticated using the model. Such considerations could be an area of further research as they fall outside the scope of this project.\\
-Additionally, because a global decision forces poor performance on otherwise well performing models, we believe that the average per model EER is a better metric to use than the global EER and will as such it will be used in the rest of this chapter.\\
+A outlier in this trend is model 41, which achieves an equal error rate of 8.1\% at a 0.35 decision threshold, outperforming models with much higher decision thresholds. Outliers like this suggest, that a better approach than choosing one decision threshold could be to determine them on a per model basis. Such threshold could be chosen once, on some portion of the user training data through cross--validation, although such approach would lengthen the training process. Alternatively such value could be adjusted dynamically, based on how often a user fails to be authenticated using the model. Such considerations could be an area of further research as they fall outside the scope of this project.
+Additionally, because a global decision forces poor performance on otherwise well performing models, we believe that the average per model EER is a better metric to use than the global EER and will as such it will be used in the rest of this chapter.
 Another interesting examples is that of model 21, for which the FRR is almost constant, at a value of around 12\%. This indicates that all examples are recognized with a high degree of confidence, except those 12\%, which could indicate that the user changes writing styles for part of the final input or that the training data failed to capture some characteristic of the writing style.
 
 \subsection{Confusion matrix for all users}
