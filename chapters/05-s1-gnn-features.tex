@@ -58,7 +58,7 @@ Three methods were considered, all of which are variations of one-hot encoding o
 \end{enumerate}
 
 
-These methods differ by their degree of aggregation. Methods $2$ and $3$ group certain letters together, mapping multiple characters to the same values, while method $1$ provides a unique, one-hot encoded identifier for each node. You, Gomes-Selman and Ying \cite{you2021identityawaregraphneuralnetworks}
+These methods differ by their degree of aggregation. Methods $2$ and $3$ group certain letters together, mapping multiple characters to the same values, while method $1$ provides a unique, one-hot encoded identifier for each node \cite{you2021identityawaregraphneuralnetworks}.
 found that such node identifiers helped the model to learn certain structures in the data. However, providing node identifiers as input features works well only for a small and defined set of possible input nodes \cite{Lesk2024}. While this requirement appears to hold true for this specific task, it was found not to be the case.
 Many letters that appear to be common are, in fact, infrequent in the dataset. This is especially true for capitalised letters. For example the letter \textit{'f'} appears 134 times, whereas \textit{'F'} appears only 6 times. This is even more true for symbols, many of which appear only once in the entire dataset, these being: \textit{'\{'}, \textit{'\%'}, \textit{'*'}, \textit{':'} and \textit{'\#'}.
 This means that the behavior of the models would be unpredictable for nodes with such identifiers.\\
