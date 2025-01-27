@@ -21,7 +21,7 @@ There may be some fundamental problems with the data being gathered, as well. It
 		\begin{center}
 			\begin{tabular}{ |c|c|c|c|c| } 
 				\hline
-				Study & FAR & FRR & EER & Keystrokes per user \\
+				Study & FAR & FRR & EER & Average keystrokes per user \\
 				\hline
 				Kim et al. \cite{kim2018} & -- & -- & 0.84\%, 0.44\% & 18245 \\
 				\hline
@@ -46,4 +46,4 @@ Two languages used by the users could also affected some models' performance. In
 
 True evaluation of the method is thus possible only with a larger sample size and text lengths. Gathering users proficient in different languages could also be helpful for analyzing the effects of two different languages being mixed in the model and possible adverse effects of such an approach. Different sets a letters used and different letter frequencies may lead to atypical data and problems in user recognition.
 
-The use of GNN model itself did not cause any major problems. The main benefits of the approach utilizing GNN model instead of CNN, previously stated in chapter 3, were apparent to the team. Graphs proved effective in their ability to modelling relations between different characters in keystroke dynamics data. GNN model used was also simple, utilizing a small amount of layers. GNN models tend to perform well on smaller, sparser graphs, where their computational and memory costs are also significantly lower. On larger, denser graphs, they may require methods like graph sparsification \cite{zhang2024graphsparsificationmixturegraphs}. With a reduced set of characters and some characters being far more likely to be connected on a graph, this problem was largely averted and model performed as intended. \myworries{has fast was it?} With a small number of users and a limited number of characters, GNN models were not costly. \myworries{were they?}
+The use of GNN model itself did not cause any major problems. The main benefits of the approach utilizing GNN model instead of CNN, previously stated in chapter 3, were apparent to the team. Graphs proved effective in their ability to modelling relations between different characters in keystroke dynamics data. GNN model used was also simple, utilizing a small amount of layers. GNN models tend to perform well on smaller, sparser graphs, where their computational and memory costs are also significantly lower. On larger, denser graphs, they may require methods like graph sparsification \cite{zhang2024graphsparsificationmixturegraphs}. With a reduced set of characters and some characters being far more likely to be connected on a graph, this problem was largely averted and model performed as intended. With a small number of users and a limited number of characters, GNN models were not costly.
