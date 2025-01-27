@@ -386,11 +386,10 @@ To further explore these scalability concerns, experiments were conducted on two
 
 Additionally, a targeted experiment was performed to determine whether users 25 and 86 could be reliably differentiated when training models exclusively on their datasets.
 
-
 \subsection{Subset Test}
 The global performance of a subset of models is highly dependent on the users included in the subset. For instance, removing users 23 or 24 from the subset would likely improve overall performance, as the models for these users exhibit poor results. Conversely, removing users 22 or 26 would reduce performance, as these users consistently achieve strong results regardless of the subset composition.
 
-To account for these variations, the models were evaluated on an individual basis. The changes in Equal Error Rate (EER) are illustrated in figure \ref{subset_plot}.
+To account for these variations, the models were evaluated on an individual basis. The changes in Equal Error Rate (EER) are illustrated in figure \ref{fig:subset_plot}.
 
 \begin{figure}[H]
 	\centering
@@ -401,4 +400,28 @@ To account for these variations, the models were evaluated on an individual basi
 
 As demonstrated in the figure, the impact of increasing the user subset size varies significantly across models. Notably, for 3 of the 8 tested models, the relationship was non-monotonic. Consequently, drawing definitive conclusions from this test is challenging due to the limited number of data points.
 
-\subsection{Two model test}
+\subsection{Two-Model Test}
+This small-scale test can be considered an extreme version of the subset test, reduced to include only two models. The purpose of this test was to evaluate whether the proposed solution could reliably differentiate between these two users under optimal conditions.
+
+The results of this test are presented in the figure below.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.99\textwidth]{images/confusion_matrix_25.pdf}
+		\caption{Confusion matrix for model 25.}
+		\label{fig:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.99\textwidth]{images/confusion_matrix_86.pdf}
+		\caption{Confusion matrix for model 86.}
+		\label{fig:sub2}
+	\end{subfigure}
+	\caption{Confusion matrices for models 25 and 86 tested exclusively on their respective datasets.}
+	\label{user_vs_user}
+\end{figure}
+
+The models trained under these conditions achieved false positive rates of 1.2\% for Model 25 and 21\% for Model 86. These results represent a significant improvement over the baseline models, which demonstrated false positive rates exceeding 60\%, as shown in Figure \ref{fig:all_models_5_len40}.\\
+This test demonstrates that the proposed method is capable of distinguishing between these two users when trained under optimal conditions. However, when the models are trained on the full dataset, this ability is substantially diminished.
