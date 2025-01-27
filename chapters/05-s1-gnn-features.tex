@@ -58,9 +58,9 @@ Three methods were considered, all of which are variations of one-hot encoding o
 \end{enumerate}
 
 
-These methods differ by their degree of aggregation. Methods $2$ and $3$ group certain letters together, mapping multiple characters to the same values, while method $1$ provides a unique, one-hot encoded identifier for each node. Node identifiers have been found to help the model to learn certain structures in the data \cite{you2021identityawaregraphneuralnetworks}. 
+These methods differ by their degree of aggregation. Methods $2$ and $3$ group certain letters together, mapping multiple characters to the same values, while method $1$ provides a unique, one-hot encoded identifier for each node. Node identifiers have been found to help the model learn certain structures in the data \cite{you2021identityawaregraphneuralnetworks}. 
 
-However, providing node identifiers as input features works well only for a small and defined set of possible input nodes \cite{Lesk2024}. While this requirement appears to hold true for this specific task, it was found not to be the case.
+However, providing node identifiers as input features is effective only for a small and defined set of possible input nodes \cite{Lesk2024}. While this requirement appears to hold true for this specific task, it was found not to be the case.
 Many letters that appear to be common are, in fact, infrequent in the dataset. This is especially true for capitalised letters. For example the letter \textit{'f'} appears 134 times, whereas \textit{'F'} appears only 6 times. This is even more true for symbols, many of which appear only once in the entire dataset, these being: \textit{'\{'}, \textit{'\%'}, \textit{'*'}, \textit{':'} and \textit{'\#'}.
 This means that the behavior of the models would be unpredictable for nodes with such identifiers.\\
 Method $2$ addresses the problem in the case of symbols and numbers. It does not, however help with processing infrequent capitalized diacritical letters. For example, \textit{'l'} appears 875 times, \textit{"ł"} 138 times, \textit{"L"} 10 times and \textit{"Ł"} only twice. With such a low number of occurances it is unlikely that the models could learn the relationship between these letters. \\
