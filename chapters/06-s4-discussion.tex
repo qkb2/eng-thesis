@@ -16,6 +16,32 @@ Possible way of gathering better quality data from more motivated participants c
 
 There may be some fundamental problems with the data being gathered, as well. It may be that a limited set of features employed in this study is insufficient to perform as well as state of the art models, such as \cite{Lu2020}. That model achieved an FAR of 2.83\% and 5.31\%, an FRR of 1.89\% and 6.61\%, and an EER of 2.36\% and 5.97\% for the Buffalo and Clarkson II datasets, respectively. In comparison, the model used in this study resulted in an FAR of 9.2\%, an FRR of 26.4\%, and an EER of 13.3\%. The observed performance differences may result from the dataset size and the available feature set. Expanding the feature set to include accelerometer data could improve performance but introduces several challenges. Collecting a significantly larger dataset would be necessary to cover various conditions, such as typing while sitting, lying down, or standing. This would help ensure that the model generalizes correctly across different scenarios.
 
+\begin{center}
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular}{ |c|c|c|c|c| } 
+				\hline
+				Study & FAR & FRR & EER & Keystrokes per user \\
+				\hline
+				Kim et al. \cite{kim2018} & -- & -- & 0.84\%, 0.44\% & 18245 \\
+				\hline
+				Kim et al. \cite{kim2020} & -- & -- & 0.07\%, 0\% & 4500 \\
+				\hline
+				Ahmed et al. \cite{ahmed2013} & 0.0152\% & 4.82\% & 2.46\% & -- \\
+				\hline
+				Lu et al. \cite{Lu2020} (Buffalo) & 2.83\% & 1.89\% & 2.36\% & 17000 \\
+                \hline
+                Lu et al. \cite{Lu2020} (Clarkson II) & 5.31\% & 6.61\% & 5.97\% & 125000 \\
+                \hline
+				This Study & 9.2\% & 26.4\% & 13.3\% & 2100 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\caption{Summary of FAR, FRR, and EER Across Various Studies.}
+		\label{table:studies_results}
+	\end{table}
+\end{center}
+
 Two languages used by the users could also affected some models' performance. In further studies, each user's language would need to be labeled. Users should then be grouped by their respective language. They would also have to be clearly instructed to write in one language only, as mixing multiple different languages could lead to errors in later inference. 
 
 True evaluation of the method is thus possible only with a larger sample size and text lengths. Gathering users proficient in different languages could also be helpful for analyzing the effects of two different languages being mixed in the model and possible adverse effects of such an approach. Different sets a letters used and different letter frequencies may lead to atypical data and problems in user recognition.
