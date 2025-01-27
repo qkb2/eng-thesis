@@ -23,9 +23,9 @@ There may be some fundamental problems with the data being gathered, as well. It
 				\hline
 				Study & FAR & FRR & EER & Keystrokes per user \\
 				\hline
-				Kim et al. \cite{kim2018} & -- & -- & 0.84\% (en), 0.44\% (ko) & 18245 \\
+				Kim et al. \cite{kim2018} & -- & -- & 0.84\% (en), 0.44\% (ko)$^*$ & 18245 \\
 				\hline
-				Kim et al. \cite{kim2020} & -- & -- & 0.07\% (en), 0\% (ko) & 4500 \\
+				Kim et al. \cite{kim2020} & -- & -- & 0.07\% (en), 0\% (ko)$^*$ & 4500 \\
 				\hline
 				Ahmed et al. \cite{ahmed2013} & 0.0152\% & 4.82\% & 2.46\% & 18008 \\
 				\hline
@@ -40,10 +40,11 @@ There may be some fundamental problems with the data being gathered, as well. It
 		\caption{Summary of FAR, FRR, and EER Across Various Studies.}
 		\label{table:studies_results}
 	\end{table}
+	\footnotesize $^*$The study results for English and Korean languages differed.
 \end{center}
 
 The use of two languages by the users could have also affected some models' performance. In further studies, each user's language should be explicitly labeled. Users should then be grouped by their respective language. They would also have to be clearly instructed to write in one language only, as mixing multiple languages could lead to errors in later inference. 
 
 A true evaluation of the method is thus possible only with a larger sample size and text lengths. Gathering users proficient in different languages could also be helpful for analyzing the effects of two different languages being mixed in the model and possible adverse effects of such an approach. Different sets of letters used and different letter frequencies may lead to atypical data and problems in user recognition.
 
-The use of GNN model itself did not cause any major problems. The main benefits of the approach utilizing GNN model instead of CNN, previously stated in chapter 3, were apparent to the team. Graphs proved effective in their ability to modelling relations between different characters in keystroke dynamics data. The GNN model used was also simple, utilizing a small amount of layers. GNN models tend to perform well on smaller, sparser graphs, where their computational and memory costs are also significantly lower. On larger, denser graphs, they may require methods like graph sparsification \cite{zhang2024graphsparsificationmixturegraphs}. With a reduced set of characters and some characters being far more likely to be connected on a graph, this problem was largely averted and model performed as intended. With a small number of users and a limited number of characters, GNN models were not costly.
+The use of GNN model itself did not cause any major problems. The main benefits of the approach utilizing GNN model instead of CNN, previously stated in chapter 3, were apparent to the team. Graphs proved effective in their ability to modeling relations between different characters in keystroke dynamics data. The GNN model used was also simple, utilizing a small amount of layers. GNN models tend to perform well on smaller, sparser graphs, where their computational and memory costs are also significantly lower. On larger, denser graphs, they may require methods like graph sparsification \cite{zhang2024graphsparsificationmixturegraphs}. With a reduced set of characters and some characters being far more likely to be connected on a graph, this problem was largely averted and model performed as intended. With a small number of users and a limited number of characters, GNN models were not costly.

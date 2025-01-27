@@ -4,7 +4,7 @@ The server is written in Python and implemented using FastAPI \cite{fastapi}, a 
 The server communicates with the mobile application using HTTP POST requests. All communication is secured using SSL encryption to ensure data integrity and privacy during transmission.
 
 \subsection{Endpoints and their functionality}
-The server provides three endpoints for interaction with the mobile application. All endpoints share the same parameters: a query parameter 'username' identifying the user and a raw TSV file in the request body.
+The server provides three endpoints for interaction with the mobile application. All endpoints share the same parameters: a query parameter \texttt{username} identifying the user and a raw TSV file in the request body.
 \begin{itemize}
     \item POST \texttt{/upload\_tsv}: This endpoint allows the mobile application to upload keystroke data in TSV format. The server parses the TSV content into a string, verifies its structure, and loads it into the SQLite database. Additionally, the data is stored in a designated directory. A confirmation message is returned if the data is successfully processed and stored. An error message is returned if the data cannot be processed or stored due to validation issues or other errors.
     \item POST \texttt{/train}: This endpoint has the same functionality as \texttt{/upload\_tsv} but additionally invokes the training process for a user-specific GNN model. It should be called with the last portion of data to ensure that the model is trained on a complete dataset. The server stores and validates the last portion of the training data before invoking the function responsible for training. A success message is returned upon the successful completion of model training. An error message is returned if the training process fails.
@@ -12,9 +12,9 @@ The server provides three endpoints for interaction with the mobile application.
 \end{itemize}
 
 \subsection{Database layer}
-Besides saving users' keystroke data as TSV files in a specified directory, the server uses SQLite as the database management system to store the data. The database is managed by the 'database\_utils' module, which provides functions for creating tables, inserting data, and retrieving stored information.
+Besides saving users' keystroke data as TSV files in a specified directory, the server uses SQLite as the database management system to store the data. The database is managed by the \texttt{database\_utils} module, which provides functions for creating tables, inserting data, and retrieving stored information.
 
-The only table in the database is 'key\_press', which records individual keystroke events. The table includes the following fields:
+The only table in the database is \texttt{key\_press}, which records individual keystroke events. The table includes the following fields:
 \begin{itemize}
     \item \texttt{user\_id (TEXT)}: Identifier of the user.
     \item \texttt{key (TEXT)}: Key pressed by the user.
@@ -23,16 +23,16 @@ The only table in the database is 'key\_press', which records individual keystro
     \item \texttt{accel\_x, accel\_y, accel\_z (REAL)}: Accelerometer data captured during the key press.
     \item \texttt{timestamp (TIMESTAMP)}: Timestamp of when the record was added to the database.
 \end{itemize}
-The 'timestamp' field is essential in ensuring that training examples consist of key presses from a single writing session without mixing data from different sessions. This separation is important for proper feature extraction and model training.
+The \texttt{timestamp} field is essential in ensuring that training examples consist of key presses from a single writing session without mixing data from different sessions. This separation is important for proper feature extraction and model training.
 
-Key functions implemented in the 'database\_utils' module include:
+Key functions implemented in the \texttt{database\_utils} module include:
 \begin{itemize}
-    \item \texttt{create\_table()}: Creates the 'key\_press' table if it does not already exist.
-    \item \texttt{drop\_table()}: Deletes the 'key\_press' table.
+    \item \texttt{create\_table()}: Creates the \texttt{key\_press} table if it does not already exist.
+    \item \texttt{drop\_table()}: Deletes the \texttt{key\_press} table.
     \item \texttt{add\_tsv\_values()}: Inserts keystroke data into the database.
     \item \texttt{load\_str()}: Processes TSV data provided as a string and inserts it into the database.
     \item \texttt{load\_file() and load\_dir()}: Load keystroke data from TSV file or directory with TSV files and insert them into the database.
 \end{itemize}
 
 \subsection{Server deployment}
-The server can be deployed either locally or on a remote host. The main server script 'server.py' uses 'uvicorn' to run the FastAPI application. SSL/TLS encryption is configured to secure all communications, with the SSL key and certificate specified in the 'main()' function. The server listens on port 8000 and supports HTTPS requests by default.
+The server can be deployed either locally or on a remote host. The main server script \texttt{server.py} uses \texttt{uvicorn} to run the FastAPI application. SSL/TLS encryption is configured to secure all communications, with the SSL key and certificate specified in the \texttt{main()} function. The server listens on port 8000 and supports HTTPS requests by default.

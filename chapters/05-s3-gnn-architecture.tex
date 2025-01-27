@@ -64,8 +64,6 @@ A dropout layer was added between the two fully connected layers, which randomly
 \subsection{Data division}
 For model validation, 5-fold cross-validation was used, splitting the training set described in section \ref{sec:data_collection} into five parts, with training performed on four of them. The number of folds corresponds to the number of 300-character blocks that users were asked to input. Such splits validate that the trained model is able to generalize to a part of the input that may have been written at different times and in styles. Furthermore, it closely resembles the way the model was tested, that is on a completely different input sequence, collected in a separate part of the application.  
 
-\subsection{Training parameters}
-
 \subsection{Loss function}
 Binary Cross Entropy was chosen as the loss function for training, as it is commonly used with binary classifiers. 
 The use of this loss function requires the model to output the probability of picking the positive class, therefore a sigmoid function must be applied to the output of the final layer.
@@ -75,5 +73,5 @@ These two operations are combined into a single step in the implementation, by u
 Adam was selected as the optimizer for updating model weights, as it adapts the learning rate for each parameter. The learning rate was empirically set to 0.001.
 
 \subsection{Tuning hyperparameters}
-The architecture described above allows for a large number of hyperparameter choices, such as the size of preprocessing, convolutional, and postprocessing layers. Furthermore, the variable length of input sequences and multiple possible feature encoding methods mean that a comprehensive search over the hyperparameter space is infeasible. Within the scope of this project the biggest emphasis was placed on finding the optimal input features and input sequence length, thereby identifying the best graph representation. Additionally, the effect of class imbalance on the training process of the collection of models was also explored.\\
+The architecture described above allows for a large number of hyperparameter choices, such as the size of preprocessing, convolutional, and postprocessing layers. Furthermore, the variable length of input sequences and multiple possible feature encoding methods mean that a comprehensive search over the hyperparameter space is infeasible. Within the scope of this project the biggest emphasis was placed on finding the optimal input features and input sequence length, thereby identifying the best graph representation. Additionally, the effect of class imbalance on the training process of the collection of models was also explored.
 All models were trained using 5--fold cross--validation, with the validation results averaged across folds. These were then used to compare the collections of models and to select hyperparameter values.

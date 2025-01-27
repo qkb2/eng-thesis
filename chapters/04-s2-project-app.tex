@@ -130,7 +130,7 @@ Data collection occurs in two stages, training and testing
 	\item 
 	Testing data collection takes place on the \texttt{Testing Screen} \ref{fig:testing_screen}, where the user is required to write 100 characters, again in meaningful sentences. Once this is done, the testing phase is complete.
 \end{itemize}
-After each phase, the collected data is saved in a \texttt{.tsv} file, sent to the server, and stored locally in the phone's downloads directory. The \texttt{exportDataToTsv} \ref{fig:export_data_code} function from \texttt{MainViewModel.kt} handles the export of key press data. \newline Firstly it retrieves latest key press events using the \texttt{keyPressDao.getNLatestKeyPresses} method, converting the data into a \texttt{.tsv} format using the \texttt{keyPressesToTsv} function. \newline
+After each phase, the collected data is saved in a \texttt{.tsv} file, sent to the server, and stored locally in the phone's downloads directory. The \texttt{exportDataToTsv} \ref{fig:export_data_code} function from \texttt{MainViewModel.kt} handles the export of key press data. \newline First it retrieves latest key press events using the \texttt{keyPressDao.getNLatestKeyPresses} method, converting the data into a \texttt{.tsv} format using the \texttt{keyPressesToTsv} function. \newline
 Depending on which phase the user is in, the function determines the different type of operation to perform.
 \begin{itemize}
 	\item 

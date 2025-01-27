@@ -76,7 +76,6 @@ The table below presents the false authentication rate and false acceptance rate
 		\hline
 		86 & 0.037 & 0.000 \\
 		\hline
-		\hline
 		Average & 0.092 & 0.264 \\
 		\hline
 	\end{tabular}
@@ -95,17 +94,18 @@ The same data can be visualized as a plot of the false acceptance rate versus th
 	\label{fig:frr_vs_far_all_models_base}
 \end{figure}
 
-Figure \ref{fig:frr_vs_far_all_models_base} demonstrates a large discrepancy between the models. At the same threshold level, some models were able to achieve a FAR and FRR score below 10\%, while others failed to recognize more than half of the examples in the positive class. \\
+Figure \ref{fig:frr_vs_far_all_models_base} demonstrates a large discrepancy between the models. At the same threshold level, some models were able to achieve a FAR and FRR score below 10\%, while others failed to recognize more than half of the examples in the positive class.
+
 This first group consists of models for users 86, 62, 82, 25, 26, and 61. These models were able to effectively learn and generalize the test dataset well.
 The other major group of models was those with an unacceptably high FAR exceeding 45\% and a below-average FAR score. These group includes models for users 81, 24, 60, 40 and 23. The reason for such high FAR could be twofold, either the models simply failed to generalize to unseen positive examples, or they did but with a lower confidence level than the established threshold. Other models have varying performance and are difficult to categorize into coherent groups.
 
 \subsection{Equal Error Rate} \label{subsec_eer}
 To calculate the equal error rate, the decision threshold needs to be adjusted, which can be performed globally, for all models or individually at a per--model level. Both methods of calculating this metric were analyzed.
 
-The global EER was calculated to illustrate the performance of the entire collection with a single value.
+The global EER was calculated to illustrate the performance of the entire collection with a single value:
 \begin{itemize}
-	\item[] Equal Error Rate: 0.157
-	\item[] Threshold: 0.20
+	\item Equal Error Rate: 0.157
+	\item Threshold: 0.20
 \end{itemize}
 A low decision threshold was necessary to achieve an equal error rate. This suggests that most models are unable to recognize positive examples with a high level of confidence. Such a low value would not be practical in an applied setting and within the context of the system developed in this project. 
 
@@ -118,7 +118,6 @@ The results are shown in table \ref{table:EER_separate}.
 			\begin{tabular}{ |c|c|c| } 
 				\hline
 				User ID & Equal Error Rate & Decision threshold \\
-				\hline
 				\hline
 				21 & 0.124 & 0.95 \\
 				\hline
@@ -154,7 +153,6 @@ The results are shown in table \ref{table:EER_separate}.
 				\hline
 				86 & 0.028 & 0.90 \\
 				\hline
-				\hline
 				Average & 0.133 & -- \\
 				\hline
 			\end{tabular}
@@ -181,7 +179,6 @@ These plots show the relationship between FAR, FRR, and the decision threshold i
 			\begin{tabular}{ |c|c|c| } 
 				\hline
 				User ID & Equal Error Rate & Decision threshold \\
-				\hline
 				\hline
 				22 & 0.026 & 0.95 \\
 				\hline
@@ -285,8 +282,8 @@ However, interesting differences appear when compared on a per-model basis, as t
 	\subfloat[Plots for input of length 50]{
 		\includegraphics[width=\textwidth]{images/selected_far_vs_frr_len50.pdf}
 	}
-	\caption{Comparison of selected FAR and FRR plots for different input lengths}%
-	\label{fig:selected_frr_vs_far}%
+	\caption{Comparison of selected FAR and FRR plots for different input lengths}
+	\label{fig:selected_frr_vs_far}
 \end{figure}
 
 The model for user 21 shows a clear improvement as the unrecognized examples discussed in subsection \ref{subsec_eer} are now correctly classified. Conversely, the model for user 26 now classifies its positive examples with less confidence and showed an increase in EER from 5.9\% to 10.2\%. For model 85 the change in length did not impact the EER. However, it moved the decision threshold significantly.
@@ -338,11 +335,12 @@ Table \ref{table:char_encoding} shows that more aggregative methods outperform t
 	\end{table}
 \end{center}
 
-Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average FAR remains comparable, FRR, and thus the EER, differ by a large amount. This might be caused by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two-letter combinations and failed to generalize.
+Table \ref{table:egde_encoding_comp} shows the superiority of the \textit{Two values per node} encoding method. While the average FAR remains comparable, FRR, and thus the EER, differ by a large amount. This might be caused by the same reasons as the difference between character encoding methods. The method with less aggregation performs worse, as the model might not have seen all possible two-letter combinations and failed to generalize.\\
 
 
 \section{Class imbalance}
-Another aspect of experimentation was class balance in the training data. The baseline model was trained on a dataset with twice as many positive examples as negative examples. A bigger proportion of positive examples was selected experimentally, as it resulted in models that performed better in recognizing the positive class. \\ 
+Another aspect of experimentation was class balance in the training data. The baseline model was trained on a dataset with twice as many positive examples as negative examples. A bigger proportion of positive examples was selected experimentally, as it resulted in models that performed better in recognizing the positive class.
+ 
 The negative examples were sampled uniformly from all other users, with an offset such that the negative examples for a user were taken from the whole input text. This approach is effective for the number of users in the current dataset. However, as the number of users grows, and the length of the input sequence stays fixed, at some point each model needs to be trained only on a subset of the negative class input texts. At this point, some models may fail to generalize to unseen negative examples. 
 While solving such a problem lies outside the scope of this project, the impact of using more negative examples in the training process was measured and the results are presented in table \ref{table:egde_encoding_comp}.
 
@@ -373,20 +371,20 @@ A higher percentage of negative examples were classified correctly, as indicated
 \section{Number of users}
 The models developed in this project were tested on a relatively small number of users. This limited dataset poses challenges in evaluating the scalability of the solution to a larger population, which is a critical factor for deploying such a system in real-world applications. Two potential issues were identified that could impact performance as the number of users increases:
 \begin{enumerate}
-	\item Limited Negative Class Examples: With a larger user base, each model would be exposed to fewer negative class examples during training. This reduction could lead to higher false acceptance rates, as the models may struggle to distinguish between the positive and negative classes effectively.  However, this issue seems less concerning since the current models tend to struggle with specific individual users rather than misclassifying negative examples uniformly.
+	\item Limited negative class examples: with a larger user base, each model would be exposed to fewer negative class examples during training. This reduction could lead to higher false acceptance rates, as the models may struggle to distinguish between the positive and negative classes effectively.  However, this issue seems less concerning since the current models tend to struggle with specific individual users rather than misclassifying negative examples uniformly.
 	
-	\item Similarity in Writing Characteristics: As the number of users grows, the probability of individuals sharing similar writing patterns increases. This overlap could lead to confusion for the models, resulting in misclassifications. Evidence of this issue was already observed on a smaller scale, with users 25 and 86, as illustrated in figure \ref{fig:all_models_5_len40}.
+	\item Similarity in writing characteristics: as the number of users grows, the probability of individuals sharing similar writing patterns increases. This overlap could lead to confusion for the models, resulting in misclassifications. Evidence of this issue was already observed on a smaller scale, with users 25 and 86, as illustrated in figure \ref{fig:all_models_5_len40}.
 \end{enumerate}
 
 To further explore these scalability concerns, experiments were conducted on two user subsets:
 \begin{enumerate}
-	\item Subset A: Users 21, 22, 26, 60, 82, 83, 85, and 86.
-	\item Subset B: Users from Subset A, with the addition of users 23, 24, and 62.
+	\item Subset A: users 21, 22, 26, 60, 82, 83, 85, and 86.
+	\item Subset B: users from subset A, with the addition of users 23, 24, and 62.
 \end{enumerate}
 
 Additionally, a targeted experiment was performed to determine whether users 25 and 86 could be reliably differentiated when models were trained exclusively on their datasets.
 
-\subsection{Subset Test}
+\subsection{Subset test}
 The global performance of a subset of models is highly dependent on the users included in the subset. For instance, removing users 23 or 24 from the subset would likely improve overall performance, as the models for these users exhibit poor results. Conversely, removing users 22 or 26 would reduce performance, as these users consistently achieve strong results regardless of the subset composition.
 
 To account for these variations, the models were evaluated on an individual basis. The changes in Equal Error Rate (EER) are illustrated in figure \ref{fig:subset_plot}.
@@ -400,7 +398,7 @@ To account for these variations, the models were evaluated on an individual basi
 
 As demonstrated in the figure, the impact of increasing the user subset size varies significantly across models. Notably, for three of the eight tested models, the relationship was non-monotonic. Consequently, drawing definitive conclusions from this test is challenging due to the limited number of data points.
 
-\subsection{Two-Model Test}
+\subsection{Two-model test}
 This small-scale test can be considered an extreme version of the subset test, reduced to include only two models. The purpose of this test was to evaluate whether the proposed solution could reliably differentiate between these two users under optimal conditions.
 
 The results of this test are presented in the figure below.
