@@ -1,6 +1,6 @@
 \section{Metrics}
-Choosing a correct metric for a machine learning model is an important step for testing its performance. Furthermore, in the case of this project, a metric for testing the whole collections of models needs to be selected.
-When considering the functioning of authentication system, these metrics are often used \cite{traore2011continuous}. 
+Choosing the correct metric for a machine learning model is an important step for testing its performance. Furthermore, in the case of this project, a metric for testing the whole collections of models needs to be selected.
+When considering the functioning of an authentication system, these metrics are often used \cite{traore2011continuous}. 
 
 \subsection{Accuracy}
 Accuracy measures the proportion of correct predictions (both positive and negative) over all predictions. It is calculated as:
@@ -28,7 +28,7 @@ Recall measures the proportion of correctly predicted positive samples among all
 Recall = \frac{TP}{TP + FN}
 \end{align}
 
-These measures are commonly used in machine learning and information retrieval setting, under the assumption that the negative class, and consequently, the number of true negatives, does not matter as much as the positive class. The focus on the correct recognition of the positive class matches the use function of models in this project.
+These measures are commonly used in machine learning and information retrieval settings, under the assumption that the negative class, and consequently, the number of true negatives, does not matter as much as the positive class. The focus on the correct recognition of the positive class matches the use function of models in this project.
 As such, precision and recall were used when training models, to measure the performance on validation set and tuning hyperparameters.
 
 \subsection{False Acceptance Rate (FAR) and False Rejection Rate (FRR)} \label{FAR_FRR_theory}
@@ -42,14 +42,14 @@ The False Rejection Rate (FRR) represents the proportion of positive samples (ge
 FRR = \frac{FN}{TP + FN}
 \end{align}
 
-From the perspective of this project, FAR and FRR were considered to be the most important and informative metric. These metrics directly represent the security and usability of a system from the perspective of its users and therefore showcase the performance of the trained models in their intended. As such, the performance of the collection of models will be evaluated using these metrics. 
+From the perspective of this project, FAR and FRR were considered to be the most important and informative metrics. These metrics directly represent the security and usability of a system from the perspective of its users and therefore showcase the performance of the trained models in their intended. As such, the performance of the collection of models will be evaluated using these metrics. 
 
 \subsection{Equal Error Rate (EER)}
-In authentication systems, there is often a trade-off between FAR and FRR. By lowering the decision threshold, more users, both genuine and imposters would be authenticated, thus lowering FRR and increasing FAR. Conversely, a higher decision threshold would lead to a increased FRR and decreased FAR.
+In authentication systems, there is often a trade-off between FAR and FRR. By lowering the decision threshold, more users, both genuine and imposters would be authenticated, thus lowering FRR and increasing FAR. Conversely, a higher decision threshold would lead to an increased FRR and decreased FAR.
 The Equal Error Rate is the value of these metrics at a threshold where FAR = FRR. If no such threshold can be found, EER can is calculated as  
 \begin{align}
 EER = \frac{FFR + FAR}{2}
 \end{align}
 at a threshold where the difference between FFR + FAR is minimal.
 
-The equal error rate is a useful metric which allow for easy comparison between different methods and applications. Naturally, the threshold used to measure the EER is not the optimal value for the perspective of the final application. As noted in the section about accuracy, the number of false negatives is the major concern for this project. Therefore, a higher false rejection rate is acceptable, if it results in a comparable drop in the false acceptance rate. Despite this fact, the EER will also be reported along with model performance, as it is a common metric used in authentication systems and allows comparing the outcomes to other findings using Keystroke Dynamics.
+The equal error rate is a useful metric that allows for easy comparison between different methods and applications. Naturally, the threshold used to measure the EER is not the optimal value for the perspective of the final application. As noted in the section about accuracy, the number of false negatives is the major concern for this project. Therefore, a higher false rejection rate is acceptable, if it results in a comparable drop in the false acceptance rate. Despite this fact, the EER will also be reported along with model performance, as it is a common metric used in authentication systems and allows comparing the outcomes to other findings using Keystroke Dynamics.

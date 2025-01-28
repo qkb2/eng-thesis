@@ -122,7 +122,7 @@ WYDZIA{\L} INFORMATYKI I TELEKOMUNIKACJI\\
 Instytut Informatyki
 \else
   \includegraphics[width=\textwidth]{wit/sygnet-pp-eng.eps} \\
-FACULTY OF COMPUTING AND TELECOMMUNICATION\\
+FACULTY OF COMPUTING AND TELECOMMUNICATIONS\\
 Institute of Computing Science
 \fi\end{center}}
 
@@ -161,32 +161,38 @@ Supervisor\\\@ppsupervisor
 %--------------------------------------
 
 \newcommand{\ppcolophon}{%
-\renewcommand{\and}{\unskip{}, }%
-\renewcommand{\album}[1]{\unskip}%
-\cleardoublepage\thispagestyle{empty}\vspace*{\fill}%
-\footnotesize\SingleSpacing\noindent%
-\raisebox{-1.3cm}{\includegraphics[height=1.5cm]{wit/logo-pp}}%
-\hspace{1.5em}%
-\begin{minipage}[t]{11cm}%
-\vglue 0pt\copyright{} \@ppyear\ \@author
+  \renewcommand{\and}{\unskip{}, }%
+  \renewcommand{\album}[1]{\unskip}%
+  \cleardoublepage
+  \thispagestyle{empty}
+  \vspace*{\fill}
+  \footnotesize\SingleSpacing\noindent
+  \raisebox{-1.3cm}{\includegraphics[height=1.5cm]{wit/logo-pp}}%
+  \hspace{1.5em}%
+  \begin{minipage}[t]{11cm}%
+    \vglue 0pt\copyright{} \@ppyear\ \@author
 
-\medskip\noindent%
-\if@pppolish%
-Instytut Informatyki, Wydzia{\l} Informatyki i Telekomunikacji\\%
-Politechnika Pozna\'nska%
-\else%
-Poznan University of Technology\\Faculty of Computing and Telecommunication\\Institute of Computing Science
-\fi
+    \medskip\noindent
+    % Conditional block for language
+    \if@pppolish
+      Instytut Informatyki, Wydzia{\l} Informatyki i Telekomunikacji\\%
+      Politechnika Pozna\'nska%
+    \else
+      Poznan University of Technology\\%
+      Faculty of Computing and Telecommunications\\%
+      Institute of Computing Science
+    \fi
 
-\medskip\noindent%
-\if@pppolish%
-Sk{\l}ad przy u{\.z}yciu systemu \LaTeX{} na platformie Overleaf.
-\else%
-Typeset using \LaTeX\.
-\fi
-
-\end{minipage}
+    \medskip\noindent
+    % Another conditional block for platform note
+    \if@pppolish
+      Sk{\l}ad przy u{\.z}yciu systemu \LaTeX{} na platformie Overleaf.
+    \else
+      Typeset using \LaTeX.
+    \fi
+  \end{minipage}
 }
+
 
 %--------------------------------------
 % Strony tytułowe rozdziałów

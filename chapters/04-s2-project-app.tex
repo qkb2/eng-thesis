@@ -1,9 +1,9 @@
 
 \section{Mobile application for data gathering and model testing}
 
-The application was written for Android devices supporting Android 8.1 or newer. As of 2024 \cite{androidStats}, more than 93\% of Android devices should be compatible. The Android platform was chosen, as it was easier to test on and find a study group of the Android users as opposed to the iOS users (according to \cite{operatingSystemDistribution}, significantly more people in Poland, where the researchers are based in, use Android devices).
+The application was written for Android devices supporting Android 8.1 or newer. As of 2024 \cite{androidStats}, more than 93\% of Android devices should be compatible. The Android platform was chosen, as it was easier to test on and find a study group of Android users as opposed to iOS users (according to \cite{operatingSystemDistribution}, significantly more people in Poland, where the researchers are based, use Android devices).
 
-Technology used in the mobile application itself is Jetpack Compose, which is quoted by Google to be "Android's recommended modern toolkit for building native UI" \cite{jetpackCompose}. Language used is Kotlin. Persisence is achieved by using Android Room, which provides an abstraction layer over SQLite database, which is used for data collection.
+The technology used in the mobile application itself is Jetpack Compose, which is quoted by Google to be "Android's recommended modern toolkit for building native UI" \cite{jetpackCompose}. The language used is Kotlin. Persistence is achieved by using Android Room, which provides an abstraction layer over SQLite database, which is used for data collection.
 
 \subsection{Model View ViewModel and DataStore}
 
@@ -29,17 +29,17 @@ The application uses Model-View-ViewModel (MVVM) provided by Jetpack Compose des
 	\begin{itemize}
 		\item \textbf{Input Fields:} Lets users enter their credentials (University ID) and use the application for training or testing by pressing keys. 
 		\item \textbf{Completion progress:} Informs users on what phase they are and displays progress of completion, linked to the \texttt{phasesCompleted} state in the \texttt{MainViewModel}.
-		\item \textbf{Buttons:} Used for logging in, logging out, jumping phases and sending or downloading the data collected through training or testing stage.
+		\item \textbf{Buttons:} Used for logging in, logging out, jumping phases, and sending or downloading the data collected through the training or testing stage.
 	\end{itemize}
 	\item \textbf{ViewModel:} This role is fulfilled by \texttt{MainViewModel}, which manages the application logic, handles interactions between the model and the view, and maintains the state of the app. \newline
-	The \texttt{MainViewModel} class manages this operations through:
+	The \texttt{MainViewModel} class manages these operations through:
 	\begin{itemize}
 		\item \textbf{Logic Handling:} Methods such as \texttt{login()}, \texttt{logout()}, \texttt{clearDatabase()}, and \texttt{onKeyPress()} are responsible for managing user state and data.
 		\item \textbf{State Management:} Stores states \texttt{isLoggedIn}, \texttt{username}, and \texttt{phasesCompleted}, which are used to dynamically update the user interface.
 		\item \textbf{Data Management:} Connects with the \texttt{keyPressDao} database to process data. \texttt{onKeyPress} saves key press events into the database, \texttt{exportDataToTsv} exports the collected data into TSV files.
 	\end{itemize}
 \end{itemize}
-In the app \textbf{DataStore} is used for storing login state and the user's ID. It has been implemented in \texttt{UserPreferences} class, and stores data such as:
+In the app \textbf{DataStore} is used for storing the login state and the user's ID. It has been implemented in \texttt{UserPreferences} class, and stores data such as:
 \begin{itemize}
 	\item \texttt{LOGGED\_IN\_KEY} - login state
 	\item \texttt{USERNAME\_KEY} - user's ID.
@@ -50,7 +50,7 @@ In the app \textbf{DataStore} is used for storing login state and the user's ID.
 	\caption{UserPreferences.kt}
 	\label{fig:companion_object_view}
 \end{figure}
-This data is stored in the app's preferences file and can be accessed via dataStore object using:
+This data is stored in the app's preferences file and can be accessed via DataStore object using:
 
 \begin{itemize}
 	\item \texttt{isLoggedIn} - returns login state as \texttt{Flow<Boolean>}
@@ -65,7 +65,7 @@ This data is stored in the app's preferences file and can be accessed via dataSt
 	\label{fig:user_preferences_functions_view}
 \end{figure}
 
-The use of DataStore enabled the data to be stored securely, accessed and modified easily, and it is always available, which makes it a reliable and efficient way to manage user preferences and app state.
+The use of DataStore enabled the data to be stored securely, accessed, and modified easily, and it is always available, which makes it a reliable and efficient way to manage user preferences and app state.
 
 \subsection{User Interface Design}
 The application design follows a minimalistic approach to make it intuitive and easy to use for everyone. 
@@ -131,17 +131,17 @@ Data collection occurs in two stages, training and testing
 	Testing data collection takes place on the \texttt{Testing Screen} \ref{fig:testing_screen}, where the user is required to write 100 characters, again in meaningful sentences. Once this is done, the testing phase is complete.
 \end{itemize}
 After each phase, the collected data is saved in a \texttt{.tsv} file, sent to the server, and stored locally in the phone's downloads directory. The \texttt{exportDataToTsv} \ref{fig:export_data_code} function from \texttt{MainViewModel.kt} handles the export of key press data. \newline First it retrieves latest key press events using the \texttt{keyPressDao.getNLatestKeyPresses} method, converting the data into a \texttt{.tsv} format using the \texttt{keyPressesToTsv} function. \newline
-Depending on which phase the user is in, the function determines the different type of operation to perform.
+Depending on which phase the user is in, the function determines the different types of operation to perform.
 \begin{itemize}
 	\item 
-	If the user is in inference phase, the data will be used for inference.
+	If the user is in the inference phase, the data will be used for inference.
 	\item 
-	If the user is in training phase, the data will be used for training.
+	If the user is in the training phase, the data will be used for training.
 	\item 
 	If the number of completed phases exceeds the required amount, the function exits without performing any other action.
 \end{itemize}
 
-After processing data \texttt{saveTsvToDownloads} stores data locally, and \texttt{sendTsvToFastApi} sends data to the server (An example of the \texttt{.tsv} file containing the saved data is shown in Figure \ref{fig:tsv_example}). The username, and the relevant phase is included in the file name. \newline
+After processing data \texttt{saveTsvToDownloads} stores data locally, and \texttt{sendTsvToFastApi} sends data to the server (An example of the \texttt{.tsv} file containing the saved data is shown in Figure \ref{fig:tsv_example}). The username and the relevant phase is included in the file name. \newline
 This function ensures that after each phase of training and testing, the data is collected, stored, and transmitted.
 
 \begin{figure}[H]
@@ -175,7 +175,7 @@ The application communicates with the server using an HTTPS connection.
 	\end{itemize}
 	\item
 	\textbf{Data format} \newline
-	The data sent to the server is stored in \texttt{.tsv} (tab-separated values) file, containing headers and the detailed information about key presses.
+	The data sent to the server is stored in \texttt{.tsv} (tab-separated values) file, containing headers and detailed information about key presses.
 	\item 
 	\textbf{Secure Connection Setup}
 	\begin{itemize}

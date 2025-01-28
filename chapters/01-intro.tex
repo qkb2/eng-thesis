@@ -1,13 +1,13 @@
 
 \chapter{Introduction}
 
-Biometric data is a widely used -- especially on mobile devices -- for user authentication. It is also used for person recognition. As of 2020, the majority of smartphones had biometric sensors, such as fingerprint readers \cite{statista_biometric_phones_2025}. Many computers can also provide biometric authentication via face recognition, if connected to a webcam, e.g., via Windows Hello on Windows 10 or 11 \cite{microsoft_windows_hello_2025}. These are, however, not the only possible recognition or authentication methods that use biometric data.
+Biometric data is widely used -- especially on mobile devices -- for user authentication. It is also used for person recognition. As of 2020, the majority of smartphones had biometric sensors, such as fingerprint readers \cite{statista_biometric_phones_2025}. Many computers can also provide biometric authentication via face recognition, if connected to a webcam, e.g., via Windows Hello on Windows 10 or 11 \cite{microsoft_windows_hello_2025}. These are, however, not the only possible recognition or authentication methods that use biometric data.
 
 The project aimed to develop a model, along with a corresponding mobile app, capable of recognizing users based on their biometric data, primarily derived from keystroke patterns -- such information is referred to as keystroke dynamics \cite{wikipedia_keystrokes_2025}. Participants in the study, conducted as a part of the project, provided their data by entering long stretches of text as testing data. Models were created for each user, with the standard model testing procedures and validations. A subgroup of the study participants was also asked to verify the model in real-life testing by writing short paragraphs in the application, which were sent to the server for user verification.
 
 The scope of the work was to create a mobile application capable of gathering the keystroke data, which could then be used by the server to create Graph Neural Network (GNN) models tasked with recognizing the user as opposed to other possible users. Also in the scope was performing a study on a group of participants who provided the data for the project and participated in the application and model demonstration and testing.
 
-The application utilizing analysis of the habits of users (keystroke dynamics) could have a wide range of applications across various fields, providing an additional layer of security. For example, it could be used to verify user's identity in online banking or for continuous identity checks during sessions in corporate environments. Keystroke dynamics has the potential to become a successful and user-friendly security measure.
+The application utilizing analysis of the habits of users (keystroke dynamics) could have a wide range of applications across various fields, providing an additional layer of security. For example, it could be used to verify a user's identity in online banking or for continuous identity checks during sessions in corporate environments. Keystroke dynamics have the potential to become a successful and user-friendly security measure.
 
 The sources referenced in this thesis primarily fall into two categories: studies on keystroke data models and their effectiveness, and specialist literature concerning Graph Neural Networks.
 
@@ -15,16 +15,16 @@ The thesis has the following structure:
 \begin{itemize}
     \item Chapter 2 consists of some theory concerning biometrics, especially in the context of user input data, with a small literature review about using biometrics for user recognition.
     \item Chapter 3 contains basic theoretics about Graph Convolutional Networks, which are used for user recognition in the model created for the project.
-    \item Chapter 4 is an overview of the project, explaining its components and the relationships between them. It contains subchapters about project use cases, server architecture and mobile application architecture.
-    \item Chapter 5 is concerned with the Neural Network model, its design and feature engineering.
-    \item Chapter 6 contains results of the study conducted on the users, with subchapter dedicated to discussing the findings.
+    \item Chapter 4 is an overview of the project, explaining its components, and the relationships between them. It contains subchapters about project use cases, server architecture and mobile application architecture.
+    \item Chapter 5 is concerned with the Neural Network model, its design, and feature engineering.
+    \item Chapter 6 contains the results of the study conducted on the users, with a subchapter dedicated to discussing the findings.
     \item Chapter 7 is a brief conclusion to the thesis.
 \end{itemize}
 
 The division of labor for this project was as follows:
 \begin{itemize}
-    \item Jakub Grabowski created the mobile application, set up and coordinated the project, and researched biometrics for the thesis paper. He wrote chapters 1, 2, 7 and parts of chapters 3 and 6.
-    \item Filip Kozłowski created the server and integrated the GNN model with it. He also planned and implemented communication between the server and the application. He wrote parts of chapters 3, 4 and 6. 
+    \item Jakub Grabowski created the mobile application, set up and coordinated the project, and researched biometrics for the thesis paper. He wrote chapters 1, 2, and 7 and parts of chapters 3 and 6.
+    \item Filip Kozłowski created the server and integrated the GNN model with it. He also planned and implemented communication between the server and the application. He wrote parts of chapters 3, 4, and 6. 
     \item Krzysztof Matyla helped in creating the mobile application interface, provided testing for various parts of the project, and coordinated user testing. He wrote most of chapter 4.
     \item Igor Warszawski planned and implemented the GNN model used on the server. He also tested and validated the results, together with Filip Kozłowski. He wrote chapter 5 and parts of chapters 3 and 6.
 \end{itemize}

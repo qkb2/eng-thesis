@@ -97,7 +97,7 @@ The same data can be visualized as a plot of the false acceptance rate versus th
 Figure \ref{fig:frr_vs_far_all_models_base} demonstrates a large discrepancy between the models. At the same threshold level, some models were able to achieve a FAR and FRR score below 10\%, while others failed to recognize more than half of the examples in the positive class.
 
 This first group consists of models for users 86, 62, 82, 25, 26, and 61. These models were able to effectively learn and generalize the test dataset well.
-The other major group of models was those with an unacceptably high FAR exceeding 45\% and a below-average FAR score. These group includes models for users 81, 24, 60, 40 and 23. The reason for such high FAR could be twofold, either the models simply failed to generalize to unseen positive examples, or they did but with a lower confidence level than the established threshold. Other models have varying performance and are difficult to categorize into coherent groups.
+The other major group of models was those with an unacceptably high FAR exceeding 45\% and a below-average FAR score. This group includes models for users 81, 24, 60, 40, and 23. The reason for such high FAR could be twofold, either the models simply failed to generalize to unseen positive examples, or they did but with a lower confidence level than the established threshold. Other models have varying performance and are difficult to categorize into coherent groups.
 
 \subsection{Equal Error Rate} \label{subsec_eer}
 To calculate the equal error rate, the decision threshold needs to be adjusted, which can be performed globally, for all models or individually at a per--model level. Both methods of calculating this metric were analyzed.
@@ -162,7 +162,7 @@ The results are shown in table \ref{table:EER_separate}.
 	\end{table}
 \end{center}
 
-Table \ref{table:EER_separate} illustrates the differences in the models' ability to generalize unseen positive examples. This is further demonstrated by examining the changes in FAR and FRR scores with respect to the decision threshold, which is show in figure \ref{fig:far_ffr_all_thresholds}. 
+Table \ref{table:EER_separate} illustrates the differences in the models' ability to generalize unseen positive examples. This is further demonstrated by examining the changes in FAR and FRR scores with respect to the decision threshold, which is shown in figure \ref{fig:far_ffr_all_thresholds}. 
 
 \begin{figure}[H]
 	\centering
@@ -226,7 +226,7 @@ Additionally, because a global decision results in poor performance for otherwis
 Another interesting example is model 21, for which the FRR is almost constant, at a value of around 12\%. This indicates that all examples are recognized with a high degree of confidence, except for those 12\%, which may indicate that the user changes writing styles for part of the final input or that the training data failed to capture some characteristic of the writing style.
 
 \subsection{Confusion matrix for all users}
-To evaluate each model's performance, each model was tested using the input of every user. The results of this test are shown in figure \ref{fig:all_models_5_len40}. The values in this matrix represent the percentage of examples classified as positive. It is important to note that the values in this matrix have a different interpretation depending on their position. The values on the diagonal represent the percentage of correctly classified positive examples (True Positives) -- the recall of the model. In an ideal classifier, these values would equal 100. The values outside the diagonal represent the percentage of incorrectly classified negative examples (False Positives). In an ideal classifier, these values would equal 0.
+To evaluate each model's performance, each model was tested using the input of every user. The results of this test are shown in figure \ref{fig:all_models_5_len40}. The values in this matrix represent the percentage of examples classified as positive. It is important to note that the values in this matrix have different interpretations depending on their position. The values on the diagonal represent the percentage of correctly classified positive examples (True Positives) -- the recall of the model. In an ideal classifier, these values would equal 100. The values outside the diagonal represent the percentage of incorrectly classified negative examples (False Positives). In an ideal classifier, these values would equal 0.
 
 \begin{figure}[H]
 	\centering
@@ -269,9 +269,9 @@ The theoretical impact of input length, as discussed in the section on graph cre
 \end{center}
 
 
-Table \ref{table:len_vs_perf} partially supports the theoretical expectation, as models trained on input sequences of length 30, 60 and 70 achieve much higher EER scores than those trained with lengths of 40 and 50. There is a very small difference in the performance of these model collections on the aggregated metrics. 
+Table \ref{table:len_vs_perf} partially supports the theoretical expectation, as models trained on input sequences of lengths 30, 60, and 70 achieve much higher EER scores than those trained with lengths of 40 and 50. There is a very small difference in the performance of these model collections on the aggregated metrics. 
 With the difference in the EER scores being this low, it is unclear which collection of models performed better on the testing dataset.
-However, interesting differences appear when compared on a per-model basis, as the changes in models were not uniform. The impact of three selected models is shown in figure \ref{fig:selected_frr_vs_far}. 
+However, interesting differences appear when compared on a per-model basis, as the changes in models were not uniform. The impact of the three selected models is shown in figure \ref{fig:selected_frr_vs_far}. 
 
 \begin{figure}[H]
 	\centering
@@ -290,7 +290,7 @@ The model for user 21 shows a clear improvement as the unrecognized examples dis
 What these comparisons demonstrate is that it is hard to reason about model performance across different input sequence lengths and a small change has a large impact even on a per-model basis.
 
 \subsection{Character encoding}
-The results of comparing methods of encoding character information in nodes are shown in table
+The results of comparing methods of encoding character information in nodes are shown in the Table
 \ref{table:char_encoding}.
 
 \begin{center}
@@ -365,7 +365,7 @@ While solving such a problem lies outside the scope of this project, the impact 
 	\end{table}
 \end{center}
 
-A higher percentage of negative examples were classified correctly, as indicated by the lower FAR; however, this came at the expense of a significant drop in the FRR, with almost half of the positive examples being misclassified in the case of \textit{1:2} class balance. This means that the collection of models generalized poorly to unseen positive examples, to a degree that would be unacceptable. This can also be seen when comparing the average recall scores across these two collections of models, which dropped from \textit{0.7357} to \textit{0.692} and \textit{0.494} when the number of negative examples were doubled. 
+A higher percentage of negative examples were classified correctly, as indicated by the lower FAR; however, this came at the expense of a significant drop in the FRR, with almost half of the positive examples being misclassified in the case of \textit{1:2} class balance. This means that the collection of models generalized poorly to unseen positive examples, to a degree that would be unacceptable. This can also be seen when comparing the average recall scores across these two collections of models, which dropped from \textit{0.7357} to \textit{0.692} and \textit{0.494} when the number of negative examples was doubled. 
 
 
 \section{Number of users}
